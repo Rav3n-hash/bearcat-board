@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+html, body{
+  height: 100%;
+  width: 100%;
+  margin: 0;     /* Remove default margin */
+  padding: 0;    /* Remove default padding */
+}
+
+h2{
+  text-align:inherit;
+  font-size: 12px;
+  
+}
+
+.loginPage {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  height: 100%;
+  width: auto;
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+  
+}
+
+.loginPhotoDiv{
+  margin: auto;
+}
+
+
+.loginDiv{
+background-color: rgba(22, 14, 4, 0.2);
+padding-bottom: 30vh;
+padding-top: 10vh;
+font-family: 'Times New Roman', Times, serif;
+overflow: hidden;
+}
+
+.credentialsDiv{
+width: 60%;
+margin-left: auto;
+margin-right: auto;
+}
+
+.loginP{
+  text-align: left;
+}
+
+.loginFieldContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.fieldIcon {
+  position: absolute;
+  left: 10px; /* Adjust as needed */
+  color: gray;
+}
+
+.fields {
+  width: 50%;
+  padding-left: 35px; /* Make space for the icon */
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ccccccd0;
+  color: aliceblue;
+  font-family: 'Times New Roman', Times, serif;
+  width: 100%;
+}
+
+.loginButton{
+  background-color: #ffd926;
+  border-radius: 5px;
+  font-size: 20px;
+  width: 25%;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.loginButton:hover{
+  background-color: #d0b023;
+}
+
+.signUpLink{
+  background-color: #cccccc00;
+  border-color: #cccccc00;
+  font-style: italic;
+  font-family: 'Times New Roman', Times, serif;
+  position: relative;
+  text-decoration: underline;
+}
+
+.signUpLink:hover{
+  color: #ffd926;
+}
+
+.profilePage{
+  display: grid;
+  grid-template-columns: 30% 70%;
+  height: 88vh;
+  width: auto;
+  border-color: #ffd926;
+  border-style: double;
+  border-width: 1px;
+  background-color: #ccc;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.userLeftDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background-color: #f1f3fb;
+  color: rgb(41, 51, 94);
+}
+
+.userRightDiv{
+  display:grid;
+  grid-template-rows: 30% 30% 30% 10%;
+  background-color: rgb(112, 131, 180);
+  
+}
+.resumeButton{
+  background-color: #ffd926;
+  border-radius: 5px;
+  font-size: 15px;
+  width: 30%;
+  height: auto;
+  font-family: 'Times New Roman', Times, serif;
+  margin-top: 10px;
+}
+
+.profH1{
+  text-align: left;
+  font-size: 20px;
+  color:#ffd926;
+}
+.navLinks a{
+  color: white;
+  
+}
+
+.navLinks a:hover{
+  color: #ffd926
+  
+}
+
+.bcatPicNavBar img{
+  height: 8vh;
+}
+
+.postDiv{
+  display:flex;
+  flex-direction:column;
+  align-items: center; 
+  text-align: center;
+  background: #f8f6f6;
+  height: 91vh;
+
+}
+
+.addButton{
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  background-color:#3137dc;
+  border-radius: 100%;
+}
+
+.addButton:hover{
+  background-color: #8ca2eb;
+}
