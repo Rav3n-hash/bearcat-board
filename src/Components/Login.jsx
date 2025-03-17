@@ -19,6 +19,10 @@ export default function Login() {
     if (userInput) {
       alert("Login successful!");
       sessionStorage.setItem("logged", 1);
+      sessionStorage.setItem("username", user.username); // Store username
+      sessionStorage.setItem("role", user.role); // Store user role
+      sessionStorage.setItem("pic", user.pic);
+
       setLogStatus(1);
       navigate(0);
     } 
@@ -30,10 +34,6 @@ export default function Login() {
     }
   }
 
-  function logout() {
-    sessionStorage.setItem("logged", 0);
-    setLogStatus(0);
-  }
 
   const login = (
     <div>
@@ -42,7 +42,6 @@ export default function Login() {
         <h2>Sign in to get access to exclusive offers and recommendations</h2>
         <br/>
         <h3 className="text-xl text-yellow-200"><p>EMAIL:testemail</p><p>PASSWORD:test</p></h3> <br/>
-        <h3 className="text-amber-200">Kelis: I am trying to get the navbar to only show if a user is logged in. Right now, logging in redirects to blank page. Reload and then it will show homepage. I am unsure why.</h3>
         <br />
 
         <div className="credentialsDiv">
@@ -94,13 +93,6 @@ export default function Login() {
     </div>
   );
 
-  const logoutUser = (
-    <div>
-      <h2 className="text-blue-500">THIS IS AN ERROR IDK WHY THIS IS HAPPENING</h2>
-      <br />
-      <button onClick={logout}>Logout?</button>
-    </div>
-  );
 
   return (
     <div className="loginPage">

@@ -75,13 +75,16 @@ const user={
             ))}
         </div>
 
+
         <div>
+        <br></br>
         <button className="resumeButton">Link to Resume</button>
         </div>
         
         
-        
+        <br></br>
         </div>
+        
         
     </div>
   );

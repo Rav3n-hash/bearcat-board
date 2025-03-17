@@ -4,6 +4,7 @@ import Profile from "./Components/Profile";
 import Home from "./Components/Home";
 import NavBar from './Components/NavBar';
 import Connections from './Components/Connections';
+import OtherProfiles from './Components/OtherProfiles';
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import {useState, createContext} from "react";
@@ -30,6 +31,7 @@ export default function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
+              <Route path="/otherProfiles/:username" element={<OtherProfiles />} />
             </Routes>
           </>
         ) : (

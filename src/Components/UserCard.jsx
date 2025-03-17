@@ -12,7 +12,7 @@ export default function UserCard({user}){
                 />
                 <div>
                     {/* Clickable Link to Profile */}
-                    <Link to={`/OtherProfiles/${user.username}`} className="font-semibold text-left text-blue-500 hover:underline">
+                    <Link to={`/OtherProfiles/${user.username}`} className="font-semibold text-left text-blue-500 hover:underline hover:text-blue-600">
                         {user.firstName} {user.lastName}
                     </Link>
                     <p className="text-sm text-left text-gray-500">{user.type}</p>
@@ -27,7 +27,7 @@ export default function UserCard({user}){
                 <button 
                     className="deleteRecc"
                 >
-                    Delete Recommendation
+                    Delete
                 </button>
             </div>
         </div>

@@ -135,6 +135,7 @@ margin-right: auto;
   display: flex;
   flex-direction: column;
   background-color: rgb(112, 131, 180);
+  height: auto;
 }
 .resumeButton{
   background-color: #ffd926;
