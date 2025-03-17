@@ -27,6 +27,7 @@ h2{
   height: 100%;
   width: auto;
   overflow: hidden;
+  background-color: #00487d;
 }
 
 img {
@@ -42,9 +43,10 @@ img {
 .loginDiv{
 background-color: rgba(22, 14, 4, 0.2);
 padding-bottom: 30vh;
-padding-top: 10vh;
+padding-top: 15vh;
 font-family: 'Times New Roman', Times, serif;
 overflow: hidden;
+height: 100vh;
 }
 
 .credentialsDiv{
@@ -109,15 +111,14 @@ margin-right: auto;
 .profilePage{
   display: grid;
   grid-template-columns: 30% 70%;
-  height: 88vh;
-  width: auto;
+  width: 80%;
   border-color: #ffd926;
   border-style: double;
   border-width: 1px;
   background-color: #ccc;
   margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 25vh;
+  
 }
 
 .userLeftDiv {
@@ -130,11 +131,10 @@ margin-right: auto;
   color: rgb(41, 51, 94);
 }
 
-.userRightDiv{
-  display:grid;
-  grid-template-rows: 30% 30% 30% 10%;
+.userRightDiv {
+  display: flex;
+  flex-direction: column;
   background-color: rgb(112, 131, 180);
-  
 }
 .resumeButton{
   background-color: #ffd926;
@@ -150,6 +150,10 @@ margin-right: auto;
   text-align: left;
   font-size: 20px;
   color:#ffd926;
+}
+
+.navbar{
+  background-color: #00487d;
 }
 .navLinks a{
   color: white;
@@ -179,10 +183,38 @@ margin-right: auto;
   position: fixed;
   bottom: 40px;
   right: 20px;
-  background-color:#3137dc;
+  background-color:#00487d;
   border-radius: 100%;
 }
 
 .addButton:hover{
   background-color: #8ca2eb;
+}
+
+.addFriend{
+  background-color: #ffd926;
+  border-radius: 5px;
+  font-size: 20px;
+  width: 150px;
+  height: 50px;
+  font-family: 'Times New Roman', Times, serif;
+
+}
+
+.addFriend:hover{
+  background-color: #ffe677;
+}
+
+.deleteRecc{
+  background-color: #070706;
+  border-radius: 5px;
+  font-size: 20px;
+  width: 150px;
+  height: 50px;
+  font-family: 'Times New Roman', Times, serif;
+
+}
+
+.deleteRecc:hover{
+  background-color: #363531;
 }
