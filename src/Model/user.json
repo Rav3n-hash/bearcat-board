@@ -1,0 +1,213 @@
+[
+    {
+        "username": "user1",
+        "password": "test",
+        "email": "testemail",
+        "firstName": "test",
+        "lastName": "user",
+        "pronouns": "she/her",
+        "type": "testuser",
+        "profilePic": "",
+        "about": "This is for testing",
+        "education": {
+          "year": 2024,
+          "degree": "B.Sc. in Computer Science",
+          "school": "Lander University"
+        },
+        "experience": {
+          "yearsWorked": 1,
+          "role": "Software Developer",
+          "company": "Tech Solutions Inc."
+        }
+      },
+
+    {
+      "username": "john_doe",
+      "password": "password123",
+      "email": "john.doe@email.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "pronouns": "he/him",
+      "type": "student",
+      "profilePic": "https://i.pinimg.com/736x/8b/b7/f0/8bb7f033227532ae88527877f8cf245c.jpg",
+      "about": "Aspiring software engineer with a passion for problem-solving and development.",
+      "education": {
+        "year": 2024,
+        "degree": "B.Sc. in Computer Science",
+        "school": "Lander University"
+      },
+      "experience": {
+        "yearsWorked": 1,
+        "role": "Software Developer Intern",
+        "company": "Tech Solutions Inc."
+      }
+    },
+    {
+      "username": "jane_smith",
+      "password": "password456",
+      "email": "jane.smith@email.com",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "pronouns": "she/her",
+      "type": "alumni",
+      "profilePic": "",
+      "about": "Experienced marketing manager with a love for digital strategies and branding.",
+      "education": {
+        "year": 2019,
+        "degree": "B.A. in Marketing",
+        "school": "Lander University"
+      },
+      "experience": {
+        "yearsWorked": 5,
+        "role": "Marketing Manager",
+        "company": "Brandify Marketing"
+      }
+    },
+    {
+      "username": "mike_jones",
+      "password": "password789",
+      "email": "mike.jones@email.com",
+      "firstName": "Mike",
+      "lastName": "Jones",
+      "pronouns": "he/him",
+      "type": "employer",
+      "profilePic": "https://images.unsplash.com/photo-1628563694622-5a76957fd09c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW5zdGFncmFtJTIwcHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
+      "about": "CEO of Tech Innovations, looking for talented software engineers to join our growing team.",
+      "education": {
+        "year": 2015,
+        "degree": "M.B.A.",
+        "school": "Lander University"
+      },
+      "experience": {
+        "yearsWorked": 10,
+        "role": "CEO",
+        "company": "Tech Innovations"
+      }
+    },
+    {
+      "username": "emily_clark",
+      "password": "password321",
+      "email": "emily.clark@email.com",
+      "firstName": "Emily",
+      "lastName": "Clark",
+      "pronouns": "she/her",
+      "type": "student",
+      "profilePic": "https://media.gettyimages.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=gi&k=20&c=LsB3LmCoN69U82LEYU78IC2tNwOMjy7LJlmEj30UOSs=",
+      "about": "Interested in web development and UI/UX design. Always learning new skills.",
+      "education": {
+        "year": 2025,
+        "degree": "B.Sc. in Web Design",
+        "school": "Lander University"
+      },
+      "experience": {
+        "yearsWorked": 0,
+        "role": "Web Development Intern",
+        "company": "Creative Web Co."
+      }
+    },
+    {
+      "username": "alex_brown",
+      "password": "password654",
+      "email": "alex.brown@email.com",
+      "firstName": "Alex",
+      "lastName": "Brown",
+      "pronouns": "they/them",
+      "type": "alumni",
+      "profilePic": "",
+      "about": "Digital strategist with a focus on content creation and social media marketing.",
+      "education": {
+        "year": 2017,
+        "degree": "B.A. in Communication",
+        "school": "Lander University"
+      },
+      "experience": {
+        "yearsWorked": 4,
+        "role": "Social Media Manager",
+        "company": "Marketify Solutions"
+      }
+    },
+    {
+      "username": "susan_williams",
+      "password": "password987",
+      "email": "",
+      "firstName": "Susan",
+      "lastName": "Williams",
+      "pronouns": "she/her",
+      "type": "student",
+      "profilePic": "",
+      "about": "Passionate about graphic design and creative arts. Currently learning animation.",
+      "education": {
+        "year": 2023,
+        "degree": "B.A. in Graphic Design",
+        "school": "Lander University"
+      },
+      "experience": {
+        "yearsWorked": 0,
+        "role": "Graphic Design Intern",
+        "company": "Creative Arts Agency"
+      }
+    },
+    {
+      "username": "daniel_harris",
+      "password": "password135",
+      "email": "daniel.harris@email.com",
+      "firstName": "Daniel",
+      "lastName": "Harris",
+      "pronouns": "he/him",
+      "type": "employer",
+      "profilePic": "",
+      "about": "Looking for skilled developers for my tech startup. Let’s build something great together.",
+      "education": {
+        "year": 2013,
+        "degree": "M.Sc. in Computer Science",
+        "school": "Lander University"
+      },
+      "experience": {
+        "yearsWorked": 8,
+        "role": "CTO",
+        "company": "NextGen Tech"
+      }
+    },
+    {
+      "username": "olivia_evans",
+      "password": "password246",
+      "email": "olivia.evans@email.com",
+      "firstName": "Olivia",
+      "lastName": "Evans",
+      "pronouns": "she/her",
+      "type": "alumni",
+      "profilePic": "",
+      "about": "Experienced graphic designer with a keen eye for detail and a passion for visual storytelling.",
+      "education": {
+        "year": 2016,
+        "degree": "B.A. in Fine Arts",
+        "school": "Lander University"
+      },
+      "experience": {
+        "yearsWorked": 6,
+        "role": "Senior Graphic Designer",
+        "company": "Creative Studio"
+      }
+    },
+    {
+      "username": "chris_martin",
+      "password": "password258",
+      "email": "chris.martin@email.com",
+      "firstName": "Chris",
+      "lastName": "Martin",
+      "pronouns": "he/him",
+      "type": "student",
+      "profilePic": "",
+      "about": "A budding entrepreneur interested in business management and marketing.",
+      "education": {
+        "year": 2026,
+        "degree": "B.B.A. in Business Administration",
+        "school": "Lander University"
+      },
+      "experience": {
+        "yearsWorked": 0,
+        "role": "Marketing Intern",
+        "company": "NextGen Solutions"
+      }
+    }
+  ]

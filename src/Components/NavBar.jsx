@@ -10,7 +10,7 @@ export default function NavBar() {
 
 
     return (
-        <div className="navLinks grid grid-cols-5 px-8 py-0.5
+        <div className="navbar navLinks grid grid-cols-5 px-8 py-0.5
     text-left items-center border-2">
             {/* Home, Inventory, and Contact Us Pages */}
             <div className="bcatPicNavBar"><img src="/Logo.png" alt="bcat" /></div>

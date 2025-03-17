@@ -12,7 +12,7 @@ const user={
     city:"Greenwood, South Carolina, United States",
     type:"Student",
     image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    about: "I am a user",
+    about: "I am a user im putting tons of info to make sure this spans correctly blah blah blah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahvblah blahvblah blahblah blah blah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahvblah blahvblah blahblah blah blah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahvblah blahvblah blahblah blah blah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahvblah blahvblah blah",
     education: [
         {year: "2025",
          degree: "BS in Something",
@@ -48,19 +48,31 @@ const user={
         <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10">
         <br></br>
         <h1 className="profH1">About Me</h1>
-            <h2>{user.about}</h2>
+            <h3 className="text-left px-10 py-2">{user.about}</h3>
         </div>
 
         <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10">
         <br></br>
         <h1 className="profH1">Education</h1>
-            <h2>{}</h2>
+            {user.education.map((edu, index) => (
+                <div key={index} className="text-left px-10">
+                    <h3 className="text-gray-800">Year <br></br><h3 className="text-left text-gray-100 px-5">{edu.year}</h3></h3>
+                    <h3 className="text-gray-800">Degree <br></br><h3 className="text-left  text-gray-100 px-5">{edu.degree}</h3></h3>
+                    <h3 className="text-gray-800">School <br></br><h3 className="text-left  text-gray-100 px-5">{edu.school}</h3></h3>
+                </div>
+            ))}
         </div>
 
         <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10">
         <br></br>
         <h1 className="profH1">Experience</h1>
-            <h2></h2>
+        {user.experience.map((exp, index) => (
+                <div key={index} className="text-left px-10">
+                    <h3 className="text-gray-800">Role <br></br><h3 className="text-left text-gray-100 px-5">{exp.company}</h3></h3>
+                    <h3 className="text-gray-800">Company<br></br><h3 className="text-left  text-gray-100 px-5">{exp.role}</h3></h3>
+                    <h3 className="text-gray-800">Years<br></br><h3 className="text-left  text-gray-100 px-5">{exp.yearsWorked}</h3></h3>
+                </div>
+            ))}
         </div>
 
         <div>

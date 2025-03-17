@@ -1,103 +1,103 @@
 [
-    {
-      "user": {
-        "name": "John Doe",
-        "role": "Software Engineer",
-        "image": "https://ih1.redbubble.net/image.4564533238.0563/raf,360x360,075,t,fafafa:ca443f4786.jpg"
-      },
-      "time": "Posted 2 hours ago",
-      "postImg":"https://t3.ftcdn.net/jpg/01/42/62/84/360_F_142628436_BdXXMV34Xf665lwSRmBbAVICjFXh7vG9.jpg",
-      "content": "This is a sample post on The Bearcat Board!"
+  {
+    "user": {
+      "name": "John Doe",
+      "role": "Software Engineer",
+      "image": "https://ih1.redbubble.net/image.4564533238.0563/raf,360x360,075,t,fafafa:ca443f4786.jpg"
     },
-    {
-      "user": {
-        "name": "Jane Smith",
-        "role": "Graphic Designer",
-        "image": "https://i.pinimg.com/736x/8b/b7/f0/8bb7f033227532ae88527877f8cf245c.jpg"
-      },
-      "time": "Posted 5 hours ago",
-      "postImg":"https://greenphire.com/wp-content/uploads/2022/03/UX-Design-image_1.jpg",
-      "content": "Looking for a new opportunity in UI/UX design!"
+    "time": "Posted 2 hours ago",
+    "postImg":"https://t3.ftcdn.net/jpg/01/42/62/84/360_F_142628436_BdXXMV34Xf665lwSRmBbAVICjFXh7vG9.jpg",
+    "content": "This is a sample post on The Bearcat Board!"
+  },
+  {
+    "user": {
+      "name": "Jane Smith",
+      "role": "Graphic Designer",
+      "image": "https://i.pinimg.com/736x/8b/b7/f0/8bb7f033227532ae88527877f8cf245c.jpg"
     },
-    {
-      "user": {
-        "name": "Michael Brown",
-        "role": "Marketing Specialist",
-        "image": "https://static.printler.com/cache/b/6/d/3/8/0/b6d38090115fc965d7141fe1f8ece7fe5d2d7218.jpg"
-      },
-      "time": "Posted 1 day ago",
-      "postImg":"https://cdn.corporatefinanceinstitute.com/assets/marketing-strategy.jpeg",
-      "content": "Marketing strategies for startups: Let’s discuss!"
+    "time": "Posted 5 hours ago",
+    "postImg":"https://greenphire.com/wp-content/uploads/2022/03/UX-Design-image_1.jpg",
+    "content": "Looking for a new opportunity in UI/UX design!"
+  },
+  {
+    "user": {
+      "name": "Michael Brown",
+      "role": "Marketing Specialist",
+      "image": "https://static.printler.com/cache/b/6/d/3/8/0/b6d38090115fc965d7141fe1f8ece7fe5d2d7218.jpg"
     },
-    {
-      "user": {
-        "name": "Mike Johnson",
-        "role": "Data Analyst",
-        "postImg":"",
-        "image": ""
-      },
-      "time": "Posted 1 day ago",
-      "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
-      "content": "Does anyone have resources for learning advanced SQL queries?"
+    "time": "Posted 1 day ago",
+    "postImg":"https://cdn.corporatefinanceinstitute.com/assets/marketing-strategy.jpeg",
+    "content": "Marketing strategies for startups: Let’s discuss!"
+  },
+  {
+    "user": {
+      "name": "Mike Johnson",
+      "role": "Data Analyst",
+      "postImg":"",
+      "image": ""
     },
-    {
-      "user": {
-        "name": "Emily Davis",
-        "role": "Marketing Specialist",
-        "image": "https://i0.wp.com/zalorasingaporeblog.wpcomstaging.com/wp-content/uploads/2024/11/9ef125de7b8405ac42c1231c90d03726.jpg?resize=720%2C900&ssl=1"
-      },
-      "time": "Posted 3 days ago",
-      "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
-      "content": "Excited to start my new position at a digital marketing agency!"
+    "time": "Posted 1 day ago",
+    "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
+    "content": "Does anyone have resources for learning advanced SQL queries?"
+  },
+  {
+    "user": {
+      "name": "Emily Davis",
+      "role": "Marketing Specialist",
+      "image": "https://i0.wp.com/zalorasingaporeblog.wpcomstaging.com/wp-content/uploads/2024/11/9ef125de7b8405ac42c1231c90d03726.jpg?resize=720%2C900&ssl=1"
     },
-    {
-      "user": {
-        "name": "Robert Brown",
-        "role": "Cybersecurity Analyst",
-        "image": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-      },
-      "time": "Posted 4 days ago",
-      "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
-      "content": "Just earned my Security+ certification! Open to job opportunities in cybersecurity."
+    "time": "Posted 3 days ago",
+    "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
+    "content": "Excited to start my new position at a digital marketing agency!"
+  },
+  {
+    "user": {
+      "name": "Robert Brown",
+      "role": "Cybersecurity Analyst",
+      "image": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
     },
-    {
-      "user": {
-        "name": "Lisa White",
-        "role": "Project Manager",
-        "image": "https://media.istockphoto.com/id/1386479313/photo/happy-millennial-afro-american-business-woman-posing-isolated-on-white.jpg?s=612x612&w=0&k=20&c=8ssXDNTp1XAPan8Bg6mJRwG7EXHshFO5o0v9SIj96nY="
-      },
-      "time": "Posted 1 week ago",
-      "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
-      "content": "What are some good productivity tools for managing remote teams?"
+    "time": "Posted 4 days ago",
+    "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
+    "content": "Just earned my Security+ certification! Open to job opportunities in cybersecurity."
+  },
+  {
+    "user": {
+      "name": "Lisa White",
+      "role": "Project Manager",
+      "image": "https://media.istockphoto.com/id/1386479313/photo/happy-millennial-afro-american-business-woman-posing-isolated-on-white.jpg?s=612x612&w=0&k=20&c=8ssXDNTp1XAPan8Bg6mJRwG7EXHshFO5o0v9SIj96nY="
     },
-    {
-      "user": {
-        "name": "Daniel Green",
-        "role": "Full-Stack Developer",
-        "image": "https://media.istockphoto.com/id/1476170969/photo/portrait-of-young-man-ready-for-job-business-concept.jpg?s=612x612&w=0&k=20&c=w8SlKv-4u6xYyU07CXeBRvfW6F0iYx-a7HR2ChM8ZbU="
-      },
-      "time": "Posted 2 weeks ago",
-      "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
-      "content": "Building a side project using React and Node.js. Any tips on deployment?"
+    "time": "Posted 1 week ago",
+    "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
+    "content": "What are some good productivity tools for managing remote teams?"
+  },
+  {
+    "user": {
+      "name": "Daniel Green",
+      "role": "Full-Stack Developer",
+      "image": "https://media.istockphoto.com/id/1476170969/photo/portrait-of-young-man-ready-for-job-business-concept.jpg?s=612x612&w=0&k=20&c=w8SlKv-4u6xYyU07CXeBRvfW6F0iYx-a7HR2ChM8ZbU="
     },
-    {
-      "user": {
-        "name": "Sophia Martinez",
-        "role": "HR Coordinator",
-        "image": "https://t3.ftcdn.net/jpg/03/67/46/48/360_F_367464887_f0w1JrL8PddfuH3P2jSPlIGjKU2BI0rn.jpg"
-      },
-      "time": "Posted 3 weeks ago",
-      "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
-      "content": "We are hiring for multiple remote positions. Check our careers page!"
+    "time": "Posted 2 weeks ago",
+    "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
+    "content": "Building a side project using React and Node.js. Any tips on deployment?"
+  },
+  {
+    "user": {
+      "name": "Sophia Martinez",
+      "role": "HR Coordinator",
+      "image": "https://t3.ftcdn.net/jpg/03/67/46/48/360_F_367464887_f0w1JrL8PddfuH3P2jSPlIGjKU2BI0rn.jpg"
     },
-    {
-      "user": {
-        "name": "James Wilson",
-        "role": "AI Researcher",
-        "image": "https://img.freepik.com/premium-photo/boss-man-looking-camera-smiling-young-businessman-banker-with-beard-photo-with-close-up-portrait_321831-5908.jpg?semt=ais_hybrid"
-      },
-      "time": "Posted 1 month ago",
-      "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
-      "content": "Fascinated by the recent advancements in AI. Looking to collaborate on research!"
-    }
-  ]
+    "time": "Posted 3 weeks ago",
+    "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
+    "content": "We are hiring for multiple remote positions. Check our careers page!"
+  },
+  {
+    "user": {
+      "name": "James Wilson",
+      "role": "AI Researcher",
+      "image": "https://img.freepik.com/premium-photo/boss-man-looking-camera-smiling-young-businessman-banker-with-beard-photo-with-close-up-portrait_321831-5908.jpg?semt=ais_hybrid"
+    },
+    "time": "Posted 1 month ago",
+    "postImg":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4V6hVI_llKqcuFGbJZauOlyxEkszAgsxsFA&s",
+    "content": "Fascinated by the recent advancements in AI. Looking to collaborate on research!"
+  }
+]
