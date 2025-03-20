@@ -13,20 +13,20 @@ import {faUser, faBookmark, faGear, faSignOut} from "@fortawesome/free-solid-svg
       // State to store logged-in user info
   const [userData, setUserData] = useState({
     username: "Guest",
-    type: "Visitor",
+    role: "Visitor",
     pic: ""
   });
 
   // Fetch user data from sessionStorage when component mounts
   useEffect(() => {
     const storedUsername = sessionStorage.getItem("username");
-    const storedType = sessionStorage.getItem("type");
+    const storedRole = sessionStorage.getItem("role");
     const storedProfPic = sessionStorage.getItem("pic");
 
     if (storedUsername && storedType && storedProfPic) {
       setUserData({
         username: storedUsername,
-        type: storedType,
+        role: storedRole,
         pic: storedProfPic
       });
     }
