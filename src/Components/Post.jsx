@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import "../App.css";
-import { GetPosts } from "./Services/PostService.js";
+import { GetPosts} from "../Services/PostService.js";
 import { DataContext } from "../App";
 
 
