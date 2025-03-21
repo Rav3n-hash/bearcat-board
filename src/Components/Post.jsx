@@ -64,9 +64,9 @@ export default function Post({ user, time, postImg, content }) {
   {posts.map((post, index) => (
     <div key={index} className="border p-4 rounded-lg shadow-lg bg-white text-black">
       <div className="flex items-center space-x-3">
-        <strong className="text-lg">{post.user_name}</strong>
+        <strong className="text-lg">{post.first_name} {post.last_name}</strong>
         {post.organization_id && (
-          <span className="text-sm text-gray-500"> • Organization ID: {post.organization_id}</span>
+          <span className="text-sm text-gray-500"> • Org: {post.organization_name}</span>
         )}
       </div>
       <p className="mt-2 text-gray-700">{post.content}</p>
