@@ -6,7 +6,16 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export default function NavBar() {
     const { loggedIn, logout } = useContext(DataContext);
-    const { jobPost, setJobPost } = useState("");
+    const [jobPost, setJobPost] = useState("");
+    const navigate = useNavigate();
+
+    //Function to handle search redirection
+    const handleSearch = () => {
+        if (jobPost.trim()) { // Prevent empty searches
+            navigate(`/searchResults?q=${encodeURIComponent(jobPost)}`);
+        }
+    };
+
 
 
     return (
@@ -17,56 +26,34 @@ export default function NavBar() {
             <div><a href="/Home"><b>HOME</b></a></div>
             <div><a href="/Profile"><b>PROFILE</b></a></div>
             <div><a href="/Connections"><b>CONNECTIONS</b></a></div>
-            {/* user greeting and logout button */}
+
+            {/* user greeting*/}
             <div className="text-right">
-                {sessionStorage.getItem("logged") == 1 ? (
                     <>
                         Hello User!
                         <br></br>
-                        {/* <button
-                            className="border-2 rounded-lg text-black bg-white px-5 cursor-pointer hover:bg-gray-200"
-                            onClick={logout}
-                        >
-                            Logout */}
 
-                        {/* </button> */}
+                         {/* Search Bar */}
                         <div className="text-right">
                         <div className="inline-flex items-center border-1 rounded-md px-2">
-                            <div><FontAwesomeIcon icon={faSearch} className="text-gray-500" /></div>
+                            <div><FontAwesomeIcon icon={faSearch} className="text-gray-500" onClick={handleSearch}/></div>
                             <input
                                 className="w-[15vw] p-2 h-6 outline-none"
                                 type="text"
                                 placeholder="Search..."
                                 value={jobPost}
-                                onKeyUp={(e) => setJobPost(e.target.value)}
+                                onChange={(e) => setJobPost(e.target.value)}
+                                onKeyDown={(e) => { if (e.key === "Enter") handleSearch(); }}
                             />
                             
-                            <a href="/JobResults">
+                            <a href="/searchResults">
 
                             </a>
                         </div>
                     </div>
                     </>
-                ) : (
-                    <div className="text-right">
-                        <div className="inline-flex items-center border-1 rounded-md px-2">
-                            <div><FontAwesomeIcon icon={faSearch} className="text-gray-500" /></div>
-                            <input
-                                className="w-[15vw] p-2 h-6 outline-none"
-                                type="text"
-                                placeholder="Search..."
-                                value={jobPost}
-                                onKeyUp={(e) => setJobPost(e.target.value)}
-                            />
-                            
-                            <a href="/JobResults">
-
-                            </a>
-                        </div>
                     </div>
-
-                )}
             </div>
-        </div>
+
     );
 }
