@@ -11,8 +11,8 @@
 html, body{
   height: 100%;
   width: 100%;
-  margin: 0;     /* Remove default margin */
-  padding: 0;    /* Remove default padding */
+  margin: 0;    
+  padding: 0;  
 }
 
 h2{
@@ -67,13 +67,13 @@ margin-right: auto;
 
 .fieldIcon {
   position: absolute;
-  left: 10px; /* Adjust as needed */
+  left: 10px; 
   color: gray;
 }
 
 .fields {
   width: 50%;
-  padding-left: 35px; /* Make space for the icon */
+  padding-left: 35px;
   height: 40px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -83,12 +83,19 @@ margin-right: auto;
   width: 100%;
 }
 
+.fields:focus{
+    outline: none;
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.4); /*ring effect*/
+}
+
 .loginButton{
   background-color: #ffd926;
   border-radius: 5px;
   font-size: 20px;
   width: 25%;
   font-family: 'Times New Roman', Times, serif;
+  transition: all 0.3s ease;
 }
 
 .loginButton:hover{
@@ -106,6 +113,46 @@ margin-right: auto;
 
 .signUpLink:hover{
   color: #ffd926;
+}
+
+.signUpContainer{
+  background: linear-gradient(to right, #0069a6, #00487d);
+  height: 100%;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  width: auto;
+  overflow: hidden;
+  place-items: center;
+}
+
+.signUpLeft{
+  border: #070706;
+  align-items: flex-start;
+  background-color: #282a3586;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
+  padding: 0 60px 60px;
+}
+
+.signUpRight{
+  border: #070706;
+  border-style: double;
+  margin: 15px;
+  background-color: #f8f6f6;
+  border-radius: 5%;
+  width:25vw;
+  height: 80vh;
+}
+
+.registrationForm{
+  border: #070706;
+  border-width: 12px;
+  border-style: groove;
+  width: 50%;
+  align-items: center;
 }
 
 .profilePage{
@@ -134,7 +181,7 @@ margin-right: auto;
 .userRightDiv {
   display: flex;
   flex-direction: column;
-  background-color: rgb(112, 131, 180);
+  background-color: rgb(72, 102, 143);
   height: auto;
 }
 .resumeButton{
@@ -145,6 +192,7 @@ margin-right: auto;
   height: auto;
   font-family: 'Times New Roman', Times, serif;
   margin-top: 10px;
+  transition: all 0.3s ease;
 }
 
 .profH1{
@@ -186,6 +234,7 @@ margin-right: auto;
   right: 20px;
   background-color:#00487d;
   border-radius: 100%;
+  transition: all 0.3s ease;
 }
 
 .addButton:hover{
@@ -199,6 +248,7 @@ margin-right: auto;
   width: 150px;
   height: 50px;
   font-family: 'Times New Roman', Times, serif;
+  transition: all 0.3s ease;
 
 }
 
@@ -213,6 +263,7 @@ margin-right: auto;
   width: 150px;
   height: 50px;
   font-family: 'Times New Roman', Times, serif;
+  transition: all 0.3s ease;
 
 }
 

@@ -5,9 +5,11 @@ import Home from "./Components/Home";
 import NavBar from './Components/NavBar';
 import Connections from './Components/Connections';
 import OtherProfiles from './Components/OtherProfiles';
+import SignUp from './Components/SignUp';
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import {useState, createContext} from "react";
+
 
 export const DataContext=createContext("");
 
@@ -32,12 +34,14 @@ export default function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/otherProfiles/:username" element={<OtherProfiles />} />
+              
             </Routes>
           </>
         ) : (
           // If not logged in, show the Login page
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         )}
       </BrowserRouter>
