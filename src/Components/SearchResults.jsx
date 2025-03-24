@@ -26,6 +26,39 @@ export default function SearchResults() {
 
 const [results, setResults] = useState([]);
 
+//filter results
+const filteredResults = results
+  .filter((post) => {
+    // Content Type
+    if (contentType && post.post_type !== contentType) return false;
+
+    // Posted By 
+    if (postedBy) {
+      if (postedBy === "student" && post.user_type !== "student_alumni") return false;
+      if (postedBy === "alumni" && post.user_type !== "student_alumni") return false;
+      if (postedBy === "employer" && post.user_type !== "organization_member") return false;
+    }
+
+    // Date posted 
+    if (datePosted && post.created_at) {
+      const postDate = new Date(post.created_at);
+      const now = new Date();
+
+      if (datePosted === "24hours" && now - postDate > 86400000) return false;
+      if (datePosted === "week" && now - postDate > 7 * 86400000) return false;
+      if (datePosted === "month" && now - postDate > 30 * 86400000) return false;
+    }
+
+    return true;
+  })
+  .sort((a, b) => {
+    if (sortBy === "alphabet") return a.title.localeCompare(b.title);
+    if (sortBy === "latest" && a.created_at && b.created_at)
+      return new Date(b.created_at) - new Date(a.created_at);
+    return 0; 
+  });
+
+
 useEffect(() => {
   const fetchResults = async () => {
     try {
@@ -90,7 +123,6 @@ useEffect(() => {
                   <option value="" hidden>Content Type</option>
                   <option value="job">Job Posting</option>
                   <option value="general">General Post</option>
-                  <option value="user">User Profile</option>
               </select>
 
 
@@ -102,8 +134,7 @@ useEffect(() => {
                   onChange={(e) => setPostedBy(e.target.value)}
               >
                   <option value="" hidden>Posted By</option>
-                  <option value="student">Student</option>
-                  <option value="alumni">Alumni</option>
+                  <option value="student">Student/Alumni</option>
                   <option value="employer">Employer</option>
               </select>
 
@@ -131,9 +162,8 @@ useEffect(() => {
         {/*************************************************************Results**************************************************************/}
         <div className="mt-4 text-left text-gray-600 bg-gray-50 border rounded-lg p-4 h-[70vh] overflow-y-auto w-7/8 shadow-md">
                 
-                {/* Placeholder results to test scrolling */}
-                {results.length > 0 ? (
-results.map((post, index) => (
+        {filteredResults.length > 0 ? (
+  filteredResults.map((post, index) => (
     <div key={post.post_id || index} className="p-2 border-b">
       <p className="hover:text-yellow-500 font-semibold">{post.title || "Untitled Post"}</p>
       <p className="text-sm text-gray-500">{post.content}</p>
@@ -143,7 +173,6 @@ results.map((post, index) => (
       </p>
     </div>
   ))
-  
 ) : (
   <p className="text-gray-500 italic">No results found.</p>
 )}
