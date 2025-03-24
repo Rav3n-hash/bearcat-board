@@ -7,6 +7,7 @@ import Connections from './Components/Connections';
 import OtherProfiles from './Components/OtherProfiles';
 import SignUp from './Components/SignUp';
 import SearchResults from './Components/SearchResults';
+import AddPost from './Components/AddPost';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import {useState, createContext} from "react";
 
@@ -36,6 +37,7 @@ export default function App() {
               <Route path="/connections" element={<Connections />} />
               <Route path="/otherProfiles/:username" element={<OtherProfiles />} />
               <Route path="/searchResults" element={<SearchResults />} />
+              <Route path="/addPost" element={<AddPost />} />
 
               
             </Routes>

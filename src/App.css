@@ -232,13 +232,15 @@ margin-right: auto;
   position: fixed;
   bottom: 40px;
   right: 20px;
+  width: 80px;
+  height: 80px;
   background-color:#00487d;
   border-radius: 100%;
   transition: all 0.3s ease;
 }
 
 .addButton:hover{
-  background-color: #8ca2eb;
+  background-color: #6786ec;
 }
 
 .addFriend{
