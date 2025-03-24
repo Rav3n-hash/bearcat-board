@@ -62,9 +62,7 @@ export default function UserMiniDash() {
           <button className="w-50 h-10 text-center py-2 px-4 border-b-2 text-blue-600 hover:bg-blue-200"onClick={()=>navigate("/profile")}>
             <FontAwesomeIcon icon={faUser} className="text-blue-100" /> View Profile
           </button>
-          <button className="w-50 h-10 text-center py-2 px-4 border-b-2 text-blue-600 hover:bg-blue-200">
-            <FontAwesomeIcon icon={faBookmark} className="text-blue-100" /> Bookmarked
-          </button>
+          
           <button className="w-50 h-10 text-center py-2 px-4 border-b-2 text-blue-600 hover:bg-blue-200">
             <FontAwesomeIcon icon={faGear} className="text-blue-100" /> Settings
           </button>

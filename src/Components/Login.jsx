@@ -41,8 +41,7 @@ export default function Login() {
         <h1>Welcome Back, Bearcat</h1>
         <h2>Sign in to get access to exclusive offers and recommendations</h2>
         <br/>
-        <h3 className="text-xl text-yellow-200"><p>EMAIL:testemail</p><p>PASSWORD:test</p></h3> <br/>
-        <br />
+        
 
         <div className="credentialsDiv">
           {/********************************************Email and Password Fields***********************************************************/}

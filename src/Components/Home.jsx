@@ -46,14 +46,6 @@ import AddPost from "./AddPost";
         <h1 className="text-2xl text-blue-500 font-bold mb-6">The Bearcat Board</h1>
         {/* Scrollable Feed Container */}
 
-
-
-      {/* <div className="w-full max-w-2xl overflow-y-auto space-y-6">
-        {postData.map((post, index) => (
-          <Post key={index} user={post.user} time={post.time} postImg={post.postImg} content={post.content} />
-        ))}
-      </div> */}
-
 <div className="w-full max-w-2xl overflow-y-auto space-y-6">
           {posts.map((post, index) => (
             <Post
