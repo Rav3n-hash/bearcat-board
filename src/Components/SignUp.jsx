@@ -23,7 +23,7 @@ export default function SignUp(){
    return (
    <div className="signUpContainer">
 
-   {/* Left side: Info*/}
+   {/************************************************Left side: Why User Should Join******************************************************/}
    <div className="hidden:lg p-8 text-center lg:text-left">
          <h1 className="text-left text-yellow-400 ml">Join The Bearcat Board!</h1>
 
@@ -54,11 +54,11 @@ export default function SignUp(){
       </div>
 
 
-      {/* Right side: Registration Form */}
-      <div className="lg:w-3/4 bg-white p-8 rounded-2xl shadow-xl max-w-md w-full h-full m-7">
+      {/*****************************************************Right side: Registration Form *********************************************************/}
+      <div className="lg:w-3/4 bg-white p-8 rounded-2xl shadow-xl shadow-gray-800/50 max-w-md w-full h-9/10 m-7">
           <h1 className="text-2xl font-bold mb-4 text-gray-800">Sign Up</h1>
 
-          {/* User Type Selection */}
+          {/********************** *User Type Selection ***************************/}
           <div className="mb-12 text-black">
               <label className="block font-semibold">I am a:</label>
               <select
@@ -73,7 +73,7 @@ export default function SignUp(){
               </select>
           </div>
 
-          {/* Registration Form */}
+          {/*************************Fields for form******************************/}
           <form>
               <input
                   type="text"
@@ -104,7 +104,7 @@ export default function SignUp(){
                   required
               />
 
-              {/* Company Name (Only for Employers) */}
+              {/******************************Company Name (Only for Employers) *****************************/}
               {userType === "Employer" && (
                   <input type="text"
                       name="companyName"
@@ -115,10 +115,12 @@ export default function SignUp(){
                   /> 
                )}
 
+
+            {/********************** *Submit form ***************************/}
               <button type="submit" className="w-50 bg-blue-500 text-white p-3 rounded-xl mt-4 transition-all duration-300 hover:bg-blue-700">
                   Sign Up
               </button>
-         
+            {/********************** *TOS and Privacy Policy***************************/}
              <div className="text-black mt-5 w-5/8 text-center mx-auto">By signing up you agree to our <a href="link" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400">Terms of Service </a> 
                and <a href="link" target="_blank" rel="noopener noreferrer">Privacy Policy</a></div>
           </form>

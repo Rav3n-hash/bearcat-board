@@ -12,30 +12,32 @@ export default function Login() {
   const navigate = useNavigate(); 
 
   const check = async () => {
-    if (!email.trim() || !pwd.trim()) {
-      alert("Please fill out both fields.");
-      return;
-    }
-  
-    const user = await loginUser(email.trim(), pwd.trim());
-  
-    if (user) {
+    const userInput = user.find(
+      (userIn) => userIn.email.trim() === email.trim() && userIn.password.trim() === pwd.trim()
+    );
+
+    if (userInput) {
       alert("Login successful!");
       sessionStorage.setItem("logged", 1);
-      sessionStorage.setItem("username", user.firstName + " " + user.lastName);
-      sessionStorage.setItem("role", user.user_type);
-      sessionStorage.setItem("user_id", user.user_id);
-  
+      sessionStorage.setItem("username", user.username); // Store username
+      sessionStorage.setItem("role", user.role); // Store user role
+      sessionStorage.setItem("pic", user.pic);
+
       setLogStatus(1);
-      navigate(0); 
-    } else {
+      navigate(0);
+    } 
+    else if (email.trim() === "" || pwd.trim() === "") {
+      alert("Please fill out both fields.");
+    } 
+    else {
       alert("Invalid credentials");
     }
-  };
+  }
 
-
+{/*****************************************************************Login Page***********************************************************/}
   const login = (
     <div>
+    {/***********************************************************Right Side of Login***********************************************************/}
       <div className="loginDiv">
         <h1>Welcome Back, Bearcat</h1>
         <h2>Sign in to get access to exclusive offers and recommendations</h2>
@@ -44,7 +46,7 @@ export default function Login() {
         <br />
 
         <div className="credentialsDiv">
-
+          {/********************************************Email and Password Fields***********************************************************/}
           <p className="loginP">Email*:</p>
           <div className="loginFieldContainer">
             <FontAwesomeIcon icon={faEnvelope} className="fieldIcon" />
@@ -76,7 +78,7 @@ export default function Login() {
 
         </div>
 
-
+      {/********************************************login button***********************************************************/}
         <br />
         <input
           className="loginButton"
@@ -86,6 +88,7 @@ export default function Login() {
         />
         <br /><br />
 
+      {/*************************************************Sign Up Option ******************************************************/}
         Don't have an account?
         <input className="signUpLink" type="button" value="Sign Up" onClick={() => navigate("/signup")} />
       </div>
@@ -94,13 +97,17 @@ export default function Login() {
 
 
   return (
-    <div className="loginPage">
+    <div className="loginPage"> {/*Div Splits into grid*/}
+    {/*Left side (Photo)*/}
       <div className="loginPhotoDiv">
         <img src="https://i.postimg.cc/3WMZDVqc/Login-Photo.png" alt="login" />
       </div>
+
+    {/*Right side (Login)*/}
       <div>
-        <div>{login}</div>
+        <div>{login}</div> {/*Shows the login page*/}
       </div>
+      
     </div>
   );
 }

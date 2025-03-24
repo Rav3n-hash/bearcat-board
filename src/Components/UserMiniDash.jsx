@@ -7,7 +7,7 @@ import { getUserById } from "../Services/UserService";
 
 export default function UserMiniDash() {
   const navigate = useNavigate();
-  const { setLogStatus } = useContext(DataContext);
+  const { logStatus, setLogStatus } = useContext(DataContext);
 
   const [userData, setUserData] = useState({
     firstName: "Guest",
@@ -33,7 +33,8 @@ export default function UserMiniDash() {
         });
       });
     }
-  }, []);
+  }, [logStatus]); // Depend on logStatus so updates occur
+
 
   function logout() {
     alert("Logging out of Bearcat Board...");
