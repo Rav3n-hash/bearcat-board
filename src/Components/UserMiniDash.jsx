@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faBell, faBookmark, faGear, faSignOut} from "@fortawesome/free-solid-svg-icons";
+import {faBell, faBookmark, faGear, faSignOut, faUser} from "@fortawesome/free-solid-svg-icons";
 import { getUserById } from "../Services/UserService";
 
 export default function UserMiniDash() {
