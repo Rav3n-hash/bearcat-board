@@ -27,7 +27,7 @@ export default function NavBar() {
       {/*Logo*/}
         <div className="bcatPicNavBar">
           <img src="/Logo.png" alt="bcat" />
-          <h2>Hello, user!</h2>
+          <h2>Hello, {sessionStorage.getItem("fName")}</h2>
         </div>
             
       {/*******************************************************Link to Home*****************************************************************/}

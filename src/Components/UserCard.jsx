@@ -20,13 +20,13 @@ export default function UserCard({ user }) {
 
             {/***************** View Profile Button *****************/}
             <div className="mt-3 flex justify-center">
-                <Link
-                    to={`/OtherProfiles/${user.username}`}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+                <a
+                    href={`/OtherProfiles/${user.username}`}
+                    className="px-4 py-2 bg-yellow-300 w-1/2 text-black rounded-lg hover:bg-yellow-200"
                 >
-                    View Profile
-                </Link>
-            </div>
+                View Profile
+                </a> 
+</div>
         </div>
     );
 }

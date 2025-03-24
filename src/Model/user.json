@@ -1,71 +1,82 @@
 [
-    {
-        "username": "user1",
-        "password": "test",
-        "email": "testemail",
-        "firstName": "test",
-        "lastName": "user",
-        "pronouns": "(She/her)",
-        "type": "Testuser",
-        "profilePic": "https://i.pinimg.com/474x/b6/c3/eb/b6c3eb3488d1558903bc36d1c0742ec9.jpg",
-        "about": "This is for testing",
-        "city": "City, State, Country",
-        "education": {
-          "year": 2024,
-          "degree": "B.Sc. in Computer Science",
-          "school": "Lander University"
-        },
-        "experience": {
-          "yearsWorked": 1,
-          "role": "Software Developer",
-          "company": "Tech Solutions Inc."
-        }
-      },
-
-    {
-      "username": "john_doe",
-      "password": "password123",
-      "email": "john.doe@email.com",
-      "firstName": "John",
-      "lastName": "Doe",
-      "pronouns": "(He/him)",
-      "type": "Student",
-      "profilePic": "https://decisionsystemsgroup.github.io/workshop-html/img/john-doe.jpg",
-      "about": "Aspiring software engineer with a passion for problem-solving and development.",
-      "city": "City, State, Country",
-      "education": {
+  {
+    "username": "user1",
+    "password": "test",
+    "email": "testemail",
+    "firstName": "Test",
+    "lastName": "User",
+    "pronouns": "(She/her)",
+    "type": "Testuser",
+    "profilePic": "https://i.pinimg.com/474x/b6/c3/eb/b6c3eb3488d1558903bc36d1c0742ec9.jpg",
+    "about": "This is for testing",
+    "city": "City, State, Country",
+    "education": [
+      {
         "year": 2024,
         "degree": "B.Sc. in Computer Science",
         "school": "Lander University"
-      },
-      "experience": {
+      }
+    ],
+    "experience": [
+      {
+        "yearsWorked": 1,
+        "role": "Software Developer",
+        "company": "Tech Solutions Inc."
+      }
+    ]
+  },
+  {
+    "username": "john_doe",
+    "password": "password123",
+    "email": "john.doe@email.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "pronouns": "(He/him)",
+    "type": "Student",
+    "profilePic": "https://decisionsystemsgroup.github.io/workshop-html/img/john-doe.jpg",
+    "about": "Aspiring software engineer with a passion for problem-solving and development.",
+    "city": "City, State, Country",
+    "education": [
+      {
+        "year": 2024,
+        "degree": "B.Sc. in Computer Science",
+        "school": "Lander University"
+      }
+    ],
+    "experience": [
+      {
         "yearsWorked": 1,
         "role": "Software Developer Intern",
         "company": "Tech Solutions Inc."
       }
-    },
-    {
-      "username": "jane_smith",
-      "password": "password456",
-      "email": "jane.smith@email.com",
-      "firstName": "Jane",
-      "lastName": "Smith",
-      "pronouns": "(She/her)",
-      "type": "Alumni",
-      "profilePic": "https://t4.ftcdn.net/jpg/04/44/53/99/360_F_444539901_2GSnvmTX14LELJ6edPudUsarbcytOEgj.jpg",
-      "about": "Experienced marketing manager with a love for digital strategies and branding.",
-      "city": "City, State, Country",
-      "education": {
+    ]
+  },
+  {
+    "username": "jane_smith",
+    "password": "password456",
+    "email": "jane.smith@email.com",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "pronouns": "(She/her)",
+    "type": "Alumni",
+    "profilePic": "https://t4.ftcdn.net/jpg/04/44/53/99/360_F_444539901_2GSnvmTX14LELJ6edPudUsarbcytOEgj.jpg",
+    "about": "Experienced marketing manager with a love for digital strategies and branding.",
+    "city": "City, State, Country",
+    "education": [
+      {
         "year": 2019,
         "degree": "B.A. in Marketing",
         "school": "Lander University"
-      },
-      "experience": {
+      }
+    ],
+    "experience": [
+      {
         "yearsWorked": 5,
         "role": "Marketing Manager",
         "company": "Brandify Marketing"
       }
-    },
+    ]
+  },
     {
       "username": "mike_jones",
       "password": "password789",
@@ -77,16 +88,16 @@
       "profilePic": "https://media.istockphoto.com/id/1476170969/photo/portrait-of-young-man-ready-for-job-business-concept.jpg?s=612x612&w=0&k=20&c=w8SlKv-4u6xYyU07CXeBRvfW6F0iYx-a7HR2ChM8ZbU=",
       "about": "CEO of Tech Innovations, looking for talented software engineers to join our growing team.",
       "city": "City, State, Country",
-      "education": {
+      "education": [{
         "year": 2015,
         "degree": "M.B.A.",
         "school": "Lander University"
-      },
-      "experience": {
+      }],
+      "experience": [{
         "yearsWorked": 10,
         "role": "CEO",
         "company": "Tech Innovations"
-      }
+      }]
     },
     {
       "username": "emily_clark",
@@ -99,16 +110,16 @@
       "profilePic": "https://media.gettyimages.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=gi&k=20&c=LsB3LmCoN69U82LEYU78IC2tNwOMjy7LJlmEj30UOSs=",
       "about": "Interested in web development and UI/UX design. Always learning new skills.",
       "city": "City, State, Country",
-      "education": {
+      "education": [{
         "year": 2025,
         "degree": "B.Sc. in Web Design",
         "school": "Lander University"
-      },
-      "experience": {
+      }],
+      "experience": [{
         "yearsWorked": 0,
         "role": "Web Development Intern",
         "company": "Creative Web Co."
-      }
+      }]
     },
     {
       "username": "alex_brown",
@@ -121,16 +132,16 @@
       "profilePic": "https://media.istockphoto.com/id/1386217759/photo/portrait-of-a-confident-young-businesswoman-standing-against-an-urban-background.jpg?s=612x612&w=0&k=20&c=fAzBj4UAksz3wwAjXxKxByZMqDSuqQZSTij7jBiPtJc=",
       "about": "Digital strategist with a focus on content creation and social media marketing.",
       "city": "City, State, Country",
-      "education": {
+      "education": [{
         "year": 2017,
         "degree": "B.A. in Communication",
         "school": "Lander University"
-      },
-      "experience": {
+      }],
+      "experience": [{
         "yearsWorked": 4,
         "role": "Social Media Manager",
         "company": "Marketify Solutions"
-      }
+      }]
     },
     {
       "username": "susan_williams",
@@ -143,16 +154,16 @@
       "profilePic": "https://annemariesegal.com/wp-content/uploads/2017/04/adobestock_86346713-cropped-young-woman-in-suit.jpg?w=1200",
       "about": "Passionate about graphic design and creative arts. Currently learning animation.",
       "city": "City, State, Country",
-      "education": {
+      "education": [{
         "year": 2023,
         "degree": "B.A. in Graphic Design",
         "school": "Lander University"
-      },
-      "experience": {
+      }],
+      "experience": [{
         "yearsWorked": 0,
         "role": "Graphic Design Intern",
         "company": "Creative Arts Agency"
-      }
+      }]
     },
     {
       "username": "daniel_harris",
@@ -165,16 +176,16 @@
       "profilePic": "https://photos.peopleimages.com/picture/202303/2681944-happy-black-man-arms-crossed-or-office-portrait-of-corporate-motivation-in-company-about-us-or-profile-picture.-smile-confident-or-mature-management-person-and-success-mindset-or-ceo-introduction-fit_400_400.jpg",
       "about": "Looking for skilled developers for my tech startup. Let’s build something great together.",
       "city": "City, State, Country",
-      "education": {
+      "education": [{
         "year": 2013,
         "degree": "M.Sc. in Computer Science",
         "school": "Lander University"
-      },
-      "experience": {
+      }],
+      "experience": [{
         "yearsWorked": 8,
         "role": "CTO",
         "company": "NextGen Tech"
-      }
+      }]
     },
     {
       "username": "olivia_evans",
@@ -187,16 +198,16 @@
       "profilePic": "https://img.freepik.com/free-photo/self-portrait-beautiful-chinese-girl_1262-18293.jpg?semt=ais_hybrid",
       "about": "Experienced graphic designer with a keen eye for detail and a passion for visual storytelling.",
       "city": "City, State, Country",
-      "education": {
+      "education": [{
         "year": 2016,
         "degree": "B.A. in Fine Arts",
         "school": "Lander University"
-      },
-      "experience": {
+      }],
+      "experience": [{
         "yearsWorked": 6,
         "role": "Senior Graphic Designer",
         "company": "Creative Studio"
-      }
+      }]
     },
     {
       "username": "chris_martin",
@@ -209,15 +220,15 @@
       "profilePic": "https://t4.ftcdn.net/jpg/06/08/55/73/360_F_608557356_ELcD2pwQO9pduTRL30umabzgJoQn5fnd.jpg",
       "about": "A budding entrepreneur interested in business management and marketing.",
       "city": "City, State, Country",
-      "education": {
+      "education": [{
         "year": 2026,
         "degree": "B.B.A. in Business Administration",
         "school": "Lander University"
-      },
-      "experience": {
+      }],
+      "experience": [{
         "yearsWorked": 0,
         "role": "Marketing Intern",
         "company": "NextGen Solutions"
-      }
+      }]
     }
   ]

@@ -7,7 +7,8 @@ import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons'
 
 export default function Profile(){
     const [user, setUser] = useState({
-        name: "Placeholder",
+        fName: "Placeholder",
+        lName: "User",
         pronouns: "(She/her)",
         city: "Greenwood, South Carolina, United States",
         type: "Student",
@@ -19,7 +20,7 @@ export default function Profile(){
 
 useEffect(() => {
     // Retrieve stored user data from sessionStorage
-    const storedfName = sessionStorage.getItem("fName");
+    const storedFName = sessionStorage.getItem("fName");
     const storedLName = sessionStorage.getItem("lName");
     const storedPronouns = sessionStorage.getItem("pronouns");
     const storedCity = sessionStorage.getItem("city");
@@ -31,17 +32,17 @@ useEffect(() => {
 
     // Update user state if data exists
     setUser({
-      fName: storedFName || "Placeholder",
-      lName: storedLName || "Placeholder",
-      pronouns: storedPronouns || "( / )",
-      city: storedCity || "No city available",
-      type: storedType || "Student",
-      image: storedImage || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-      about: storedAbout || "No bio available.",
-      education: storedEducation ? JSON.parse(storedEducation) : [],
-      experience: storedExperience ? JSON.parse(storedExperience) : [],
-    });
-  }, []);
+        fName: storedFName || "Placeholder",
+        lName: storedLName || "User",
+        pronouns: storedPronouns || "( / )",
+        city: storedCity || "No city available",
+        type: storedType || "Student",
+        image: storedImage || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+        about: storedAbout || "No bio available.",
+        education: storedEducation ? JSON.parse(storedEducation) : [],
+        experience: storedExperience ? JSON.parse(storedExperience) : [],
+      });
+    }, []);
 
 
 
@@ -70,25 +71,26 @@ useEffect(() => {
         <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10">
         <br></br>
         <h1 className="profH1">Education</h1>
-            {user.education.map((edu, index) => (
-                <div key={index} className="text-left px-10">
-                    <h3 className="text-gray-800">Year <br></br><h3 className="text-left text-gray-100 px-5">{edu.year}</h3></h3>
-                    <h3 className="text-gray-800">Degree <br></br><h3 className="text-left  text-gray-100 px-5">{edu.degree}</h3></h3>
-                    <h3 className="text-gray-800">School <br></br><h3 className="text-left  text-gray-100 px-5">{edu.school}</h3></h3>
-                </div>
-            ))}
+        {user.education.length > 0 ? user.education.map((edu, index) => (
+            <div key={index} className="text-left px-10">
+              <h3 className="text-gray-800">Year <br /><span className="text-left text-gray-100 px-5">{edu.year}</span></h3>
+              <h3 className="text-gray-800">Degree <br /><span className="text-left text-gray-100 px-5">{edu.degree}</span></h3>
+              <h3 className="text-gray-800">School <br /><span className="text-left text-gray-100 px-5">{edu.school}</span></h3>
+            </div>
+          )) : <p className="px-10 text-gray-100">No education details available.</p>}
         </div>
 
         <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10">
         <br></br>
+
         <h1 className="profH1">Experience</h1>
-        {user.experience.map((exp, index) => (
-                <div key={index} className="text-left px-10">
-                    <h3 className="text-gray-800">Role <br></br><h3 className="text-left text-gray-100 px-5">{exp.company}</h3></h3>
-                    <h3 className="text-gray-800">Company<br></br><h3 className="text-left  text-gray-100 px-5">{exp.role}</h3></h3>
-                    <h3 className="text-gray-800">Years<br></br><h3 className="text-left  text-gray-100 px-5">{exp.yearsWorked}</h3></h3>
-                </div>
-            ))}
+        {user.experience.length > 0 ? user.experience.map((exp, index) => (
+            <div key={index} className="text-left px-10">
+              <h3 className="text-gray-800">Role <br /><span className="text-left text-gray-100 px-5">{exp.role}</span></h3>
+              <h3 className="text-gray-800">Company <br /><span className="text-left text-gray-100 px-5">{exp.company}</span></h3>
+              <h3 className="text-gray-800">Years <br /><span className="text-left text-gray-100 px-5">{exp.yearsWorked}</span></h3>
+            </div>
+          )) : <p className="px-10 text-gray-100">No experience details available.</p>}
         </div>
 
 
