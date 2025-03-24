@@ -55,7 +55,7 @@ export default function SignUp(){
 
 
       {/*****************************************************Right side: Registration Form *********************************************************/}
-      <div className="lg:w-3/4 bg-white p-8 rounded-2xl shadow-xl max-w-md w-full h-full m-7">
+      <div className="lg:w-3/4 bg-white p-8 rounded-2xl shadow-xl shadow-gray-800/50 max-w-md w-full h-9/10 m-7">
           <h1 className="text-2xl font-bold mb-4 text-gray-800">Sign Up</h1>
 
           {/********************** *User Type Selection ***************************/}

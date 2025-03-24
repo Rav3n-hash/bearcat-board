@@ -145,6 +145,7 @@ margin-right: auto;
   border-radius: 5%;
   width:25vw;
   height: 80vh;
+  box-shadow: 10px 10px 5px 12px lightblue;
 }
 
 .registrationForm{
