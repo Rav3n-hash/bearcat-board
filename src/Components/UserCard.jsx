@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+
 export default function UserCard({ user }) {
     return (
         <div className="bg-white shadow-md rounded-lg p-4 w-85 max-w-md mx-auto border border-gray-300">
@@ -18,6 +19,7 @@ export default function UserCard({ user }) {
                 </div>
             </div>
 
+
             {/***************** View Profile Button *****************/}
             <div className="mt-3 flex justify-center">
                 <a
@@ -25,7 +27,7 @@ export default function UserCard({ user }) {
                     className="px-4 py-2 bg-yellow-300 w-1/2 text-black rounded-lg hover:bg-yellow-200"
                 >
                 View Profile
-                </a> 
+                </a>
 </div>
         </div>
     );
