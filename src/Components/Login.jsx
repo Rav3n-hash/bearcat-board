@@ -3,36 +3,35 @@ import { DataContext } from "../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
-import user from "../Model/user.json";
+import { loginUser } from "../Services/UserService";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const { logStatus, setLogStatus } = useContext(DataContext);
-  const navigate = useNavigate(); // For page navigation
+  const navigate = useNavigate(); 
 
   const check = async () => {
-    const userInput = user.find(
-      (userIn) => userIn.email.trim() === email.trim() && userIn.password.trim() === pwd.trim()
-    );
-
-    if (userInput) {
+    if (!email.trim() || !pwd.trim()) {
+      alert("Please fill out both fields.");
+      return;
+    }
+  
+    const user = await loginUser(email.trim(), pwd.trim());
+  
+    if (user) {
       alert("Login successful!");
       sessionStorage.setItem("logged", 1);
-      sessionStorage.setItem("username", user.username); // Store username
-      sessionStorage.setItem("role", user.role); // Store user role
-      sessionStorage.setItem("pic", user.pic);
-
+      sessionStorage.setItem("username", user.firstName + " " + user.lastName);
+      sessionStorage.setItem("role", user.user_type);
+      sessionStorage.setItem("user_id", user.user_id);
+  
       setLogStatus(1);
-      navigate(0);
-    } 
-    else if (email.trim() === "" || pwd.trim() === "") {
-      alert("Please fill out both fields.");
-    } 
-    else {
+      navigate(0); 
+    } else {
       alert("Invalid credentials");
     }
-  }
+  };
 
 
   const login = (

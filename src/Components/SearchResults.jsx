@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
-import { useState } from "react"; //
+import { useState, useEffect } from "react"; 
+import axios from "axios";
 
 export default function SearchResults() {
 
@@ -21,6 +22,24 @@ export default function SearchResults() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const searchQuery = queryParams.get("q"); // ✅ Get search term from URL
+
+
+const [results, setResults] = useState([]);
+
+useEffect(() => {
+  const fetchResults = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8000/post/searchPosts?q=${searchQuery}`);
+      setResults(res.data.rows);
+    } catch (err) {
+      console.error("Failed to fetch search results:", err);
+    }
+  };
+
+  if (searchQuery) {
+    fetchResults();
+  }
+}, [searchQuery]);
 
 
     return (
@@ -98,11 +117,22 @@ export default function SearchResults() {
         <div className="mt-4 text-left text-gray-600 bg-gray-50 border rounded-lg p-4 h-[70vh] overflow-y-auto w-7/8 shadow-md">
                 
                 {/* Placeholder results to test scrolling */}
-                {Array.from({ length: 20 }).map((_, index) => (
-                    <div key={index} className="p-2 border-b">
-                        <p className="hover:text-yellow-500">Result {index + 1}: Example result text...</p>
-                    </div>
-                ))}
+                {results.length > 0 ? (
+results.map((post, index) => (
+    <div key={post.post_id || index} className="p-2 border-b">
+      <p className="hover:text-yellow-500 font-semibold">{post.title || "Untitled Post"}</p>
+      <p className="text-sm text-gray-500">{post.content}</p>
+      <p className="text-xs italic">
+        Posted by: {post.firstName} {post.lastName}
+        {post.organization_name ? ` | Org: ${post.organization_name}` : ""}
+      </p>
+    </div>
+  ))
+  
+) : (
+  <p className="text-gray-500 italic">No results found.</p>
+)}
+
             </div>
         </div>
     );
