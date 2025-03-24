@@ -22,13 +22,15 @@ export default function NavBar() {
       <div className="navbar navLinks grid grid-cols-5 px-8 py-0.5 text-left items-center border-2">
 
 
-        {/* Home, Profile, and Connect  Pages */}
+    {/* *********************************** Home, Profile, and Connect  Pages ************************************************************/}
+
+      {/*Logo*/}
         <div className="bcatPicNavBar">
           <img src="/Logo.png" alt="bcat" />
           <h2>Hello, user!</h2>
         </div>
             
-
+      {/*******************************************************Link to Home*****************************************************************/}
         <div className="flex flex-col items-center">
         <a href="/Home">
         <div className="flex flex-col items-center">
@@ -38,6 +40,8 @@ export default function NavBar() {
           </a>
         </div>
 
+        
+      {/*******************************************************Link to Profile**************************************************************/}
         <div className="flex flex-col items-center">
         <a href="/Profile">
         <div className="flex flex-col items-center">
@@ -47,6 +51,8 @@ export default function NavBar() {
           </a>
         </div>
 
+
+      {/*******************************************************Link to Connections**********************************************************/}
         <div className="flex flex-col items-center">
         <a href="/Connections">
         <div className="flex flex-col items-center">
@@ -58,7 +64,9 @@ export default function NavBar() {
         <div className="text-right">
           <>
             <br></br>
-            {/* Search Bar */}
+
+
+      {/********************************************************* *Search Bar **********************************************************************/}
             <div className="text-right">
               <div className="inline-flex items-center border-1 rounded-md px-2">
                 <div>

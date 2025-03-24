@@ -25,12 +25,15 @@ export default function SearchResults() {
 
     return (
       <div className="flex flex-col justify-center items-center">
-      {/* Filter Options */}
+
+    {/***********************************************************Filter Options *********************************************************************/}
       <div className="bg-gray-500 p-4 rounded-xs shadow-md mb-6 w-9/10 h-15">
           
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               
-              {/* Sort By */}
+
+              
+        {/**************************************************Sort By **********************************************************/}
               <select
                   className="bg-gray-400 h-8 p-1.5 focus:ring-2 focus:ring-blue-500"
                   value={sortBy}
@@ -42,7 +45,9 @@ export default function SearchResults() {
                   <option value="alphabet">Alphabet</option>
               </select>
 
-              {/* Date Posted */}
+
+
+        {/**************************************************Date Posted**********************************************************/}
               <select
                   className="bg-gray-400 h-8 p-1.5 focus:ring-2 focus:ring-blue-500"
                   value={datePosted}
@@ -55,7 +60,9 @@ export default function SearchResults() {
                   <option value="custom">Custom Range</option>
               </select>
 
-              {/* Content Type */}
+
+
+            {/**************************************************Content Type **********************************************************/}
               <select
                   className="bg-gray-400 h-8 p-1.5 focus:ring-2 focus:ring-blue-500"
                   value={contentType}
@@ -67,7 +74,9 @@ export default function SearchResults() {
                   <option value="user">User Profile</option>
               </select>
 
-              {/* Posted By */}
+
+
+            {/**************************************************Posted By **********************************************************/}
               <select
                   className="bg-gray-400 h-8 p-1.5 focus:ring-2 focus:ring-blue-500"
                   value={postedBy}
@@ -78,7 +87,10 @@ export default function SearchResults() {
                   <option value="alumni">Alumni</option>
                   <option value="employer">Employer</option>
               </select>
-         {/* Reset Filters Button */}
+
+
+
+            {/*************************************************Reset Filters Button *************************************************/}
                <button className="bg-yellow-500 text-white p-1.5 rounded-md ml-auto w-25" onClick={resetFilters}>
                      Reset Filters
                </button>
@@ -87,14 +99,17 @@ export default function SearchResults() {
 
 
 
-       {/* Results for ___________*/}
+
+       {/******************************************************Results for ___________************************************************/}
         <div>
             <h3 className="text-gray-950 text-3xl">
                 Results for: <span className="text-yellow-500">"{searchQuery}"</span>
             </h3>
         </div>
 
-        {/*Results*/}
+
+
+        {/*************************************************************Results**************************************************************/}
         <div className="mt-4 text-left text-gray-600 bg-gray-50 border rounded-lg p-4 h-[70vh] overflow-y-auto w-7/8 shadow-md">
                 
                 {/* Placeholder results to test scrolling */}
@@ -104,6 +119,9 @@ export default function SearchResults() {
                     </div>
                 ))}
             </div>
+
+
+
         </div>
     );
 }

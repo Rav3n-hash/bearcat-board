@@ -116,7 +116,7 @@ margin-right: auto;
 }
 
 .signUpContainer{
-  background: linear-gradient(to right, #0069a6, #00487d);
+  background: linear-gradient(to top, #64b8d4, #429dd1,#1a7ec5, #1273b8,#016ebc);
   height: 100%;
   display: grid;
   grid-template-columns: 60% 40%;

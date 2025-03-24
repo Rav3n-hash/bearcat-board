@@ -11,6 +11,7 @@ export default function Login() {
   const { logStatus, setLogStatus } = useContext(DataContext);
   const navigate = useNavigate(); // For page navigation
 
+{/********************************************Find user and give proper permissions***********************************************************/}
   const check = async () => {
     const userInput = user.find(
       (userIn) => userIn.email.trim() === email.trim() && userIn.password.trim() === pwd.trim()
@@ -34,9 +35,10 @@ export default function Login() {
     }
   }
 
-
+{/*****************************************************************Login Page***********************************************************/}
   const login = (
     <div>
+    {/***********************************************************Right Side of Login***********************************************************/}
       <div className="loginDiv">
         <h1>Welcome Back, Bearcat</h1>
         <h2>Sign in to get access to exclusive offers and recommendations</h2>
@@ -45,7 +47,7 @@ export default function Login() {
         <br />
 
         <div className="credentialsDiv">
-
+          {/********************************************Email and Password Fields***********************************************************/}
           <p className="loginP">Email*:</p>
           <div className="loginFieldContainer">
             <FontAwesomeIcon icon={faEnvelope} className="fieldIcon" />
@@ -77,7 +79,7 @@ export default function Login() {
 
         </div>
 
-
+      {/********************************************login button***********************************************************/}
         <br />
         <input
           className="loginButton"
@@ -87,6 +89,7 @@ export default function Login() {
         />
         <br /><br />
 
+      {/*************************************************Sign Up Option ******************************************************/}
         Don't have an account?
         <input className="signUpLink" type="button" value="Sign Up" onClick={() => navigate("/signup")} />
       </div>
@@ -95,13 +98,17 @@ export default function Login() {
 
 
   return (
-    <div className="loginPage">
+    <div className="loginPage"> {/*Div Splits into grid*/}
+    {/*Left side (Photo)*/}
       <div className="loginPhotoDiv">
         <img src="https://i.postimg.cc/3WMZDVqc/Login-Photo.png" alt="login" />
       </div>
+
+    {/*Right side (Login)*/}
       <div>
-        <div>{login}</div>
+        <div>{login}</div> {/*Shows the login page*/}
       </div>
+      
     </div>
   );
 }

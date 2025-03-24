@@ -11,7 +11,7 @@ export default function OtherProfiles() {
 
     return (
         <div className="profilePage">
-          {/*Left*/}
+          {/***************************************************Left (Picture, quick info)********************************************************/}
         <div className="userLeftDiv">
             <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={user.profilePic}/>
             <h3 className="text-3xl">{user.name}</h3>
@@ -22,7 +22,7 @@ export default function OtherProfiles() {
             <h3 className="text-1xl">{user.type}</h3>
         </div>
 
-    {/*RIGHT*/}
+    {/****************************************************Right (Bio, experience, link to resume************************************************/}
 
         <div className="userRightDiv">
         <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10">
