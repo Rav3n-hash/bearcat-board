@@ -19,10 +19,20 @@ const check = async () => {
 
   if (userInput) {
     alert("Login successful!");
+
+    //Login must store this data to put the correct info into other components like userminidash and profile
     sessionStorage.setItem("logged", "1");
     sessionStorage.setItem("username", userInput.username); // Store username
-    sessionStorage.setItem("type", userInput.type); // Store user role correctly
-    sessionStorage.setItem("pic", userInput.profilePic|| ""); // Ensure pic is stored
+    sessionStorage.setItem("type", userInput.type); // Store usertype
+    sessionStorage.setItem("pic", userInput.profilePic); // Store picture
+    sessionStorage.setItem("fName", userInput.firstName);
+    sessionStorage.setItem("lName", userInput.lastName);
+    sessionStorage.setItem("pronouns", userInput.pronouns || "(  /  )");
+    sessionStorage.setItem("city", userInput.city || "Unknown");
+    sessionStorage.setItem("about", userInput.about || "No bio available.");
+    sessionStorage.setItem("edu", JSON.stringify(userInput.education || []));
+    sessionStorage.setItem("exp", JSON.stringify(userInput.experience || []));
+
 
     setLogStatus(1); // Update logStatus so components re-render
     navigate(0); // Refreshing

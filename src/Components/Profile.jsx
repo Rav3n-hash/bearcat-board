@@ -1,4 +1,4 @@
-import {useState, useContext} from "react";
+import {useState, useEffect} from "react";
 import { DataContext } from "../App";
 import { useNavigate } from "react-router-dom";
 
@@ -6,26 +6,42 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons'
 
 export default function Profile(){
-const user={
-    name: "Placeholder",
-    pronouns:"(She/her)",
-    city:"Greenwood, South Carolina, United States",
-    type:"Student",
-    image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    about: "I am a user im putting tons of info to make sure this spans correctly blah blah blah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahvblah blahvblah blahblah blah blah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahvblah blahvblah blahblah blah blah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahvblah blahvblah blahblah blah blah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blahvblah blahvblah blah",
-    education: [
-        {year: "2025",
-         degree: "BS in Something",
-         school: "School name",
-        }
-    ],
-    experience: [
-        {yearsWorked: "2023-2025",
-         role:"Something",
-         company:"Somewhere"
-        }
-    ]
-}
+    const [user, setUser] = useState({
+        name: "Placeholder",
+        pronouns: "(She/her)",
+        city: "Greenwood, South Carolina, United States",
+        type: "Student",
+        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+        about: "No bio available.",
+        education: [],
+        experience: [],
+      });
+
+useEffect(() => {
+    // Retrieve stored user data from sessionStorage
+    const storedfName = sessionStorage.getItem("fName");
+    const storedLName = sessionStorage.getItem("lName");
+    const storedPronouns = sessionStorage.getItem("pronouns");
+    const storedCity = sessionStorage.getItem("city");
+    const storedType = sessionStorage.getItem("type");
+    const storedImage = sessionStorage.getItem("pic");
+    const storedAbout = sessionStorage.getItem("about");
+    const storedEducation = sessionStorage.getItem("edu");
+    const storedExperience = sessionStorage.getItem("exp");
+
+    // Update user state if data exists
+    setUser({
+      fName: storedFName || "Placeholder",
+      lName: storedLName || "Placeholder",
+      pronouns: storedPronouns || "( / )",
+      city: storedCity || "No city available",
+      type: storedType || "Student",
+      image: storedImage || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+      about: storedAbout || "No bio available.",
+      education: storedEducation ? JSON.parse(storedEducation) : [],
+      experience: storedExperience ? JSON.parse(storedExperience) : [],
+    });
+  }, []);
 
 
 
@@ -34,7 +50,7 @@ const user={
      {/***************************************************Left (Picture, quick info)********************************************************/}
         <div className="userLeftDiv">
             <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={user.image}/>
-            <h3 className="text-3xl">{user.name}</h3>
+            <h3 className="text-3xl">{user.fName} {user.lName}</h3>
             <h3 className="text-1xl">{user.pronouns}</h3>
             <br></br>
             <h3 className="text-1xl">{user.city}</h3>
