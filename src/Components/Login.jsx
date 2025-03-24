@@ -12,28 +12,28 @@ export default function Login() {
   const navigate = useNavigate(); // For page navigation
 
 {/********************************************Find user and give proper permissions***********************************************************/}
-  const check = async () => {
-    const userInput = user.find(
-      (userIn) => userIn.email.trim() === email.trim() && userIn.password.trim() === pwd.trim()
-    );
+const check = async () => {
+  const userInput = user.find(
+    (userIn) => userIn.email.trim() === email.trim() && userIn.password.trim() === pwd.trim()
+  );
 
-    if (userInput) {
-      alert("Login successful!");
-      sessionStorage.setItem("logged", 1);
-      sessionStorage.setItem("username", user.username); // Store username
-      sessionStorage.setItem("role", user.role); // Store user role
-      sessionStorage.setItem("pic", user.pic);
+  if (userInput) {
+    alert("Login successful!");
+    sessionStorage.setItem("logged", "1");
+    sessionStorage.setItem("username", userInput.username); // Store username
+    sessionStorage.setItem("type", userInput.type); // Store user role correctly
+    sessionStorage.setItem("pic", userInput.profilePic|| ""); // Ensure pic is stored
 
-      setLogStatus(1);
-      navigate(0);
-    } 
-    else if (email.trim() === "" || pwd.trim() === "") {
-      alert("Please fill out both fields.");
-    } 
-    else {
-      alert("Invalid credentials");
-    }
+    setLogStatus(1); // Update logStatus so components re-render
+    navigate(0); // Refreshing
+  } 
+  else if (email.trim() === "" || pwd.trim() === "") {
+    alert("Please fill out both fields.");
+  } 
+  else {
+    alert("Invalid credentials");
   }
+};
 
 {/*****************************************************************Login Page***********************************************************/}
   const login = (

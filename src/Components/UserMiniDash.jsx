@@ -8,7 +8,7 @@ import {faUser, faBookmark, faGear, faSignOut} from "@fortawesome/free-solid-svg
 
   export default function UserMiniDash() {
   const navigate = useNavigate();
-  const { setLogStatus } = useContext(DataContext);
+  const { logStatus, setLogStatus } = useContext(DataContext);
 
       // State to store logged-in user info
   const [userData, setUserData] = useState({
@@ -23,14 +23,15 @@ import {faUser, faBookmark, faGear, faSignOut} from "@fortawesome/free-solid-svg
     const storedType = sessionStorage.getItem("type");
     const storedProfPic = sessionStorage.getItem("pic");
 
-    if (storedUsername && storedType && storedProfPic) {
+    if (storedUsername && storedType) {
       setUserData({
         username: storedUsername,
         type: storedType,
-        pic: storedProfPic
+        pic: storedProfPic || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
       });
     }
-  }, []);
+  }, [logStatus]); // Depend on logStatus so updates occur
+
 
   function logout() {
     alert('Logging out of Bearcat Board...')
