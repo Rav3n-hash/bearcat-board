@@ -45,7 +45,7 @@ export default function Login() {
 
         <div className="credentialsDiv">
           {/********************************************Email and Password Fields***********************************************************/}
-          <p className="loginP">Email*:</p>
+          <p className="loginP mt-8">Email*:</p>
           <div className="loginFieldContainer">
             <FontAwesomeIcon icon={faEnvelope} className="fieldIcon" />
             <input
@@ -60,7 +60,7 @@ export default function Login() {
 
           <br />
 
-          <p className="loginP">Password*:</p>
+          <p className="loginP mt-6">Password*:</p>
           <div className="loginFieldContainer">
             <FontAwesomeIcon icon={faLock} className="fieldIcon" />
             <input
@@ -79,7 +79,7 @@ export default function Login() {
       {/********************************************login button***********************************************************/}
         <br />
         <input
-          className="loginButton"
+          className="loginButton mt-8"
           type="button"
           value="Login"
           onClick={check}
@@ -88,7 +88,7 @@ export default function Login() {
 
       {/*************************************************Sign Up Option ******************************************************/}
         Don't have an account?
-        <input className="signUpLink" type="button" value="Sign Up" onClick={() => navigate("/signup")} />
+        <input className="signUpLink ml-2" type="button" value="Sign Up" onClick={() => navigate("/signup")} />
       </div>
     </div>
   );
@@ -98,7 +98,7 @@ export default function Login() {
     <div className="loginPage"> {/*Div Splits into grid*/}
     {/*Left side (Photo)*/}
       <div className="loginPhotoDiv">
-        <img src="https://i.postimg.cc/3WMZDVqc/Login-Photo.png" alt="login" />
+        <img className="bbPhoto" src="https://i.postimg.cc/sD2PkVgP/BBFULL2.png"  alt="login" />
       </div>
 
     {/*Right side (Login)*/}

@@ -22,33 +22,43 @@ h2{
 }
 
 .loginPage {
-  display: grid;
-  grid-template-columns: 65% 35%;
-  height: 100%;
-  width: auto;
+  position: relative; /* Set as relative to contain absolute children */
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  background-color: #00487d;
 }
 
-img {
-  max-width: 100%;
-  
+.bbPhoto{
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures full coverage */
 }
 
 .loginPhotoDiv{
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 10%;
+  height: 100%;
+  z-index: -1; /* Push to the background */
 
 }
 
 
 .loginDiv{
-background-color: rgba(22, 14, 4, 0.2);
-padding-bottom: 30vh;
-padding-top: 15vh;
-font-family: 'Times New Roman', Times, serif;
-overflow: hidden;
-height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 81%;
+  transform: translate(-50%, -50%); /* Center */
+  width: 35%;
+  height: 98%;
+ 
+  padding: 2rem;
+  background-color: #03426bec;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  box-shadow: #070706;
 }
 
 .credentialsDiv{
@@ -92,7 +102,7 @@ margin-right: auto;
 }
 
 .loginButton{
-  background-color: #ffd926;
+  background-color: #e0bc1d;
   border-radius: 5px;
   font-size: 20px;
   width: 25%;
@@ -101,7 +111,7 @@ margin-right: auto;
 }
 
 .loginButton:hover{
-  background-color: #d0b023;
+  background-color: #cdbe79;
 }
 
 .signUpLink{
