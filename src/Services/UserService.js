@@ -1,13 +1,29 @@
 import axios from "axios";
 
 
-async function createUser(userData) { /*Register a new user */ }
 async function updateUser(userId, updateData) { /* Update user profile */ }
 async function deleteUser(userId) { /* Delete a user account */ }
 
 
 
+
+
+
+
+
 const host = "http://localhost:8000"; 
+
+
+async function createUser(userData) {
+  try {
+    const response = await axios.post(`${host}/user/register`, userData);
+    return response.data;
+  } catch (error) {
+    console.error("Registration failed:", error.response?.data || error.message);
+    throw error;
+  }
+}
+
 
 async function loginUser(email, password) {
   try {
@@ -25,7 +41,7 @@ async function loginUser(email, password) {
   }
 }
 
-export { loginUser };
+
 
 async function getUserById(user_id) {
     const host = "http://localhost:8000";
@@ -33,4 +49,6 @@ async function getUserById(user_id) {
     return res.data.rows[0]; 
   }
   
-  export { getUserById };
+
+
+  export { getUserById, loginUser, createUser };

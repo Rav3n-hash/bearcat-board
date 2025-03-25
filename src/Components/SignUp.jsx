@@ -1,5 +1,6 @@
 import {useState, useContext} from "react";
 import { DataContext } from "../App";
+import { createUser } from "../Services/UserService";
 
 
 export default function SignUp(){
@@ -10,6 +11,7 @@ export default function SignUp(){
           lastName: "",
           email: "",
           password: "",
+          city: "",
           companyName: "",
       });
   
@@ -18,7 +20,19 @@ export default function SignUp(){
       };
 
 
-      //Would need post method to upload data
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+          const userData = { ...formData, user_type: userType };
+          const response = await createUser(userData);
+          if (response.success) {
+            alert("Registration successful!");
+            navigate("/login"); // Redirect to login page
+          }
+        } catch (error) {
+          alert("Registration failed. Try again.");
+        }
+      };
 
    return (
    <div className="signUpContainer">
@@ -64,7 +78,12 @@ export default function SignUp(){
               <select
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-300"
                   value={userType}
-                  onChange={(e) => setUserType(e.target.value)}
+                  onChange={(e) => {
+                    const selectedType = e.target.value;
+                    setUserType(selectedType === "Student" || selectedType === "Alumni"? "student_alumni"
+                        : "organization_member"
+                    );
+                  }}
               >
                   <option value="">Select User Type</option>
                   <option value="Student">Student</option>
@@ -74,13 +93,14 @@ export default function SignUp(){
           </div>
 
           {/*************************Fields for form******************************/}
-          <form>
+          <form onSubmit={handleSubmit}>
               <input
                   type="text"
                   name="firstName"
                   placeholder="First Name"
                   className="w-full p-2 mb-4 border rounded text-black focus:ring-2 focus:ring-blue-300"
                   required
+                  onChange={handleChange}
               />
               <input
                   type="text"
@@ -88,6 +108,15 @@ export default function SignUp(){
                   placeholder="Last Name"
                   className="w-full p-2 mb-4 border rounded  text-black focus:ring-2 focus:ring-blue-300"
                   required
+                  onChange={handleChange}
+              />
+              <input
+                  type="text"
+                  name="city"
+                  placeholder="City, State, Country"
+                  className="w-full p-2 mb-4 border rounded  text-black focus:ring-2 focus:ring-blue-300"
+                  required
+                  onChange={handleChange}
               />
               <input
                   type="email"
@@ -95,6 +124,7 @@ export default function SignUp(){
                   placeholder="Email"
                   className="w-full p-2 mb-4 border rounded  text-black focus:ring-2 focus:ring-blue-300"
                   required
+                  onChange={handleChange}
               />
               <input
                   type="password"
@@ -102,6 +132,7 @@ export default function SignUp(){
                   placeholder="Password"
                   className="w-full p-2 mb-4 border rounded text-black focus:ring-2 focus:ring-blue-300"
                   required
+                  onChange={handleChange}
               />
 
               {/******************************Company Name (Only for Employers) *****************************/}

@@ -23,8 +23,8 @@ export default function UserMiniDash() {
     if (userId) {
       getUserById(userId).then((user) => {
         setUserData({
-          firstName: user.firstName,
-          lastName: user.lastName,
+          firstName: user.firstname,
+          lastName: user.lastname,
           user_type: user.user_type,
           email: user.email,
           pic:
@@ -55,7 +55,7 @@ export default function UserMiniDash() {
         <p className="text-2xl text-gray-500 font-semibold mb-1">
           {userData.firstName} {userData.lastName}
         </p>
-        <p className="text-sm text-gray-500">{userData.email}</p>
+       
         <p className="text-sm italic text-yellow-600 mb-6">{userData.user_type}</p>
 
         <div className="bg-gray-100 p-6 flex flex-col items-center border-gray-300">

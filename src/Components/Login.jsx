@@ -22,7 +22,8 @@ export default function Login() {
     if (user) {
       alert("Login successful!");
       sessionStorage.setItem("logged", 1);
-      sessionStorage.setItem("username", user.firstName + " " + user.lastName);
+      sessionStorage.setItem("fname", user.firstname);
+      sessionStorage.setItem("lname", user.lastname);
       sessionStorage.setItem("role", user.user_type);
       sessionStorage.setItem("user_id", user.user_id);
   
