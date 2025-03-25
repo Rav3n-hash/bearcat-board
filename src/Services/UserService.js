@@ -14,7 +14,6 @@ async function deleteUser(userId) { /* Delete a user account */ }
 
 
 
-var host = "http://localhost:8000"; 
 
 
 async function createUser(userData) {
