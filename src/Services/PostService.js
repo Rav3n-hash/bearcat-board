@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-//var host="https://backend1-ten-rho.vercel.app";
+//var host="https://bearcat-exp.vercel.app";
 var host="http://localhost:8000"
 
 
@@ -33,7 +33,6 @@ async function GetPosts() {
   });
 
   console.log(list);
-  console.log("Raw post from backend:", res.data.rows[0]);
 
   return list;
 }

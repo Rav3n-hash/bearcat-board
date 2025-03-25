@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react"; 
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function SearchResults() {
 
@@ -165,7 +166,10 @@ useEffect(() => {
         {filteredResults.length > 0 ? (
   filteredResults.map((post, index) => (
     <div key={post.post_id || index} className="p-2 border-b">
-      <p className="hover:text-yellow-500 font-semibold">{post.title || "Untitled Post"}</p>
+      
+<Link to={`/otherProfiles/${post.user_id}`}> 
+  {post.title}
+</Link>
       <p className="text-sm text-gray-500">{post.content}</p>
       <p className="text-xs italic">
         Posted by: {post.firstName} {post.lastName}

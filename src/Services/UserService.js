@@ -1,18 +1,12 @@
 import axios from "axios";
 
+//var host="https://bearcat-exp.vercel.app";
+var host="http://localhost:8000"
+
+
 
 async function updateUser(userId, updateData) { /* Update user profile */ }
 async function deleteUser(userId) { /* Delete a user account */ }
-
-
-
-
-
-
-
-
-const host = "http://localhost:8000"; 
-
 
 async function createUser(userData) {
   try {
@@ -44,10 +38,14 @@ async function loginUser(email, password) {
 
 
 async function getUserById(user_id) {
-    const host = "http://localhost:8000";
-    const res = await axios.get(`${host}/user/getuser?user_id=${user_id}`);
-    return res.data.rows[0]; 
-  }
+  const url = `${host}/user/getuser?user_id=${user_id}`;
+  console.log("Calling:", url); // ✅ Log the full request URL
+  
+  const res = await axios.get(`${host}/user/getuser?user_id=${user_id}`);
+  if (res.data.rows.length === 0) return null;
+  return res.data.rows[0];
+}
+
   
 
 

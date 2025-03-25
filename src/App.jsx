@@ -35,7 +35,7 @@ export default function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
-              <Route path="/otherProfiles/:username" element={<OtherProfiles />} />
+              <Route path="/otherProfiles/:userId" element={<OtherProfiles />} />
               <Route path="/searchResults" element={<SearchResults />} />
               <Route path="/addPost" element={<AddPost />} />
 
