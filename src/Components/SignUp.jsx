@@ -19,6 +19,17 @@ export default function SignUp(){
           setFormData({ ...formData, [e.target.name]: e.target.value }); // copies all the current properties of the formData state (e.g., firstName, lastName, email, etc.) into a new object to prevent overwriting the entire object
       };
 
+      const handleUserTypeChange = (e) => {
+        const selectedType = e.target.value;
+        setUserType(selectedType);
+    
+        // Clear companyName if user is not an Employer
+        if (selectedType !== "Employer") {
+          setFormData((prev) => ({ ...prev, companyName: "" }));
+        }
+      };
+
+
 
       const handleSubmit = async (e) => {
         e.preventDefault();
@@ -78,17 +89,12 @@ export default function SignUp(){
               <select
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-300"
                   value={userType}
-                  onChange={(e) => {
-                    const selectedType = e.target.value;
-                    setUserType(selectedType === "Student" || selectedType === "Alumni"? "student_alumni"
-                        : "organization_member"
-                    );
-                  }}
+                  onChange={handleUserTypeChange}
               >
                   <option value="">Select User Type</option>
-                  <option value="Student">Student</option>
-                  <option value="Alumni">Alumni</option>
-                  <option value="Employer">Employer</option>
+                  <option value="student_alumni">Student</option>
+                  <option value="student_alumni">Alumni</option>
+                  <option value="organization_member">Employer</option>
               </select>
           </div>
 

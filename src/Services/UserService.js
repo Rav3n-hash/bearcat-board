@@ -44,7 +44,6 @@ async function loginUser(email, password) {
 
 
 async function getUserById(user_id) {
-    const host = "http://localhost:8000";
     const res = await axios.get(`${host}/user/getuser?user_id=${user_id}`);
     return res.data.rows[0]; 
   }
