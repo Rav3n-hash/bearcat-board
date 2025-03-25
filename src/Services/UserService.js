@@ -1,17 +1,12 @@
 import axios from "axios";
 
+const host ="http://localhost:8000"
+//const host = "https://backend1-ten-rho.vercel.app"
+
 
 async function updateUser(userId, updateData) { /* Update user profile */ }
 async function deleteUser(userId) { /* Delete a user account */ }
 
-
-
-
-
-
-
-
-const host = "http://localhost:8000"; 
 
 
 async function createUser(userData) {
