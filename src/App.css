@@ -133,7 +133,7 @@ margin-right: auto;
   display: grid;
   grid-template-columns: 60% 40%;
   width: auto;
-  overflow: hidden;
+  overflow-y: scroll;
   place-items: center;
 }
 
