@@ -25,7 +25,6 @@ export default function UserMiniDash() {
         setUserData({
           firstName: user.firstname,
           lastName: user.lastname,
-          user_type: user.user_type,
           email: user.email,
           pic:
             sessionStorage.getItem("pic") || 
