@@ -42,11 +42,11 @@ import AddPost from "./AddPost";
 
 
     {/*********************************************** * Right Container (Feed) *************************************************************/}
-      <div className="postDiv flex flex-col w-2/3 justify-center items-center">
+      <div className="postDiv flex flex-col w-2/3 justify-center items-center border-2 border-black/25 shadow-2xl">
         <h1 className="text-2xl text-blue-500 font-bold mb-6">The Bearcat Board</h1>
         {/* Scrollable Feed Container */}
 
-<div className="w-full max-w-2xl overflow-y-auto space-y-6">
+<div className="w-full max-w-2xl overflow-y-auto space-y-6 ml-30">
           {posts.map((post, index) => (
             <Post
             key={index}
@@ -54,7 +54,7 @@ import AddPost from "./AddPost";
             title={post.title}
             content={post.content}
             post_type={post.post_type}
-            postImg={post.pic}
+            postImg={post.postimg}
             firstName={post.firstname} 
             lastName={post.lastname}
             organization_name={post.organization_name}

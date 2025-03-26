@@ -8,12 +8,15 @@ async function updateUser(userId, updateData) { /* Update user profile */ }
 async function deleteUser(userId) { /* Delete a user account */ }
 
 
-
-
-
-
-
-
+async function getAllUsers() {
+  try {
+    const response = await axios.get(`${host}/user/allUsers`);
+    return response.data;
+  } catch (error) {
+    console.error("Query error:", error);
+    throw error;
+  }
+}
 
 
 async function createUser(userData) {
@@ -53,4 +56,4 @@ async function getUserById(user_id) {
   
 
 
-  export { getUserById, loginUser, createUser };
+  export { getUserById, loginUser, createUser, getAllUsers };

@@ -1,8 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { DataContext } from "../App";
 import { getUserById } from "../Services/UserService";
+import { GetUserPosts } from "../Services/PostService";
+import Post from "./Post";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
+  const { loginSt } = useContext(DataContext);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const userId = sessionStorage.getItem("user_id");
@@ -13,6 +18,19 @@ export default function Profile() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("Fetching posts...");
+
+    async function fetchPosts() {
+      const userId = sessionStorage.getItem("user_id");  // Make sure userId is available
+      if (userId) {
+        const postList = await GetUserPosts(userId);  // Fetch posts by userId
+        setPosts(postList);
+      }
+    }
+    fetchPosts();
+  }, [loginSt]);
+
   if (!user) {
     return <div className="p-6 text-gray-500">Loading profile...</div>;
   }
@@ -21,6 +39,7 @@ export default function Profile() {
   const profilePic = user.picture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
   return (
+    <div className="pb-4">
     <div className="profilePage">
       {/*Left*/}
       <div className="userLeftDiv">
@@ -61,6 +80,37 @@ export default function Profile() {
           <br />
         </div>
         <br />
+      </div>
+      </div>
+           {/*********************************************** * Right Container (Feed) *************************************************************/}
+     <div className="flex flex-col w-8/10 justify-center items-center border-yellow-300 border-1 ml-43.5 mb-10 bg-gray-300">
+        <div className="w-full flex justify-between items-center">
+          <div className="yourPostsDiv"><h1>Your Posts</h1></div>
+        </div>
+
+        {/* Display message if no posts are found */}
+        {posts.length === 0 ? (
+          <div className="text-center text-gray-500">
+            <p>You haven't posted yet! Would you like to add a post?</p>
+          </div>
+        ) : (
+          <div className="w-full max-w-2xl overflow-y-auto space-y-6 mb-4">
+            {posts.map((post, index) => (
+              <Post
+                key={index}
+                user_id={post.user_id}
+                title={post.title}
+                content={post.content}
+                post_type={post.post_type}
+                postImg={post.postimg}
+                firstName={post.firstname}
+                lastName={post.lastname}
+                organization_name={post.organization_name}
+                organization_id={post.organization_id}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ export default function Post({
   organization_id
 }) {
   return (
-    <div className="border p-4 rounded-lg shadow-lg bg-white text-black">
+    <div className=" flex flex-col border p-4 rounded-lg h-120 w-140 shadow-lg bg-white text-black">
       <div className="flex items-center space-x-3">
         <strong className="text-lg">{firstName} {lastName}</strong>
         {organization_id && (
@@ -24,14 +24,14 @@ export default function Post({
         )}
       </div>
       <h4 className="text-md font-semibold mt-2">{title}</h4>
-      <p className="mt-2 text-gray-700">{title}{content}</p>
       {postImg && (
         <img
           src={postImg}
           alt="Post attachment"
-          className="mt-3 rounded-lg w-full max-h-60 object-cover"
+          className="mt-3 rounded-lg w-full max-h-90 object-cover"
         />
       )}
+      <p>{content}</p>
     </div>
   );
 }

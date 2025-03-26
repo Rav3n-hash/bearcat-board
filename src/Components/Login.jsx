@@ -26,6 +26,7 @@ export default function Login() {
       sessionStorage.setItem("lname", user.lastname);
       sessionStorage.setItem("role", user.user_type);
       sessionStorage.setItem("user_id", user.user_id);
+      sessionStorage.setItem("pic", user.picture);
   
       setLogStatus(1);
       navigate(0); 

@@ -178,7 +178,6 @@ margin-right: auto;
   background-color: #ccc;
   margin-top: 10px;
   margin-left: 25vh;
-  
 }
 
 .userLeftDiv {
@@ -206,6 +205,13 @@ margin-right: auto;
   font-family: 'Times New Roman', Times, serif;
   margin-top: 10px;
   transition: all 0.3s ease;
+}
+
+.yourPostsDiv {
+  background-color: rgb(132, 165, 212);
+  text-align: center;
+  width: 100%;
+  color:rgb(72, 102, 143);
 }
 
 .profH1{

@@ -24,7 +24,7 @@ async function GetPosts() {
       "content": tmp.content,
       "post_type": tmp.post_type,
       "organization_id": tmp.organization_id,
-      "pic": tmp.picture, 
+      "postimg": tmp.postimg, 
       "firstname": tmp.firstName, 
       "lastname": tmp.lastName,   
       "organization_name": tmp.organization_name
@@ -37,5 +37,17 @@ async function GetPosts() {
   return list;
 }
 
-export { GetPosts };
+
+async function GetUserPosts(userId) {
+  try {
+    const res = await axios.get(`${host}/post/getUserPosts?user_id=${userId}`);
+    return res.data.posts;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    return [];
+  }
+};
+
+
+export { GetPosts, GetUserPosts };
 
