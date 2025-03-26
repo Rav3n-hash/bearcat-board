@@ -4,6 +4,7 @@ import { DataContext } from "../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faBell, faBookmark, faGear, faSignOut, faUser} from "@fortawesome/free-solid-svg-icons";
 import { getUserById } from "../Services/UserService";
+import Settings from "./Settings";
 
 export default function UserMiniDash() {
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ export default function UserMiniDash() {
           
           <button className="w-50 h-10 text-center py-2 px-4 border-b-2 text-blue-600 hover:bg-blue-200">
             <FontAwesomeIcon icon={faGear} className="text-blue-100" /> Settings
+            onClick={navigate("/Settings")}
           </button>
           <br />
           <button
