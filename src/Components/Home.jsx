@@ -5,8 +5,8 @@ import Post from "./Post";
 import UserMiniDash from "./UserMiniDash";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus, faUser, faBookmark, faGear, faSignOut} from "@fortawesome/free-solid-svg-icons";
-import postData from "../Model/posts.json"
 import { GetPosts } from "../Services/PostService";
+import { getUserById } from "../Services/UserService";
 import AddPost from "./AddPost";
 
 
@@ -42,37 +42,25 @@ import AddPost from "./AddPost";
 
 
     {/*********************************************** * Right Container (Feed) *************************************************************/}
-      <div className="postDiv flex flex-col w-2/3 justify-center items-center">
+      <div className="postDiv flex flex-col w-2/3 justify-center items-center border-2 border-black/25 shadow-2xl">
         <h1 className="text-2xl text-blue-500 font-bold mb-6">The Bearcat Board</h1>
+        {/* Scrollable Feed Container */}
 
-
-
-
-    {/*****************************************************Show Posts from JSON**************************************************************/}
-
-      {/* <div className="w-full max-w-2xl overflow-y-auto space-y-6">
-        {postData.map((post, index) => (
-          <Post key={index} user={post.user} time={post.time} postImg={post.postImg} content={post.content} />
-        ))}
-      </div> */}
-
-
-
-
-{/**********************************************************Show posts from database*********************************************************/}
-<div className="w-full max-w-2xl overflow-y-auto space-y-6">
+<div className="w-full max-w-2xl overflow-y-auto space-y-6 ml-30">
           {posts.map((post, index) => (
             <Post
-              key={index}
-              user_id={post.user_id}
-              content={post.content}
-              post_type={post.post_type}
-              postImg={post.pic}
-              first_name={post.first_name}
-              last_name={post.last_name}
-              organization_name={post.organization_name}
-              organization_id={post.organization_id}
-            />
+            key={index}
+            user_id={post.user_id}
+            title={post.title}
+            content={post.content}
+            post_type={post.post_type}
+            postImg={post.postimg}
+            firstName={post.firstname} 
+            lastName={post.lastname}
+            organization_name={post.organization_name}
+            organization_id={post.organization_id}
+          />
+          
           ))}
         </div>
 

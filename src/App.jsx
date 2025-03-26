@@ -10,6 +10,8 @@ import SearchResults from './Components/SearchResults';
 import AddPost from './Components/AddPost';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import {useState, createContext} from "react";
+import ToastNotifs from './Testing/ToastNotifs';
+
 
 
 
@@ -35,7 +37,7 @@ export default function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
-              <Route path="/otherProfiles/:username" element={<OtherProfiles />} />
+              <Route path="/otherProfiles/:userId" element={<OtherProfiles />} />
               <Route path="/searchResults" element={<SearchResults />} />
               <Route path="/addPost" element={<AddPost />} />
 
@@ -47,6 +49,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path='/toastNotifs' element={<ToastNotifs/>} />
           </Routes>
         )}
       </BrowserRouter>

@@ -1,30 +1,114 @@
-import {useState, useContext} from "react";
-import { DataContext } from "../App";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createUser } from "../Services/UserService";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+
+import { ToastContainer, toast, Bounce } from "react-toastify"; // Import Toastify
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+import "../Testing/toastStyles.css"
 
 
-export default function SignUp(){
+export default function SignUp() {
+    const navigate = useNavigate();
+    const [userType, setUserType] = useState("");
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        city: "",
+        companyName: "",
+    });
 
-      const [userType, setUserType] = useState(""); 
-      const [formData, setFormData] = useState({
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
-          companyName: "",
-      });
+    const [passwordVisible, setPasswordVisible] = useState(false); //User can toggle passsword visibility
+
+    const [errors, setErrors] = useState({});
+
+    const validateForm = () => {
+        let newErrors = {};
+
+        // Name Validation
+        if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
+        if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
+
+        // Email Validation
+        if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+            newErrors.email = "Invalid email format";
+        }
+
+        // Password Validation
+        if (formData.password) {
+          let passwordErrors = ["Password must have:"];
+          if (formData.password.length < 12) passwordErrors.push("• At least 12 characters");
+          if (!/[A-Z]/.test(formData.password)) passwordErrors.push("• One uppercase letter");
+          if (!/[a-z]/.test(formData.password)) passwordErrors.push("• One lowercase letter");
+          if (!/[0-9]/.test(formData.password)) passwordErrors.push("• One number");
+          if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) passwordErrors.push("• One special character");
+          
+          if (passwordErrors.length > 1) newErrors.password = passwordErrors.join("\n");
+      } else {
+          newErrors.password = "Password is required";
+      }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0; // Returns true if no errors
+    };
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleUserTypeChange = (e) => {
+      const selectedType = e.target.value;
+      setUserType(selectedType);
+      setFormData((prev) => ({ ...prev, user_type: selectedType }));
   
-      const handleChange = (e) => {
-          setFormData({ ...formData, [e.target.name]: e.target.value }); // copies all the current properties of the formData state (e.g., firstName, lastName, email, etc.) into a new object to prevent overwriting the entire object
-      };
+      if (selectedType !== "organization_member") {
+          setFormData((prev) => ({ ...prev, companyName: "" }));
+      }
+  };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-      //Would need post method to upload data
+        if (!validateForm()) {
+            return;
+        }
+
+        try {
+          const userData = { ...formData, user_type: userType };
+          const response = await createUser(userData);
+          if (response.success) {
+              // Show success message and redirect
+              toast.success('Registration Successful!!\n Redirecting to login....', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                
+                transition: Bounce, // Bounce transition applied here
+              });
+              setTimeout(() => {navigate("/");}, 5000); // Delay for toast to appear before navigating
+          } else {
+              setErrors({ email: "Email already exists. Try another one." });
+          }
+      } catch (error) {
+          alert("Registration failed. Try again.");
+      }
+  };
+
 
    return (
    <div className="signUpContainer">
+      
 
    {/************************************************Left side: Why User Should Join******************************************************/}
-   <div className="hidden:lg p-8 text-center lg:text-left">
+   <div className="hidden lg:block p-8 text-center lg:text-left">
          <h1 className="text-left text-yellow-400 ml">Join The Bearcat Board!</h1>
 
 
@@ -55,77 +139,108 @@ export default function SignUp(){
 
 
       {/*****************************************************Right side: Registration Form *********************************************************/}
-      <div className="lg:w-3/4 bg-white p-8 rounded-2xl shadow-xl shadow-gray-800/50 max-w-md w-full h-9/10 m-7">
-          <h1 className="text-2xl font-bold mb-4 text-gray-800">Sign Up</h1>
+      <div className="lg:w-3/4 bg-white p-8 rounded-2xl shadow-xl shadow-gray-800/50 max-w-md w-full h-95/100 m-5">
+          <h3 className="text-4xl font-bold mb-3 text-gray-800">Sign Up</h3>
 
           {/********************** *User Type Selection ***************************/}
-          <div className="mb-12 text-black">
+          <div className="mb-10 text-black">
               <label className="block font-semibold">I am a:</label>
               <select
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-300"
                   value={userType}
-                  onChange={(e) => setUserType(e.target.value)}
+                  onChange={handleUserTypeChange}
               >
                   <option value="">Select User Type</option>
-                  <option value="Student">Student</option>
-                  <option value="Alumni">Alumni</option>
-                  <option value="Employer">Employer</option>
+                  <option value="student_alumni">Student</option>
+                  <option value="student_alumni">Alumni</option>
+                  <option value="organization_member">Employer</option>
               </select>
           </div>
 
-          {/*************************Fields for form******************************/}
-          <form>
+         {/*************************Fields for form******************************/}
+          <form onSubmit={handleSubmit}>
               <input
                   type="text"
                   name="firstName"
                   placeholder="First Name"
-                  className="w-full p-2 mb-4 border rounded text-black focus:ring-2 focus:ring-blue-300"
+                  className="w-full p-2 mb-2 border rounded text-black focus:ring-2 focus:ring-blue-300"
                   required
+                  onChange={handleChange}
               />
               <input
                   type="text"
                   name="lastName"
                   placeholder="Last Name"
-                  className="w-full p-2 mb-4 border rounded  text-black focus:ring-2 focus:ring-blue-300"
+                  className="w-full p-2 mb-2 border rounded  text-black focus:ring-2 focus:ring-blue-300"
                   required
+                  onChange={handleChange}
+              />
+              <input
+                  type="text"
+                  name="city"
+                  placeholder="City, State, Country"
+                  className="w-full p-2 mb-2 border rounded  text-black focus:ring-2 focus:ring-blue-300"
+                  required
+                  onChange={handleChange}
               />
               <input
                   type="email"
                   name="email"
                   placeholder="Email"
-                  className="w-full p-2 mb-4 border rounded  text-black focus:ring-2 focus:ring-blue-300"
+                  className="w-full p-2 mb-2 border rounded  text-black focus:ring-2 focus:ring-blue-300"
                   required
+                  onChange={handleChange}
               />
+            <div className="relative w-full">
               <input
-                  type="password"
+                  type={passwordVisible ? "text" : "password"}
                   name="password"
                   placeholder="Password"
-                  className="w-full p-2 mb-4 border rounded text-black focus:ring-2 focus:ring-blue-300"
+                  className="w-full p-2 mb-2 border rounded text-black focus:ring-2 focus:ring-blue-300 pr-10"
                   required
+                  onChange={handleChange}
               />
-
+                  <button type="button" onClick={() => setPasswordVisible(!passwordVisible)}
+                  className="absolute inset-y-0 right-2 flex items-center px-2 text-gray-600 hover:text-black">
+                      {passwordVisible ? <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon> : <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>}
+                  </button>
+              </div>
               {/******************************Company Name (Only for Employers) *****************************/}
-              {userType === "Employer" && (
-                  <input type="text"
-                      name="companyName"
-                      placeholder="Company Name"
-                      className="w-full p-2 mb-4 border rounded text-black focus:ring-2 focus:ring-blue-300"
-
-                      required
-                  /> 
+              {userType === "organization_member" && (
+                <input type="text"
+                    name="companyName"
+                    placeholder="Company Name"
+                    className="w-full p-2 mb-2 border rounded text-black focus:ring-2 focus:ring-blue-300"
+                    value={formData.companyName}
+                    onChange={handleChange} 
+                    required
+                /> 
                )}
+
+             {/*************************Error Handling*****************************/}
+
+                {Object.keys(errors).length > 0 && (
+                  <div className="text-red-600 mb-3">
+                    {Object.values(errors).map((error, index) => (
+                    <p key={index} className="whitespace-pre-line">{error}</p>
+                ))}
+                </div>
+          )}
 
 
             {/********************** *Submit form ***************************/}
-              <button type="submit" className="w-50 bg-blue-500 text-white p-3 rounded-xl mt-4 transition-all duration-300 hover:bg-blue-700">
+              <button type="submit"  className= "w-50 p-3 rounded-xl mt-4 transition-all duration-300 bg-blue-500 hover:bg-blue-700 text-white"
+              >
                   Sign Up
               </button>
             {/********************** *TOS and Privacy Policy***************************/}
-             <div className="text-black mt-5 w-5/8 text-center mx-auto">By signing up you agree to our <a href="link" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400">Terms of Service </a> 
+             <div className="text-black mt-2 w-5/8 text-center text-xs mx-auto">By signing up you agree to our <a href="link" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400">Terms of Service </a> 
                and <a href="link" target="_blank" rel="noopener noreferrer">Privacy Policy</a></div>
           </form>
       
       </div>
+      <ToastContainer />
       </div>
+      
   );
 }

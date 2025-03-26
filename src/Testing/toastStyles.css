@@ -1,0 +1,40 @@
+/* Custom styles for toast */
+:root {
+    --toastify-icon-color-success: rgb(199, 234, 254);
+    --toastify-icon-color-info: rgb(82, 137, 218);
+    --toastify-progress-bar-color-success: rgb(185, 216, 230);
+    --toastify-progress-bar-color-error: rgba(255, 137, 137, 0.8);
+    --toastify-progress-bar-color-info: rgba(82, 137, 218, 0.8);
+}
+
+.Toastify__toast {
+    background-color: #ffffff;
+    color: rgb(8, 8, 8);
+    font-size: 16px;
+    border-radius: 8px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* Success toast */
+.Toastify__toast--success {
+    background-color: rgb(63, 181, 255);
+    --toastify-progress-bar-color: var(--toastify-progress-bar-color-success);
+}
+
+/* Error toast */
+.Toastify__toast--error {
+    background-color: rgb(179, 27, 27);
+    --toastify-progress-bar-color: var(--toastify-progress-bar-color-error);
+}
+
+/* Info toast */
+.Toastify__toast--info {
+    background-color: rgb(243, 241, 241);
+    color: black;
+    --toastify-progress-bar-color: var(--toastify-progress-bar-color-info);
+}
+
+/* Progress bar styling */
+.Toastify__progress-bar {
+    background-color: var(--toastify-progress-bar-color);
+}

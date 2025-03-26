@@ -3,37 +3,37 @@ import { DataContext } from "../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
-import user from "../Model/user.json";
+import { loginUser } from "../Services/UserService";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const { logStatus, setLogStatus } = useContext(DataContext);
-  const navigate = useNavigate(); // For page navigation
+  const navigate = useNavigate(); 
 
-{/********************************************Find user and give proper permissions***********************************************************/}
-const check = async () => {
-  const userInput = user.find(
-    (userIn) => userIn.email.trim() === email.trim() && userIn.password.trim() === pwd.trim()
-  );
-
-  if (userInput) {
-    alert("Login successful!");
-    sessionStorage.setItem("logged", "1");
-    sessionStorage.setItem("username", userInput.username); // Store username
-    sessionStorage.setItem("type", userInput.type); // Store user role correctly
-    sessionStorage.setItem("pic", userInput.profilePic|| ""); // Ensure pic is stored
-
-    setLogStatus(1); // Update logStatus so components re-render
-    navigate(0); // Refreshing
-  } 
-  else if (email.trim() === "" || pwd.trim() === "") {
-    alert("Please fill out both fields.");
-  } 
-  else {
-    alert("Invalid credentials");
-  }
-};
+  const check = async () => {
+    if (!email.trim() || !pwd.trim()) {
+      alert("Please fill out both fields.");
+      return;
+    }
+  
+    const user = await loginUser(email.trim(), pwd.trim());
+  
+    if (user) {
+      alert("Login successful!");
+      sessionStorage.setItem("logged", 1);
+      sessionStorage.setItem("fname", user.firstname);
+      sessionStorage.setItem("lname", user.lastname);
+      sessionStorage.setItem("role", user.user_type);
+      sessionStorage.setItem("user_id", user.user_id);
+      sessionStorage.setItem("pic", user.picture);
+  
+      setLogStatus(1);
+      navigate(0); 
+    } else {
+      alert("Invalid credentials");
+    }
+  };
 
 {/*****************************************************************Login Page***********************************************************/}
   const login = (
@@ -43,12 +43,11 @@ const check = async () => {
         <h1>Welcome Back, Bearcat</h1>
         <h2>Sign in to get access to exclusive offers and recommendations</h2>
         <br/>
-        <h3 className="text-xl text-yellow-200"><p>EMAIL:testemail</p><p>PASSWORD:test</p></h3> <br/>
-        <br />
+        
 
         <div className="credentialsDiv">
           {/********************************************Email and Password Fields***********************************************************/}
-          <p className="loginP">Email*:</p>
+          <p className="loginP mt-8">Email*:</p>
           <div className="loginFieldContainer">
             <FontAwesomeIcon icon={faEnvelope} className="fieldIcon" />
             <input
@@ -63,7 +62,7 @@ const check = async () => {
 
           <br />
 
-          <p className="loginP">Password*:</p>
+          <p className="loginP mt-6">Password*:</p>
           <div className="loginFieldContainer">
             <FontAwesomeIcon icon={faLock} className="fieldIcon" />
             <input
@@ -82,7 +81,7 @@ const check = async () => {
       {/********************************************login button***********************************************************/}
         <br />
         <input
-          className="loginButton"
+          className="loginButton mt-8"
           type="button"
           value="Login"
           onClick={check}
@@ -91,7 +90,7 @@ const check = async () => {
 
       {/*************************************************Sign Up Option ******************************************************/}
         Don't have an account?
-        <input className="signUpLink" type="button" value="Sign Up" onClick={() => navigate("/signup")} />
+        <input className="signUpLink ml-2" type="button" value="Sign Up" onClick={() => navigate("/signup")} />
       </div>
     </div>
   );
@@ -101,7 +100,7 @@ const check = async () => {
     <div className="loginPage"> {/*Div Splits into grid*/}
     {/*Left side (Photo)*/}
       <div className="loginPhotoDiv">
-        <img src="https://i.postimg.cc/3WMZDVqc/Login-Photo.png" alt="login" />
+        <img className="bbPhoto" src="https://i.postimg.cc/sD2PkVgP/BBFULL2.png"  alt="login" />
       </div>
 
     {/*Right side (Login)*/}
