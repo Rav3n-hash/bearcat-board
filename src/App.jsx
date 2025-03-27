@@ -10,8 +10,11 @@ import SearchResults from './Components/SearchResults';
 import AddPost from './Components/AddPost';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import {useState, createContext} from "react";
-import ToastNotifs from './Testing/ToastNotifs';
 import Settings from './Components/Settings';
+import ToastNotifs from './Testing/ToastNotifs';
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+import "./Testing/toastStyles.css"
+
 
 
 

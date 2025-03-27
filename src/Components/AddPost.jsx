@@ -1,87 +1,129 @@
 import { useState } from "react";
+import { CreatePost } from "../Services/PostService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage, faFile, faLink, faTimes} from "@fortawesome/free-solid-svg-icons";
+import { faImage, faFile, faLink, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast, Bounce } from "react-toastify"; // Import Toastify
+
 
 export default function AddPost({ onClose }) {
-  const [content, setContent] = useState(""); // Text content of the post
-  const [image, setImage] = useState(null); // Uploaded image file
-  const [document, setDocument] = useState(null); // Uploaded document file
-  const [link, setLink] = useState(""); // Link input
   const [showConfirm, setShowConfirm] = useState(false); // State for close confirmation
+  const [errors, setErrors] = useState({});
 
-  //To save user text input for post
-  const handleContentChange = (e) => setContent(e.target.value);
+  const userId = sessionStorage.getItem("user_id");
 
-  //To allow users to uplaod images or documents from their device 
-  const handleFileUpload = (e, type) => {
+  const [postData, setPostData] = useState({
+    userId: userId,
+    content: "",
+    postType: "general",
+    title: "",
+    postimg: null,
+  });
+
+  // To save user text input for post
+  const handleContentChange = (e) => setPostData((prev) => ({ ...prev, content: e.target.value }));
+
+  // To allow users to upload images or documents from their device
+  const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (type === "image") {
-        setImage(file);
-      } else if (type === "document") {
-        setDocument(file);
-      }
+      setPostData((prev) => ({ ...prev, postimg: file }));
     }
   };
 
-  //will eventually be used to post to database
-  const handleSubmit = () => {
-    // This is where you would send the post data to the database
-    console.log("Submitting post:", { content, image, document, link });
+  const validateForm = () => {
+    let newErrors = {};
+    if (!postData.title.trim()) newErrors.title = "Title is required";
+    if (!postData.content.trim()) newErrors.content = "Content cannot be empty";
+    console.log("Validation errors:", newErrors); // Debug log
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-    // Reset fields after submission
-    setContent("");
-    setImage(null);
-    setDocument(null);
-    setLink("");
+  const handleSubmit = async (e) => { // Make it async
+    e.preventDefault(); // Prevent form from refreshing
+    console.log("Submit button clicked");
 
-    // Close form after submission
-    onClose();
+    if (!validateForm()) {
+      console.log("Form not valid");
+      return;
+    }
+
+    console.log("postData before FormData:", postData); // Log postData before appending to FormData
+
+    const formData = new FormData();
+    formData.append("user_id", postData.userId);
+    formData.append("title", postData.title);
+    formData.append("content", postData.content);
+    formData.append("post_type", postData.postType);
+
+    if (postData.postimg) {
+      formData.append("postimg", postData.postimg);
+    }
+    console.log("FormData content:");
+    for (let pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
+    try {
+      const response = await CreatePost(formData); // Ensure this is async
+      if (response.success) {
+        toast.success("New post added successfully!\nAdd another post or exit!", { position: "top-center", autoClose: 3000, transition: Bounce });
+        setPostData({ content: "", postType: "general", title: "", postimg: null });
+
+        // Reset fields after submission
+      setPostData({ content: "", postType: "general", title: "", postimg: null });
+
+      } else {
+        toast.error("Failed to add post. Try again.", { position: "top-center", autoClose: 3000, transition: Bounce });
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again.", { position: "top-center", autoClose: 3000, transition: Bounce });
+    }
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/25">
-      <div className="bg-white h-7/10 p-6 rounded-lg w-1/2 shadow-lg mt-10 relative">
-        <h2 className="text-xl font-semibold mb-4 text-gray-700 text-left">Create a Post</h2>
+      <div className="bg-white p-6 rounded-lg w-1/2 shadow-lg mt-10 relative">
+        <h3 className="text-xl font-semibold mb-4 text-gray-700 text-left">Create a Post</h3>
+
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl"
+          title="Close Form" 
+        >
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
+
+        {/* Title Input */}
+        <input
+          className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+          placeholder="Enter a title..."
+          value={postData.title}
+          onChange={(e) => setPostData((prev) => ({ ...prev, title: e.target.value }))}
+        />
 
         {/* Text Input */}
         <textarea
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" 
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
           placeholder="Enter text here....."
           rows="10"
-          value={content}
+          value={postData.content}
           onChange={handleContentChange}
         ></textarea>
 
         {/* Upload Buttons */}
         <div className="flex mt-4">
           <label className="cursor-pointer text-gray-500 hover:text-green-500">
-            <FontAwesomeIcon icon={faImage} className="text-2xl mr-5" />
-            <input type="file" className="hidden" onChange={(e) => handleFileUpload(e, "image")} />
+            <FontAwesomeIcon icon={faImage} className="text-2xl mr-5 ml-6" />
+            <h3 className="text-xs">Add Image</h3>
+            <input type="file" className="hidden" onChange={handleFileUpload} title="add image" />
           </label>
-
-          <label className="cursor-pointer text-gray-500 hover:text-yellow-500">
-            <FontAwesomeIcon icon={faFile} className="text-2xl mr-5" />
-            <input type="file" className="hidden" onChange={(e) => handleFileUpload(e, "document")} />
-          </label>
-
-
-          <FontAwesomeIcon icon={faLink} className="text-2xl text-gray-600  hover:text-blue-500" />
-          <input
-            type="text"
-            className="border-b border-gray-400 focus:outline-none focus:border-blue-500"
-            placeholder="Enter a link..."
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-          />
-         
         </div>
 
         {/* File Preview */}
         <div className="mt-4">
-          {image && <p className="text-sm text-blue-500">📷 {image.name}</p>}
-          {document && <p className="text-sm text-green-500">📄 {document.name}</p>}
-          {link && <p className="text-sm text-gray-500">🔗 {link}</p>}
+          {postData.postimg && <p className="text-sm text-blue-500">📷 {postData.postimg.name}</p>}
         </div>
 
         {/* Submit Button */}
@@ -92,14 +134,13 @@ export default function AddPost({ onClose }) {
           >
             Post
           </button>
-          
-          <button className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-red-400" onClick={() => setShowConfirm(true)}> 
+
+          <button className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-red-400" onClick={() => setShowConfirm(true)}>
             Cancel
           </button>
         </div>
       </div>
 
-    
       {/* Confirmation pop up */}
       {showConfirm && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/75">
@@ -117,6 +158,7 @@ export default function AddPost({ onClose }) {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 }

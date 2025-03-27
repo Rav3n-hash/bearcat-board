@@ -48,6 +48,41 @@ async function GetUserPosts(userId) {
   }
 };
 
+async function CreatePost(postData) {
+  try {
+    const res = await axios.post(`${host}/post/addPost`, postData, {
+      headers: {
+        'Content-Type': "multipart/form-data",
+        "Access-Control-Allow-Origin": host,
+      },
+      withCredentials: true,
+    });
 
-export { GetPosts, GetUserPosts };
+    return res.data;
+  } catch (error) {
+    console.error("Error adding post:", error);
+    throw error;
+  }
+}
+
+// Function to update a post
+async function UpdatePost(postData) {
+  try {
+    const res = await axios.put(`${host}/post/updatePost`, postData, {
+      headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": host,
+      },
+      withCredentials: true,
+    });
+
+    return res.data;
+  } catch (error) {
+    console.error("Error updating post:", error);
+    throw error;
+  }
+}
+
+
+export { GetPosts, GetUserPosts, CreatePost, UpdatePost };
 
