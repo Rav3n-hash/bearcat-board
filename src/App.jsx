@@ -11,6 +11,7 @@ import AddPost from './Components/AddPost';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import {useState, createContext} from "react";
 import ToastNotifs from './Testing/ToastNotifs';
+import Settings from './Components/Settings';
 
 
 
@@ -40,6 +41,7 @@ export default function App() {
               <Route path="/otherProfiles/:userId" element={<OtherProfiles />} />
               <Route path="/searchResults" element={<SearchResults />} />
               <Route path="/addPost" element={<AddPost />} />
+              <Route path="/settings" element={<Settings />} />
 
               
             </Routes>
