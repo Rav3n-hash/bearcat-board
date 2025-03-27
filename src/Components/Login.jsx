@@ -26,7 +26,9 @@ export default function Login() {
       sessionStorage.setItem("lname", user.lastname);
       sessionStorage.setItem("role", user.user_type);
       sessionStorage.setItem("user_id", user.user_id);
-      sessionStorage.setItem("pic", user.picture);
+      sessionStorage.setItem("pic", user.picture ? user.picture : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+      );
+      
   
       setLogStatus(1);
       navigate(0); 
