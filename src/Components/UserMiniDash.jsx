@@ -43,7 +43,7 @@ export default function UserMiniDash() {
 
   return (
     <div className="bg-gray-100 p-6 flex flex-col items-center border-r border-gray-300">
-      <div className="border-2 py-2 text-blue-600 flex flex-col items-center">
+      <div className="border-2 py-2 text-blue-600 flex shadow-lg flex-col items-center rounded-xs">
         <br />
         <img
           src={userData.pic}

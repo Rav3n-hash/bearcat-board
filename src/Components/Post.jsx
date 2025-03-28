@@ -39,9 +39,9 @@ export default function Post({
       console.log("Deleting post #", post_id, "from user",user_id); // Log for debugging
       const response = await DeletePost(post_id, user_id);
       
-
       if (response.ans === "Success") {
         toast.success("Post deleted successfully!", { position: "top-center", autoClose: 3000 });
+        window.location.reload();
       } else {
         toast.error("Failed to delete post", { position: "top-center", autoClose: 3000 });
       }
@@ -139,7 +139,7 @@ export default function Post({
           onChange={(e) => setUpdatedContent(e.target.value)}
         />
       ):(
-      <p className={`border-black border-2 w-120 min-h-15 ml-5 overflow- overflow-y-auto ${isExpanded ? '' : 'line-clamp-1'}`}>
+      <p className={` w-120 min-h-15 ml-5 overflow- overflow-y-auto ${isExpanded ? '' : 'line-clamp-1'}`}>
         {content}
       </p>
       )}
