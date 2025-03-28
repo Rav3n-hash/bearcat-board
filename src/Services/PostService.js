@@ -67,7 +67,7 @@ async function CreatePost(postData) {
 }
 
 // Function to update a post
-async function UpdatePost(postData) {
+async function EditPost(postData) {
   try {
     const res = await axios.put(`${host}/post/updatePost`, postData, {
       headers: {
@@ -77,6 +77,7 @@ async function UpdatePost(postData) {
       withCredentials: true,
     });
 
+    console.log("EditPost response:", res.data); // Debugging
     return res.data;
   } catch (error) {
     console.error("Error updating post:", error);
@@ -120,22 +121,6 @@ async function DeletePost(postId, userId) {
 //   }
 // }
 
-async function EditPost(post) {
-  try{
-    const json=JSON.stringify(post);
-    const res = await axios.post(`${host}/post/updatePost`,{ 
-      headers: {
-      'Content-Type': 'text/html',"Access-Control-Allow-Origin":host,
-      "Access-Control-Allow-Headers": "Origin, X-Requested-With"
-      }}, 
-      { withCredentials: true });
-      console.log(res.data);  // Log the response
-      return res.data;        // Return response data if needed
-  } catch (error) {
-    console.error("Error updating post:", error);
-    throw error;  // Rethrow error for handling in UI
-  }
-}
 
-export { GetPosts, GetUserPosts, CreatePost, UpdatePost, DeletePost, EditPost };
+export { GetPosts, GetUserPosts, CreatePost, EditPost, DeletePost };
 

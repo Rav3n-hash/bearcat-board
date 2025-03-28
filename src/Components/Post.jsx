@@ -40,8 +40,8 @@ export default function Post({
       const response = await DeletePost(post_id, user_id);
       
       if (response.ans === "Success") {
-        toast.success("Post deleted successfully!", { position: "top-center", autoClose: 3000 });
-        window.location.reload();
+        toast.success("Post successfully Deleted!", { position: "top-center", autoClose: 3000 });
+        setTimeout(() => window.location.reload(), 3000); // Delay for toast to appear before navigating
       } else {
         toast.error("Failed to delete post", { position: "top-center", autoClose: 3000 });
       }
@@ -55,7 +55,6 @@ export default function Post({
   };
 
   const handleUpdate = async () => { //save button
-      toast.info("Updating post...");
       
       try{
       const postData = {
@@ -70,9 +69,9 @@ export default function Post({
       const result = await EditPost(postData);
 
       if (result.ans === 1) {
-        toast.success("Post updated successfully!");
+        toast.success("Updating Post....", {autoClose: 3000} );
         setIsEditing(false);
-        window.location.reload();
+        setTimeout(() => window.location.reload(), 3000);
       } else {
         toast.error("Failed to update post.");
       }

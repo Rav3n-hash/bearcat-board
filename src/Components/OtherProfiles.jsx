@@ -83,14 +83,24 @@ export default function OtherProfiles() {
                             <p className="text-gray-100 px-5">{user.experience || "No experience listed."}</p>
                         </div>
                     </div>
-                </div>
-                </div>    
+                    </div>
+                    </div>
+                
 
-                    {/* Initial Post
-                    {initialPost && (
-                        <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10 mt-4">
-                            <h1 className="profH1">Highlighted Post</h1>
-                            <div className="w-full max-w-2xl overflow-y-auto space-y-6 mt-4">
+                   
+                   
+                
+
+                    {/* Other Posts */}
+                     <div className="flex flex-col justify-center items-center border-yellow-500 border-1 w-8/10 ml-43.5 mt-4 mb-10 bg-gray-300 shadow-lg">
+                        <div className="w-full flex justify-between items-center">
+                            <div className="yourPostsDiv"><h1>{user.firstname}'s Posts</h1></div>
+                        </div>
+                     {/*Initial Post*/}
+                     {initialPost && (
+                        <div className="pb-2 w-full ml-10 mt-4">
+                            <h3 className="text-3xl text-yellow-400 bg-amber-100 w-200 ml-50">Highlighted Post</h3>
+                            <div className="w-full flex justify-center items-center max-w-2xl overflow-y-auto space-y-6 ml-70 mt-4">
                                 {userPosts.map((post, index) => (
                                     <Post
                                         key={index}
@@ -109,14 +119,9 @@ export default function OtherProfiles() {
                             </div>
                         </div>
                     )}
-
-                    {/* Other Posts */}
-                     <div className="flex flex-col justify-center items-center border-yellow-500 border-1 w-8/10 ml-43.5 mt-4 mb-10 bg-gray-300 shadow-lg">
-                        <div className="w-full flex justify-between items-center">
-                            <div className="yourPostsDiv"><h1>{user.firstname}'s Posts</h1></div>
-                        </div>
                     {userPosts.length > 0 && (
                         <div className=" pb-2 w-full ml-10 mt-4">
+                            <h3 className="text-3xl text-yellow-400 bg-amber-100 w-200 ml-50">All of {user.firstname}'s Posts</h3>
                             <div className="w-full flex justify-center items-center max-w-2xl overflow-y-auto space-y-6 ml-70 mt-4">
                                 {userPosts.map((post, index) => (
                                     <Post
