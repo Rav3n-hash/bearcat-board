@@ -5,7 +5,26 @@ const host ="http://localhost:8000"
 
 
 async function updateUser(userId, updateData) { /* Update user profile */ }
+  try {
+    const response = await axios.put(`${host}/user/update`, { userId, updateData });
+    return response.data;
+  }
+  catch (error) {
+    console.error("User update failed", error.response?.data || error.message);
+    throw error;
+    alert("User update failed, please try again.");
+  }
+
 async function deleteUser(userId) { /* Delete a user account */ }
+  try {
+    const response = await axios.delete(`${host}/user/delete`, { data: { userId } });
+    return response.data;
+  }
+  catch (error) {
+    console.error("User deletion failed", error.response?.data || error.message);
+    alert("User deletion failed, please try again.");
+    throw error;
+  }
 
 
 async function getAllUsers() {
