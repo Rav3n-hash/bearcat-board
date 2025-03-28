@@ -27,7 +27,8 @@ async function GetPosts() {
       "postimg": tmp.postimg, 
       "firstname": tmp.firstName, 
       "lastname": tmp.lastName,   
-      "organization_name": tmp.organization_name
+      "organization_name": tmp.organization_name,
+      "picture": tmp.picture
     };
     list.push(post);
   });
@@ -48,6 +49,93 @@ async function GetUserPosts(userId) {
   }
 };
 
+async function CreatePost(postData) {
+  try {
+    const res = await axios.post(`${host}/post/addPost`, postData, {
+      headers: {
+        'Content-Type': "multipart/form-data",
+        "Access-Control-Allow-Origin": host,
+      },
+      withCredentials: true,
+    });
 
-export { GetPosts, GetUserPosts };
+    return res.data;
+  } catch (error) {
+    console.error("Error adding post:", error);
+    throw error;
+  }
+}
+
+// Function to update a post
+async function UpdatePost(postData) {
+  try {
+    const res = await axios.put(`${host}/post/updatePost`, postData, {
+      headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": host,
+      },
+      withCredentials: true,
+    });
+
+    return res.data;
+  } catch (error) {
+    console.error("Error updating post:", error);
+    throw error;
+  }
+}
+
+async function DeletePost(postId, userId) {
+  try {
+    console.log("Sending to backend....")
+    const res = await axios.delete(`${host}/post/delPost`, {
+      headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": host,
+      },
+      data: { post_id: postId, user_id: userId },
+      withCredentials: true,
+    });
+
+    return res.data;
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    throw error;
+  }
+}
+
+// async function EditPost(){
+//   try { console.log("Sending to backend....")
+//   const res = await axios.delete(`${host}/post/updatePost`, {
+//     headers: {
+//       'Content-Type': 'application/json',
+//       "Access-Control-Allow-Origin": host,
+//     },
+//     data: { post_id: postId, user_id: userId },
+//     withCredentials: true,
+//   });
+//   return res.data;
+// }catch (error) {
+//     console.error("Error updating post:", error);
+//     throw error;
+//   }
+// }
+
+async function EditPost(post) {
+  try{
+    const json=JSON.stringify(post);
+    const res = await axios.post(`${host}/post/updatePost`,{ 
+      headers: {
+      'Content-Type': 'text/html',"Access-Control-Allow-Origin":host,
+      "Access-Control-Allow-Headers": "Origin, X-Requested-With"
+      }}, 
+      { withCredentials: true });
+      console.log(res.data);  // Log the response
+      return res.data;        // Return response data if needed
+  } catch (error) {
+    console.error("Error updating post:", error);
+    throw error;  // Rethrow error for handling in UI
+  }
+}
+
+export { GetPosts, GetUserPosts, CreatePost, UpdatePost, DeletePost, EditPost };
 

@@ -1,4 +1,5 @@
 import './App.css'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Login from "./Components/Login";
 import Profile from "./Components/Profile";
 import Home from "./Components/Home";
@@ -10,7 +11,11 @@ import SearchResults from './Components/SearchResults';
 import AddPost from './Components/AddPost';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import {useState, createContext} from "react";
+import Settings from './Components/Settings';
 import ToastNotifs from './Testing/ToastNotifs';
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+import "./Testing/toastStyles.css"
+
 
 
 
@@ -40,6 +45,7 @@ export default function App() {
               <Route path="/otherProfiles/:userId" element={<OtherProfiles />} />
               <Route path="/searchResults" element={<SearchResults />} />
               <Route path="/addPost" element={<AddPost />} />
+              <Route path="/settings" element={<Settings />} />
 
               
             </Routes>

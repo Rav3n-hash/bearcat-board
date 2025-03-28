@@ -8,6 +8,7 @@
   font-family: 'Times New Roman', Times, serif;
 }
 
+
 html, body{
   height: 100%;
   width: 100%;
@@ -172,12 +173,14 @@ margin-right: auto;
   display: grid;
   grid-template-columns: 30% 70%;
   width: 80%;
-  border-color: #ffd926;
+  border-color: #e2c43f;
   border-style: double;
   border-width: 1px;
   background-color: #ccc;
   margin-top: 10px;
   margin-left: 25vh;
+  height:650px
+  
 }
 
 .userLeftDiv {

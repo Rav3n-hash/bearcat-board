@@ -56,4 +56,4 @@ async function getUserById(user_id) {
   
 
 
-  export { getUserById, loginUser, createUser, getAllUsers };
+  export { getUserById, loginUser, createUser, getAllUsers, updateUser };

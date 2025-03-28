@@ -79,7 +79,9 @@ export default function SignUp() {
         try {
           const userData = { ...formData, user_type: userType };
           const response = await createUser(userData);
-          if (response.success) {
+          console.log("Response from server:", response); //debug
+
+          if (response?.success) {
               // Show success message and redirect
               toast.success('Registration Successful!!\n Redirecting to login....', {
                 position: "top-center",
@@ -94,13 +96,20 @@ export default function SignUp() {
                 transition: Bounce, // Bounce transition applied here
               });
               setTimeout(() => {navigate("/");}, 5000); // Delay for toast to appear before navigating
-          } else {
-              setErrors({ email: "Email already exists. Try another one." });
-          }
-      } catch (error) {
-          alert("Registration failed. Try again.");
-      }
-  };
+            }
+            } catch (error) {
+                if (error.response && error.response.status === 409) {
+                    // Show error if email already exists
+                    setErrors({ email: "Email already exists. Try another one." });
+                } else {
+                    toast.error("Registration failed. Try again.", {
+                        position: "top-center",
+                        autoClose: 3000,
+                    });
+                }
+            }
+        };
+        
 
 
    return (
