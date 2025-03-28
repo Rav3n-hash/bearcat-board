@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { DataContext } from "../App";
-import { getUserById, updateUser } from "../Services/UserService";
+import { getUserById, updateUserInfo } from "../Services/UserService";
 import { GetUserPosts } from "../Services/PostService";
 import { ToastContainer, toast, Bounce } from "react-toastify"; // Import Toastify
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -17,16 +17,19 @@ export default function Profile() {
 
   //State variables for edit mode
   const [isEditing, setIsEditing] = useState(false);
-  const [updatedUser, setUpdatedUser] = useState({
-    bio: '',
-    city: '',
-    major: '',
-    graduation_year: '',
-    experience: ''
-  });
+
+  const [updatedBio, setUpdatedBio] = useState(""); //update bio 
+  const [updatedMajor, setUpdatedMajor] = useState(""); //update major
+  const [updatedGradYear, setUpdatedGradYear] = useState(""); //update grad year
+  const [updatedExp, setUpdatedExp]=useState(""); //update exp
+  const [updatedProfilePic, setUpdatedProfilePic] = useState("");
+ 
+  const userId = sessionStorage.getItem("user_id");
+  
 
   useEffect(() => {
-    const userId = sessionStorage.getItem("user_id");
+    
+    console.log("User Id:", userId)
     if (userId) {
       getUserById(userId).then((userData) => {
         setUser(userData);
@@ -38,7 +41,7 @@ export default function Profile() {
     console.log("Fetching posts...");
 
     async function fetchPosts() {
-      const userId = sessionStorage.getItem("user_id");  // Make sure userId is available
+      
       if (userId) {
         const postList = await GetUserPosts(userId);  // Fetch posts by userId
         setPosts(postList);
@@ -47,38 +50,48 @@ export default function Profile() {
     fetchPosts();
   }, [loginSt]);
 
+
+
   const triggerEdits = () => {
     setIsEditing(true);
   };
 
   const handleCancel = () => {
     setIsEditing(false);
-    setUpdatedUser({
-      bio: user.bio || '',
-      city: user.city || '',
-      major: user.major || '',
-      graduation_year: user.graduation_year || '',
-      experience: user.experience || ''
-    });
+    setUpdatedBio(bio);
+    setUpdatedGradYear(graduation_year);
+    setUpdatedMajor(major);
+    setUpdatedExp(experience);
   };
 
   const handleSave = async () => {
-    alert("Update Clicked!")
-    setIsEditing(false)
-  }
-  //   try {
-  //     const updatedProfile = await updateUserProfile(updatedUser); // Implement this function
-  //     if (updatedProfile) {
-  //       setUser({ ...user, ...updatedUser });
-  //       setIsEditing(false);
-  //       toast.success("Profile updated successfully!", { position: "top-center", autoClose: 3000 });
-  //     } else {
-  //       toast.error("Failed to update profile.", { position: "top-center", autoClose: 3000 });
-  //     }
-  //   } catch (error) {
-  //     toast.error("An error occurred while updating the profile.", { position: "top-center", autoClose: 3000 });
-  //   }
-  // };
+      
+      try{
+      const userInfo = {
+          user_id: userId,
+          bio: updatedBio,
+          graduation_year: updatedGradYear,
+          major: updatedMajor,
+          experience: updatedExp,
+          //picture: updatedProfilePic
+      };
+      console.log("Calling update for user: ",userId);
+
+      const result = await updateUserInfo(userInfo);
+
+      if (result.ans === 1) {
+        toast.success("Updating User Info....", {autoClose: 3000} );
+        setIsEditing(false);
+        setTimeout(() => window.location.reload(), 3000);
+      } else {
+        toast.error("Failed to update post.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while updating the post.");
+    }
+  };
+  
+
 
   if (!user) {
     return <div className="p-6 text-gray-500">Loading profile...</div>;
@@ -93,7 +106,18 @@ export default function Profile() {
       
       {/*Left*/}
       <div className="userLeftDiv">
+      {isEditing ? (
+        <div>
         <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
+        <input
+          type="file"
+          onChange={(e) => setUpdatedProfilePic(e.target.files[0])} // Handle file upload
+        />
+        </div>
+        ) :(
+        <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
+        )}
+
         <h3 className="text-3xl">{fullName}</h3>
         <br />
         <h3 className="text-1xl">{user.city? user.city: "Location Unknown"}</h3>
@@ -111,8 +135,9 @@ export default function Profile() {
           {isEditing ? (
               <textarea
                 className="w-full p-2 border border-gray-300"
-                value={updatedUser.bio}
-                onChange={(e) => setUpdatedUser({ ...updatedUser, bio: e.target.value })}
+                value={updatedBio}
+                placeholder="Update your bio...."
+                onChange={(e) => setUpdatedBio(e.target.value)}
               />
             ) : (
               <h3 className="text-left px-10 py-2">{user.bio || "No bio available."}</h3>
@@ -125,15 +150,17 @@ export default function Profile() {
             <div className="text-left px-10">
               {isEditing ? (
                 <div>
+                  <h3 className="text-gray-800">Graduation Year:</h3>
                   <input
                     className="w-full p-2 border border-gray-300"
-                    value={updatedUser.graduation_year}
-                    onChange={(e) => setUpdatedUser({ ...updatedUser, graduation_year: e.target.value })}
+                    value={updatedGradYear}
+                    onChange={(e) => setUpdatedGradYear(e.target.value)}
                   />
+                  <h3 className="text-gray-800">Major:</h3>
                   <input
                     className="w-full p-2 border border-gray-300"
-                    value={updatedUser.major}
-                    onChange={(e) => setUpdatedUser({ ...updatedUser, major: e.target.value })}
+                    value={updatedMajor}
+                    onChange={(e) => setUpdatedMajor(e.target.value)}
                   />
                 </div>
               ) : (
@@ -152,8 +179,9 @@ export default function Profile() {
             {isEditing ? (
               <textarea
                 className="w-full p-2 border border-gray-300"
-                value={updatedUser.experience}
-                onChange={(e) => setUpdatedUser({ ...updatedUser, experience: e.target.value })}
+                value={updatedExp}
+                placeholder="Details about your work experience..."
+                onChange={(e) => setUpdatedExp(e.target.value)}
               />
             ) : (
               <div className="text-left px-10 text-gray-400 italic">

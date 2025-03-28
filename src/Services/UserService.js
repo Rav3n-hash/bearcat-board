@@ -3,10 +3,17 @@ import axios from "axios";
 const host = "http://localhost:8000";
 // const host = "https://backend1-ten-rho.vercel.app";
 
-async function updateUser(userId, updateData) {
+async function updateUserInfo(updateData) {
   try {
-    const response = await axios.put(`${host}/user/update`, { userId, updateData });
-    return response.data;
+    const res = await axios.put(`${host}/user/updateProfileInfo`, updateData,{
+      headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": host,
+      },
+      withCredentials: true,
+    });
+    
+    return res.data;
   } catch (error) {
     console.error("User update failed", error.response?.data || error.message);
     throw error;
@@ -65,4 +72,4 @@ async function getUserById(user_id) {
   }
 }
 
-export { getUserById, loginUser, createUser, getAllUsers, updateUser, deleteUser };
+export { getUserById, loginUser, createUser, getAllUsers, updateUserInfo, deleteUser };
