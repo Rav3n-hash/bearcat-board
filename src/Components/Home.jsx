@@ -6,7 +6,6 @@ import UserMiniDash from "./UserMiniDash";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus, faUser, faBookmark, faGear, faSignOut} from "@fortawesome/free-solid-svg-icons";
 import { GetPosts } from "../Services/PostService";
-import { getUserById } from "../Services/UserService";
 import AddPost from "./AddPost";
 
 
@@ -23,7 +22,13 @@ import AddPost from "./AddPost";
 
         async function fetchPosts() {
           const postList = await GetPosts();
+
+          // Filter out posts by the logged-in user
+          //const hidePosts = postList.filter(post => post.user_id !== sessionStorage.getItem("user_id"));
+          //setPosts(hidePosts);
+
           setPosts(postList);
+
         }
         fetchPosts();
       }, [loginSt]);
@@ -48,6 +53,7 @@ import AddPost from "./AddPost";
 
 <div className="w-full max-w-2xl overflow-y-auto space-y-6 ml-30">
           {posts.map((post, index) => (
+            
             <Post
             key={index}
             user_id={post.user_id}
@@ -59,6 +65,7 @@ import AddPost from "./AddPost";
             lastName={post.lastname}
             organization_name={post.organization_name}
             organization_id={post.organization_id}
+            profilePicture={post.picture}
           />
           
           ))}

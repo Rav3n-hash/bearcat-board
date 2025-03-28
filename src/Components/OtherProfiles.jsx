@@ -41,10 +41,12 @@ export default function OtherProfiles() {
     }
 
     return (
-        <div className="profilePage flex flex-col items-center">
+    <div className="pb-4">
+    <div className="profilePage">
+        
     {/* Left */}
     <div className="userLeftDiv">
-        <img className="w-60 h-90 rounded-none border-3 border-gray-900" src={user.picture || "/placeholder.jpg"} />
+        <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={user.picture || "/placeholder.jpg"} />
         <h3 className="text-3xl">{user.firstname} {user.lastname}</h3>
         <h3 className="text-1xl">{user.city}</h3>
 
@@ -108,6 +110,7 @@ export default function OtherProfiles() {
             </div>
         )}
     </div>
+</div>
 </div>
 
     );

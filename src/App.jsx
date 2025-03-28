@@ -1,4 +1,5 @@
 import './App.css'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Login from "./Components/Login";
 import Profile from "./Components/Profile";
 import Home from "./Components/Home";

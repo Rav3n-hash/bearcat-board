@@ -1,7 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { DataContext } from "../App";
-import { getUserById } from "../Services/UserService";
+import { getUserById, updateUser } from "../Services/UserService";
 import { GetUserPosts } from "../Services/PostService";
+import { ToastContainer, toast, Bounce } from "react-toastify"; // Import Toastify
+
 import Post from "./Post";
 
 export default function Profile() {
@@ -46,9 +48,9 @@ export default function Profile() {
         <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
         <h3 className="text-3xl">{fullName}</h3>
         <br />
-        <h3 className="text-1xl">{user.city || "Location Unknown"}</h3>
+        <h3 className="text-1xl">{user.city? user.city: "Location Unknown"}</h3>
         <br />
-        <h3 className="text-1xl">{user.user_type}</h3>
+        <h3 className="text-1xl">{user.user_type=="organization_member"?"Employer":"Student/Alumni"}</h3>
       </div>
 
       {/*RIGHT*/}
@@ -98,7 +100,8 @@ export default function Profile() {
             {posts.map((post, index) => (
               <Post
                 key={index}
-                user_id={post.user_id}
+                post_id={post.post_id} // Ensure post_id is passed correctly
+                user_id={post.user_id} 
                 title={post.title}
                 content={post.content}
                 post_type={post.post_type}
@@ -112,6 +115,7 @@ export default function Profile() {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }
