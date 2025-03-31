@@ -8,7 +8,7 @@ export default function Settings() {
     const [isDeleteConfirmed, setDeleteConfirmed] = useState(false);
 
 
-    // Function to confirm delete action
+    {/* Function to confirm delete action. This is where the Delete User function would go */}
     const handleDeleteAccount = () => {
         if (isDeleteConfirmed) {
             // Add logic for account deletion here (e.g., call an API)
@@ -18,13 +18,21 @@ export default function Settings() {
         }
     };
 
+    {/* Function to update user credentials like name, email, password, etc. This is where the Update User function would go */}
+    const handleUpdateInfo = ()=>{
+
+
+    }
+
 
     return (
         <div className="h-9/10 flex flex-col md:flex-row">
-            {/* Sidebar */}
+            {/***************************************************** Sidebar *****************************************************/}
+            {/*There are */}
             <div className="sidebar w-full md:w-1/6 h-full bg-gray-800 text-white p-4 flex flex-col">
                 <h3 className="text-xl mb-4">Settings</h3>
                 <ul>
+                    {/*************************************Show account preferences*********************************************/}
                     <li
                         className={`cursor-pointer hover:bg-yellow-400 py-2 flex items-center ${selectedOption === 'accountPreferences' ? 'bg-yellow-500' : ''}`}
                         onClick={() => setSelectedOption('accountPreferences')}
@@ -32,6 +40,7 @@ export default function Settings() {
                         <FontAwesomeIcon className="mr-3" icon={faPenToSquare} />
                         Edit User Information
                     </li>
+                     {/*************************************Show Privacy Settings *********************************************/}
                     <li
                         className={`cursor-pointer hover:bg-yellow-400 py-2 flex items-center ${selectedOption === 'privacySettings' ? 'bg-yellow-500' : ''}`}
                         onClick={() => setSelectedOption('privacySettings')}
@@ -39,6 +48,7 @@ export default function Settings() {
                         <FontAwesomeIcon className="mr-3" icon={faLock} />
                         Privacy Settings
                     </li>
+                     {/*************************************Show Notification Settings*********************************************/}
                     <li
                         className={`cursor-pointer hover:bg-yellow-400 py-2 flex items-center ${selectedOption === 'notificationSettings' ? 'bg-yellow-500' : ''}`}
                         onClick={() => setSelectedOption('notificationSettings')}
@@ -46,6 +56,7 @@ export default function Settings() {
                         <FontAwesomeIcon className="mr-3" icon={faBell} />
                         Notification Settings
                     </li>
+                    {/*************************************Show Account Deletion Optiosn*********************************************/}
                     <li
                         className={`cursor-pointer hover:bg-red-400 py-2 flex items-center ${selectedOption === 'deleteAccount' ? 'bg-red-500' : ''}`}
                         onClick={() => setSelectedOption('deleteAccount')}
@@ -57,7 +68,7 @@ export default function Settings() {
             </div>
 
 
-            {/* Main content */}
+            {/* Main content. This will display the corresponding selected option on the page. */}
             <div className="mainContent text-black w-full md:w-3/4 p-6">
                 {selectedOption === 'accountPreferences' && (
                     <div className='border-1 rounded-xs shadow-xl border-black p-4'>
