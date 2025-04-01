@@ -15,6 +15,7 @@ import Settings from './Components/Settings';
 import ToastNotifs from './Testing/ToastNotifs';
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 import "./Testing/toastStyles.css"
+import Organization from './Components/Organization';
 
 
 
@@ -46,6 +47,7 @@ export default function App() {
               <Route path="/searchResults" element={<SearchResults />} />
               <Route path="/addPost" element={<AddPost />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/organization" element={<Organization />} />
 
               
             </Routes>
