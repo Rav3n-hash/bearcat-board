@@ -13,7 +13,7 @@ export default function Organization({ orgId }) {
   useEffect(() => {
    
     setOrganization({
-      //Fetch org name and desc, currently useing placeholders
+      //Fetch org name and desc, currently using placeholders
       name: "Example Organization", 
       description: "This is a sample description for the organization." 
     });
