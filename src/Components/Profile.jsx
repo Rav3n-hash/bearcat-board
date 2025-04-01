@@ -105,6 +105,11 @@ export default function Profile() {
         if (matchingOrg) {
           orgIdToUse = matchingOrg.organization_id;
         } else {
+          if (user.organization_role !== "admin") {
+            toast.error("Only admins can create a new organization.");
+            return;
+          }
+        
           const newOrg = await createOrganization({ name: updatedOrgName, description: "" });
           orgIdToUse = newOrg.organization_id;
         }
