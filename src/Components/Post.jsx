@@ -5,6 +5,8 @@ import { DataContext } from "../App";
 import { ToastContainer, toast, Bounce } from "react-toastify"; // Import Toastify
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faTrashCan, faPenToSquare, faSave, faTimes} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+
 
 {/*ALL PIECES PASSED BECAUSE POST IS DEPENDENT ON EACH INDIVIDUAL USER, NOT JUST THE CURRENTLY LOGGED IN ONE */}
 export default function Post({
@@ -103,10 +105,23 @@ export default function Post({
 
       {/*Display first name, last name, and org if applicable for each post*/}
       <div className="absolute top-5 left-17 flex items-center space-x-3">
-        <strong className="text-lg">{firstName} {lastName}</strong>
-        {organization_id && (
-          <h3 className="absolute top-6 left-1 w-100 text-left text-sm text-gray-500"> Org: {organization_name}</h3>
-        )}
+      <Link
+  to={`/otherProfiles/${user_id}`}
+  className="text-lg font-bold hover:underline text-blue-600"
+>
+  {firstName} {lastName}
+</Link>
+
+{organization_id && (
+  <Link
+    to={`/organization/${organization_id}`}
+    className="absolute top-6 left-1 w-100 text-left text-sm text-blue-500 hover:underline"
+  >
+    Org: {organization_name}
+  </Link>
+)}
+
+
       </div>
 
     {/*If a post is being edited, display "editing post" at the top*/}
