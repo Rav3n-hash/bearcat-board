@@ -10,6 +10,7 @@ import AddPost from "./AddPost";
 import Post from "./Post";
 
 export default function Profile() {
+{/*************************************************************USE STATES *********************************************************************************/}
   const [user, setUser] = useState(null);
   const { loginSt } = useContext(DataContext);
   const [posts, setPosts] = useState([]);
@@ -25,8 +26,9 @@ export default function Profile() {
   const [updatedProfilePic, setUpdatedProfilePic] = useState("");
  
   const userId = sessionStorage.getItem("user_id");
-  
 
+ {/*******************************************************Load user info*********************************************************************************/}
+  
   useEffect(() => {
     
     console.log("User Id:", userId)
@@ -36,7 +38,7 @@ export default function Profile() {
       });
     }
   }, []);
-
+ {/*******************************************************Load user posts *********************************************************************************/}
   useEffect(() => {
     console.log("Fetching posts...");
 
@@ -50,12 +52,11 @@ export default function Profile() {
     fetchPosts();
   }, [loginSt]);
 
-
-
+ {/**************************************************Allow editing; used for "edit profile" button********************************************************/}
   const triggerEdits = () => {
     setIsEditing(true);
   };
-
+ {/**************************************************Reset everything; used for cancel button*********************************************************************************/}
   const handleCancel = () => {
     setIsEditing(false);
     setUpdatedBio(bio);
@@ -63,7 +64,7 @@ export default function Profile() {
     setUpdatedMajor(major);
     setUpdatedExp(experience);
   };
-
+ {/***********************************************Save changes to database; used for save button************************************************************/}
   const handleSave = async () => {
       
       try{
@@ -92,7 +93,7 @@ export default function Profile() {
   };
   
 
-
+ {/*******************************************************DISPLAY ON PAGE********************************************************************************/}
   if (!user) {
     return <div className="p-6 text-gray-500">Loading profile...</div>;
   }
@@ -104,8 +105,9 @@ export default function Profile() {
     <div className="pb-4">
     <div className="profilePage">
       
-      {/*Left*/}
+      {/**************************************************Left*************************************************/}
       <div className="userLeftDiv">
+      {/**If editing, let user choose an image (WIP). Otherwise, display their current image*/}
       {isEditing ? (
         <div>
         <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
@@ -118,6 +120,7 @@ export default function Profile() {
         <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
         )}
 
+       {/**************These things are only editable in settings*************************/}
         <h3 className="text-3xl">{fullName}</h3>
         <br />
         <h3 className="text-1xl">{user.city? user.city: "Location Unknown"}</h3>
@@ -125,12 +128,13 @@ export default function Profile() {
         <h3 className="text-1xl">{user.user_type=="organization_member"?"Employer":"Student/Alumni"}</h3>
       </div>
 
-      {/*RIGHT*/}
+
+      {/*******************************************************RIGHT*************************************************/}
       <div className="userRightDiv relative">
       {isEditing ? <h1>Edit Profile</h1>:""}
         <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
           <br />
-          {/*ABOUT ME*/}
+          {/*ABOUT ME. If editing, change to input. Otherwise, display current bio*/}
           <h1 className="profH1">About Me</h1>
           {isEditing ? (
               <textarea
@@ -143,7 +147,7 @@ export default function Profile() {
               <h3 className="text-left px-10 py-2">{user.bio || "No bio available."}</h3>
             )}
           </div>
-        {/*EDUCATION*/}
+        {/*EDUCATION. If editing, change to input. Otherwise, display current education*/}
         <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
             <br />
             <h1 className="profH1">Education</h1>
@@ -172,7 +176,7 @@ export default function Profile() {
             </div>
           </div>
 
-        {/* Experience */}
+        {/* Experience. If editing, change to input. Otherwise, display current Experience */}
         <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
             <br />
             <h1 className="profH1">Experience</h1>
@@ -190,7 +194,7 @@ export default function Profile() {
             )}
           </div>
 
-        {/* Save and Cancel Buttons or Edit Button */}
+        {/* Save and Cancel Buttons or Edit Button. If editing, show save and cancel, otherwise show edit*/}
         {isEditing ? (
           <div className="absolute bottom-2 right-2">
             <button onClick={handleSave} className="bg-green-500 text-white hover:bg-green-400 px-4 py-2 rounded mr-2">
@@ -222,19 +226,17 @@ export default function Profile() {
         <div className="w-full flex justify-between items-center">
           <div className="yourPostsDiv"><h1>Your Posts</h1></div>
         </div>
-
+      
+       {/*Trigger the addpost module */}
         <button className="addButton" onClick={() => setShowAddPost(true)}>
         <FontAwesomeIcon icon={faPlus} className="text-gray-100 text-5xl"/>
         <p className="text-xs">Add Post!</p>
       </button>
-
       {showAddPost && <AddPost onClose={() => setShowAddPost(false)} />}
 
-      
+  
 
-
-
-        {/* Display message if no posts are found */}
+        {/* Display message if no posts are found. Otherwise, show user's posts */}
         {posts.length === 0 ? (
           <div className="text-center text-gray-500">
             <p>You haven't posted yet...Click the button in the corner to make a post!</p>

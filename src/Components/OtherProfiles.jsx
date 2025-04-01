@@ -10,7 +10,7 @@ export default function OtherProfiles() {
     const [user, setUser] = useState(null);
     const [userPosts, setUserPosts] = useState([]);
     const [initialPost, setInitialPost] = useState(null);
-
+{/******************************************************Fetch Data of the User Clicked on******************************************************/}
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -38,12 +38,12 @@ export default function OtherProfiles() {
     if (!user) {
         return <div className="text-center text-red-500 text-xl">User not found!</div>;
     }
-
+{/******************************************************DISPLAY ON SITE******************************************************/}
     return (
         <div className="pb-4">
             <div className="profilePage shadow-lg">
                 
-                {/* Left */}
+                {/************************Left ************************************/}
                 <div className="userLeftDiv">
                     <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={user.picture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} />
                     <h3 className="text-3xl">{user.firstname} {user.lastname}</h3>
@@ -54,13 +54,14 @@ export default function OtherProfiles() {
                     )}
                 </div>
 
-                {/* Right */}
+                {/*******************************Right ***********************/}
                 <div className="userRightDiv">
+                    {/**********************ABOUT ***********************/}
                     <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10 mt-3">
                         <h1 className="profH1">About Me</h1>
                         <p className="text-left px-10 py-2">{user.bio || "No bio available."}</p>
                     </div>
-
+                    {/**********************EDUCATION ***********************/}
                     <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10">
                         <br />
                         <h1 className="profH1">Education</h1>
@@ -75,7 +76,7 @@ export default function OtherProfiles() {
                             <p className="text-gray-100 px-5">Bearcat University</p>
                         </div>
                     </div>
-
+                    {/**********************EXPERIENCE ***********************/}
                     <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10">
                         <br />
                         <h1 className="profH1">Experience</h1>
@@ -85,18 +86,14 @@ export default function OtherProfiles() {
                     </div>
                     </div>
                     </div>
-                
 
-                   
-                   
-                
-
-                    {/* Other Posts */}
+    {/***************************************************************DIV FOR POSTS ************************************************************************/}
                      <div className="flex flex-col justify-center items-center border-yellow-500 border-1 w-8/10 ml-43.5 mt-4 mb-10 bg-gray-300 shadow-lg">
                         <div className="w-full flex justify-between items-center">
                             <div className="yourPostsDiv"><h1>{user.firstname}'s Posts</h1></div>
                         </div>
-                     {/*Initial Post*/}
+
+                     {/*Initial/Hightlighted Post*/}
                      {initialPost && (
                         <div className="pb-2 w-full ml-10 mt-4">
                             <h3 className="text-3xl text-yellow-400 bg-amber-100 w-200 ml-50">Highlighted Post</h3>
@@ -119,6 +116,7 @@ export default function OtherProfiles() {
                             </div>
                         </div>
                     )}
+                    {/*****************All posts***************/}
                     {userPosts.length > 0 && (
                         <div className=" pb-2 w-full ml-10 mt-4">
                             <h3 className="text-3xl text-yellow-400 bg-amber-100 w-200 ml-50">All of {user.firstname}'s Posts</h3>
