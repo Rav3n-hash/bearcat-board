@@ -1,22 +1,43 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserSlash, faPenToSquare, faBell, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-
+import { deleteUser } from "../Services/UserService";
+import { useNavigate } from "react-router-dom";
 
 export default function Settings() {
     const [selectedOption, setSelectedOption] = useState('accountPreferences');
     const [isDeleteConfirmed, setDeleteConfirmed] = useState(false);
+    const navigate = useNavigate();
 
 
-    {/* Function to confirm delete action. This is where the Delete User function would go */}
-    const handleDeleteAccount = () => {
-        if (isDeleteConfirmed) {
-            // Add logic for account deletion here (e.g., call an API)
-            alert('Account deleted');
-        } else {
-            alert('Please confirm account deletion');
+
+    {/* Function to delete currenlty logged user account  */}
+    const handleDeleteAccount = async () => {
+        if (!isDeleteConfirmed) {
+          alert("Please confirm account deletion");
+          return;
         }
-    };
+      
+        const userId = sessionStorage.getItem("user_id");
+        if (!userId) {
+          alert("User not found. Please log in again.");
+          return;
+        }
+      
+        try {
+          const result = await deleteUser(userId);
+          if (result.message === "User deleted successfully") {
+            alert("Account deleted successfully. Goodbye 👋");
+            sessionStorage.clear();
+            navigate("/");
+          } else {
+            alert("Something went wrong. Please try again.");
+          }
+        } catch (err) {
+          console.error("Error deleting account:", err);
+          alert("Error deleting account. Please try again.");
+        }
+      };
 
     {/* Function to update user credentials like name, email, password, etc. This is where the Update User function would go */}
     const handleUpdateInfo = ()=>{

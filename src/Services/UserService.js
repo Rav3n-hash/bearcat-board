@@ -22,13 +22,19 @@ async function updateUserInfo(updateData) {
 
 async function deleteUser(userId) {
   try {
-    const response = await axios.delete(`${host}/user/delete`, { data: { userId } });
+    const response = await axios.delete(`${host}/user/delUser`, {
+      data: { userId },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
     return response.data;
   } catch (error) {
     console.error("User deletion failed", error.response?.data || error.message);
     throw error;
   }
 }
+
 
 async function getAllUsers() {
   try {

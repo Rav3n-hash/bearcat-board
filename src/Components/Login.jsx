@@ -17,25 +17,29 @@ export default function Login() {
       return;
     }
   
-    const user = await loginUser(email.trim(), pwd.trim());
+    try {
+      const user = await loginUser(email.trim(), pwd.trim());
   
-    if (user) {
-      alert("Login successful!");
-      sessionStorage.setItem("logged", 1);
-      sessionStorage.setItem("fname", user.firstname);
-      sessionStorage.setItem("lname", user.lastname);
-      sessionStorage.setItem("role", user.user_type);
-      sessionStorage.setItem("user_id", user.user_id);
-      sessionStorage.setItem("pic", user.picture ? user.picture : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-      );
-      
-  
-      setLogStatus(1);
-      navigate(0); 
-    } else {
-      alert("Invalid credentials");
+      if (user) {
+        alert("Login successful!");
+        sessionStorage.setItem("logged", 1);
+        sessionStorage.setItem("fname", user.firstname);
+        sessionStorage.setItem("lname", user.lastname);
+        sessionStorage.setItem("role", user.user_type);
+        sessionStorage.setItem("user_id", user.user_id);
+        sessionStorage.setItem("pic", user.picture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+        
+        setLogStatus(1);
+        navigate(0); 
+      } else {
+        alert("Invalid credentials"); // from 401 case
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert("Login failed. Please try again.");
     }
   };
+  
 
 {/*****************************************************************Login Page***********************************************************/}
   const login = (

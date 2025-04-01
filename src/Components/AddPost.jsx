@@ -67,11 +67,12 @@ export default function AddPost({ onClose }) {
     try {
       const response = await CreatePost(formData); // Ensure this is async
       if (response.success) {
-        toast.success("New post added successfully!\nAdd another post or exit!", { position: "top-center", autoClose: 3000, transition: Bounce });
+        toast.success("New post added successfully!", { position: "top-center", autoClose: 3000, transition: Bounce });
         setPostData({ content: "", postType: "general", title: "", postimg: null });
 
         // Reset fields after submission
       setPostData({ content: "", postType: "general", title: "", postimg: null });
+      setTimeout(() => window.location.reload(), 3000);
 
       } else {
         toast.error("Failed to add post. Try again.", { position: "top-center", autoClose: 3000, transition: Bounce });
@@ -82,7 +83,7 @@ export default function AddPost({ onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/25">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25">
       <div className="bg-white p-6 rounded-lg w-1/2 shadow-lg mt-10 relative">
         <h3 className="text-xl font-semibold mb-4 text-gray-700 text-left">Create a Post</h3>
 

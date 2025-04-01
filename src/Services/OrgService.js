@@ -1,13 +1,41 @@
 import axios from "axios" //Dont forget to run npm install axios 
 
-const host ="http://localhost:8000"
+const host = "http://localhost:8000"
 //const host = "https://backend1-ten-rho.vercel.app"
 
+{ /* Registers a new organization */ }
+async function createOrganization(orgData) {
+    try {
+        const res = await axios.post(`${host}/org/createOrg`, orgData);
+        return res.data;
+    } catch (error) {
+        console.error("Error creating org:", error);
+        throw error;
+    }
+}
 
-async function createOrganization(orgData) { /* Registers a new organization */ }
-async function getOrganizations() { /* Gets all organizations */ }
+{ /* Gets all organizations */ }
+async function getOrganizations() {
+    try {
+        const response = await axios.get(`${host}/org/orgs`);
+        return response.data.rows; // Assuming backend sends back { rows: [...] }
+    } catch (error) {
+        console.error("Failed to fetch organizations:", error);
+        return [];
+    }
+}
 async function getOrganizationById(orgId) { /* Fetch a specific organization*/ }
-async function updateOrganization(orgId, updateData) { /* Update organization info */ }
+
+{ /* Update organization info */ }
+async function updateOrganization(orgId, updateData) {
+    try {
+        const res = await axios.put(`${host}/org/updateOrg`, orgData)
+        return res.data;
+    } catch (error) {
+        console.error("Error updating org:", error);
+        throw error;
+    }
+}
 async function deleteOrganization(orgId) { /* Delete an organization */ }
 
-export{/*Export all functions*/}
+export { createOrganization, updateOrganization, getOrganizations }
