@@ -1,31 +1,35 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUserById } from "../Services/UserService";
 import { GetPosts } from "../Services/PostService";
 import Post from "./Post"; // Make sure to import the Post component
 
+
 export default function OtherProfiles() {
     const { userId } = useParams();
-
+    const handlePostClick = (post) => { setInitialPost(post); };
     const [user, setUser] = useState(null);
     const [userPosts, setUserPosts] = useState([]);
     const [initialPost, setInitialPost] = useState(null);
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const highlightPostId = queryParams.get("highlight");
     {/******************************************************Fetch Data of the User Clicked on******************************************************/ }
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const userData = await getUserById(userId);
-                console.log("Fetched user: ", userData);
                 const allPosts = await GetPosts();
                 const thisUsersPosts = allPosts.filter(post => post.user_id === parseInt(userId));
 
                 setUser(userData);
                 setUserPosts(thisUsersPosts);
-                console.log("Posts for this user:", thisUsersPosts);
 
-                // Set the first/primary post that was clicked (optional: based on created_at or title relevance)
-                if (thisUsersPosts.length > 0) {
-                    setInitialPost(thisUsersPosts[0]);
+                if (highlightPostId) {
+                    const highlighted = thisUsersPosts.find(post => post.post_id === parseInt(highlightPostId));
+                    setInitialPost(highlighted || null);
+                } else {
+                    setInitialPost(null); // no highlight if not clicked from search
                 }
             } catch (err) {
                 console.error("Error loading profile:", err);
@@ -33,7 +37,8 @@ export default function OtherProfiles() {
         };
 
         fetchData();
-    }, [userId]);
+    }, [userId, highlightPostId]);
+
 
     if (!user) {
         return <div className="text-center text-red-500 text-xl">User not found!</div>;
@@ -121,29 +126,28 @@ export default function OtherProfiles() {
                     <div className="pb-2 w-full ml-10 mt-4">
                         <h3 className="text-3xl text-yellow-400 bg-amber-100 w-200 ml-50">Highlighted Post</h3>
                         <div className="w-full flex justify-center items-center max-w-2xl overflow-y-auto space-y-6 ml-70 mt-4">
-                            {userPosts.map((post, index) => (
-                                <Post
-                                    key={index}
-                                    post_id={post.post_id}
-                                    user_id={post.user_id}
-                                    title={post.title}
-                                    content={post.content}
-                                    post_type={post.post_type}
-                                    postImg={post.postimg}
-                                    firstName={post.firstname}
-                                    lastName={post.lastname}
-                                    organization_name={post.organization_name}
-                                    organization_id={post.organization_id}
-                                />
-                            ))}
+                            <Post
+                                post_id={initialPost.post_id}
+                                user_id={initialPost.user_id}
+                                title={initialPost.title}
+                                content={initialPost.content}
+                                post_type={initialPost.post_type}
+                                postImg={initialPost.postimg}
+                                firstName={initialPost.firstname}
+                                lastName={initialPost.lastname}
+                                organization_name={initialPost.organization_name}
+                                organization_id={initialPost.organization_id}
+                            />
                         </div>
                     </div>
                 )}
+
+
                 {/*****************All posts***************/}
                 {userPosts.length > 0 && (
                     <div className=" pb-2 w-full ml-10 mt-4">
                         <h3 className="text-3xl text-yellow-400 bg-amber-100 w-200 ml-50">All of {user.firstname}'s Posts</h3>
-                        <div className="w-full flex justify-center items-center max-w-2xl overflow-y-auto space-y-6 ml-70 mt-4">
+                        <div className="w-full max-w-2xl flex flex-col space-y-6 mt-4 mx-auto">
                             {userPosts.map((post, index) => (
                                 <Post
                                     key={index}
