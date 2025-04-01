@@ -6,11 +6,15 @@ import { ToastContainer, toast, Bounce } from "react-toastify"; // Import Toasti
 
 
 export default function AddPost({ onClose }) {
-  const [showConfirm, setShowConfirm] = useState(false); // State for close confirmation
+  {/************************************************States for close confirmation and errors******************************************************/}
+  const [showConfirm, setShowConfirm] = useState(false); 
   const [errors, setErrors] = useState({});
+
+  {/******************************************Get Userid to link post to logged in user***********************************************/}
 
   const userId = sessionStorage.getItem("user_id");
 
+  {/******************************************************State for User Input******************************************************/}
   const [postData, setPostData] = useState({
     userId: userId,
     content: "",
@@ -19,10 +23,11 @@ export default function AddPost({ onClose }) {
     postimg: null,
   });
 
-  // To save user text input for post
+  {/******************************************************Save User Input******************************************************/}
   const handleContentChange = (e) => setPostData((prev) => ({ ...prev, content: e.target.value }));
 
-  // To allow users to upload images or documents from their device
+
+  {/***********************************************Allow Image Upload (not sure how to convert to url)***********************************************/}
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -30,6 +35,7 @@ export default function AddPost({ onClose }) {
     }
   };
 
+  {/******************************************************Form Validation******************************************************/}
   const validateForm = () => {
     let newErrors = {};
     if (!postData.title.trim()) newErrors.title = "Title is required";
@@ -39,17 +45,20 @@ export default function AddPost({ onClose }) {
     return Object.keys(newErrors).length === 0;
   };
 
+  {/******************************************************Submit new post******************************************************/}
   const handleSubmit = async (e) => { // Make it async
     e.preventDefault(); // Prevent form from refreshing
     console.log("Submit button clicked");
 
+    //Ensure the form has met all requirements
     if (!validateForm()) {
       console.log("Form not valid");
       return;
     }
 
-    console.log("postData before FormData:", postData); // Log postData before appending to FormData
+    console.log("postData before FormData:", postData); // For debugging: Log postData before appending to FormData
 
+    //Grab the entered data
     const formData = new FormData();
     formData.append("user_id", postData.userId);
     formData.append("title", postData.title);
@@ -64,8 +73,9 @@ export default function AddPost({ onClose }) {
       console.log(pair[0], pair[1]);
     }
 
+    //call to userService 
     try {
-      const response = await CreatePost(formData); // Ensure this is async
+      const response = await CreatePost(formData);
       if (response.success) {
         toast.success("New post added successfully!", { position: "top-center", autoClose: 3000, transition: Bounce });
         setPostData({ content: "", postType: "general", title: "", postimg: null });
@@ -77,17 +87,21 @@ export default function AddPost({ onClose }) {
       } else {
         toast.error("Failed to add post. Try again.", { position: "top-center", autoClose: 3000, transition: Bounce });
       }
+      //If the post cannot be added due to a server error
     } catch (error) {
       toast.error("An error occurred. Please try again.", { position: "top-center", autoClose: 3000, transition: Bounce });
     }
   };
+
+
+  {/******************************************************DISPLAY ON SITE*************************************************************************/}
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25">
       <div className="bg-white p-6 rounded-lg w-1/2 shadow-lg mt-10 relative">
         <h3 className="text-xl font-semibold mb-4 text-gray-700 text-left">Create a Post</h3>
 
-        {/* Close Button */}
+        {/*********************************************************Close Button *****************************************************/}
         <button
           onClick={onClose}
           className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl"
@@ -96,7 +110,7 @@ export default function AddPost({ onClose }) {
           <FontAwesomeIcon icon={faTimes} />
         </button>
 
-        {/* Title Input */}
+        {/****************************************************** Title Input ***********************************************************/}
         <input
           className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
           placeholder="Enter a title..."
@@ -104,7 +118,7 @@ export default function AddPost({ onClose }) {
           onChange={(e) => setPostData((prev) => ({ ...prev, title: e.target.value }))}
         />
 
-        {/* Text Input */}
+        {/******************************************************Text Input ******************************************************/}
         <textarea
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
           placeholder="Enter text here....."
@@ -113,7 +127,7 @@ export default function AddPost({ onClose }) {
           onChange={handleContentChange}
         ></textarea>
 
-        {/* Upload Buttons */}
+        {/****************************************************** Upload Image Button ******************************************************/}
         <div className="flex mt-4">
           <label className="cursor-pointer text-gray-500 hover:text-green-500">
             <FontAwesomeIcon icon={faImage} className="text-2xl mr-5 ml-6" />
@@ -122,12 +136,12 @@ export default function AddPost({ onClose }) {
           </label>
         </div>
 
-        {/* File Preview */}
+        {/******************************************************* File Name Preview *******************************************************/}
         <div className="mt-4">
           {postData.postimg && <p className="text-sm text-blue-500">📷 {postData.postimg.name}</p>}
         </div>
 
-        {/* Submit Button */}
+        {/******************************************************* Submit Button *******************************************************/}
         <div className="flex justify-end mt-4">
           <button
             className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 mr-2"
@@ -142,7 +156,7 @@ export default function AddPost({ onClose }) {
         </div>
       </div>
 
-      {/* Confirmation pop up */}
+      {/******************************************************* Cancel Confirmation pop up *******************************************************/}
       {showConfirm && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/75">
           <div className="bg-white p-6 rounded-lg shadow-lg">

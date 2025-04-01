@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserSlash, faPenToSquare, faBell, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast, Bounce } from "react-toastify"; // Import Toastify
+
 import { deleteUser } from "../Services/UserService";
 import { useNavigate } from "react-router-dom";
 
@@ -41,7 +43,9 @@ export default function Settings() {
 
     {/* Function to update user credentials like name, email, password, etc. This is where the Update User function would go */}
     const handleUpdateInfo = ()=>{
-
+        //if successful, show the toast notif
+        toast.success("Updating Info...", { position: "top-center", autoClose: 3000, transition: Bounce });
+        setTimeout(() => window.location.reload(), 3000); //reload window when toast notif is done to actuallt show saved updates
 
     }
 
@@ -90,41 +94,45 @@ export default function Settings() {
 
 
             {/* Main content. This will display the corresponding selected option on the page. */}
+
+            {/*On Account Preferences. Show a form or user to edit details*/}
             <div className="mainContent text-black w-full md:w-3/4 p-6">
                 {selectedOption === 'accountPreferences' && (
                     <div className='border-1 rounded-xs shadow-xl border-black p-4'>
                         <h3 className="text-2xl mb-4">Edit User Information</h3>
-                        {/* Form to edit user profile */}
+
                         <form>
+                            {/* Edit Username*/}
                             <div className="flex items-center mb-4">
                                 <label className="w-1/4 text-right pr-4">Username:</label>
                                 <input type="text" className="border p-2 w-3/4" placeholder={sessionStorage.getItem("username")} />
                             </div>
 
-
+                             {/* Edit First Name*/}
                             <div className="flex items-center mb-4">
                                 <label className="w-1/4 text-right pr-4">First Name:</label>
                                 <input type="text" className="border p-2 w-3/4" placeholder={sessionStorage.getItem("fName")} />
                             </div>
 
-
+                             {/* Edit Last Name*/}
                             <div className="flex items-center mb-4">
                                 <label className="w-1/4 text-right pr-4">Last Name:</label>
                                 <input type="text" className="border p-2 w-3/4" placeholder={sessionStorage.getItem("lName")} />
                             </div>
 
-
+                             {/* Edit City*/}
                             <div className="flex items-center mb-4">
                                 <label className="w-1/4 text-right pr-4">City:</label>
                                 <input type="text" className="border p-2 w-3/4" placeholder={sessionStorage.getItem("city")} />
                             </div>
 
-
-                            <button type="submit" className="bg-yellow-500 text-black p-2 rounded">Save Changes</button>
+                             {/*Save changes button. Calls handleUpdate to save changes in database*/}
+                            <button type="submit" className="bg-yellow-500 text-black p-2 rounded" onClick={()=>{handleUpdateInfo}}>Save Changes</button>
                         </form>
                     </div>
                 )}
 
+                {/*On notification settings (may remove). Show toggles*/}
 
                 {selectedOption === 'notificationSettings' && (
                     <div className='border-1 rounded-xs shadow-xl border-black p-4'>
@@ -144,7 +152,7 @@ export default function Settings() {
                     </div>
                 )}
 
-
+                {/*On delete account. User will have option to delete their account*/}
                 {selectedOption === 'deleteAccount' && (
                     <div className='border-1 rounded-xs shadow-xl border-black p-4'>
                         <h3 className="text-2xl mb-4">Delete Account</h3>
@@ -168,15 +176,12 @@ export default function Settings() {
                     </div>
                 )}
 
-
+                {/*On Privacy settings (mayremove). Change email and password*/}
                 {selectedOption === 'privacySettings' && (
                     <div className='border-1 rounded-xs shadow-xl border-black p-4'>
                         <h3 className="text-2xl mb-4">Privacy Settings</h3>
                         {/* Form to change email or password */}
                         <form>
-
-
-                               
                             <label className="block mb-2">Change Email: </label>
                             <input type="email" className="border p-2 mb-4 w-1/2" placeholder={sessionStorage.getItem("email")}  />
                             <br></br>
@@ -188,6 +193,8 @@ export default function Settings() {
                     </div>
                 )}
             </div>
+            <ToastContainer/>
         </div>
+        
     );
 }

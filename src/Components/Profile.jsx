@@ -13,6 +13,7 @@ import { updateOrganization, createOrganization, getOrganizations } from "../Ser
 import Post from "./Post";
 
 export default function Profile() {
+{/*************************************************************USE STATES *********************************************************************************/}
   const [user, setUser] = useState(null);
   const { loginSt } = useContext(DataContext);
   const [posts, setPosts] = useState([]);
@@ -42,7 +43,7 @@ export default function Profile() {
       });
     }
   }, []);
-
+ {/*******************************************************Load user posts *********************************************************************************/}
   useEffect(() => {
     console.log("Fetching posts...");
 
@@ -56,12 +57,11 @@ export default function Profile() {
     fetchPosts();
   }, [loginSt]);
 
-
-
+ {/**************************************************Allow editing; used for "edit profile" button********************************************************/}
   const triggerEdits = () => {
     setIsEditing(true);
   };
-
+ {/**************************************************Reset everything; used for cancel button*********************************************************************************/}
   const handleCancel = () => {
     setIsEditing(false);
     setUpdatedBio(bio);
@@ -69,7 +69,7 @@ export default function Profile() {
     setUpdatedMajor(major);
     setUpdatedExp(experience);
   };
-
+ {/***********************************************Save changes to database; used for save button************************************************************/}
   const handleSave = async () => {
     try {
       if (user.user_type === "student_alumni") {
@@ -131,7 +131,7 @@ export default function Profile() {
     }
   };
 
-
+ {/*******************************************************DISPLAY ON PAGE********************************************************************************/}
   if (!user) {
     return <div className="p-6 text-gray-500">Loading profile...</div>;
   }
@@ -141,161 +141,119 @@ export default function Profile() {
 
   return (
     <div className="pb-4">
-      <div className="profilePage">
-
-        {/*Left*/}
-        <div className="userLeftDiv">
-          {isEditing ? (
-            <div>
-              <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
-              <input
-                type="file"
-                onChange={(e) => setUpdatedProfilePic(e.target.files[0])} // Handle file upload
-              />
-            </div>
-          ) : (
-            <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
-          )}
-
-          <h3 className="text-3xl">{fullName}</h3>
-          <br />
-          <h3 className="text-1xl">{user.city ? user.city : "Location Unknown"}</h3>
-          <br />
-          <h3 className="text-1xl">
-            {user.user_type === "organization_member"
-              ? `Organization: ${user.organization_name || "N/A"}`
-              : "Student/Alumni"}
-          </h3>
+    <div className="profilePage">
+      
+      {/*Left*/}
+      <div className="userLeftDiv">
+      {isEditing ? (
+        <div>
+        <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
+        <input
+          type="file"
+          onChange={(e) => setUpdatedProfilePic(e.target.files[0])} // Handle file upload
+        />
         </div>
+        ) :(
+        <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
+        )}
 
-        {/*RIGHT*/}
-        <div className="userRightDiv relative">
-          {isEditing ? <h1>Edit Profile</h1> : ""}
-
-          {/* ABOUT ME - Only for student_alumni */}
-          {user.user_type === "student_alumni" && (
-            <>
-              <h1 className="profH1">About Me</h1>
-              {isEditing ? (
-                <textarea
-                  className="w-full p-2 border border-gray-300"
-                  value={updatedBio}
-                  placeholder="Update your bio...."
-                  onChange={(e) => setUpdatedBio(e.target.value)}
-                />
-              ) : (
-                <h3 className="text-left px-10 py-2">{user.bio || "No bio available."}</h3>
-              )}
-            </>
-          )}
-
-
-          {/* EDUCATION SECTION - Students/Alumni Only */}
-          {user.user_type === "student_alumni" && (
-            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
-              <br />
-              <h1 className="profH1">Education</h1>
-              <div className="text-left px-10">
-                {isEditing ? (
-                  <>
-                    <h3 className="text-gray-800">Graduation Year:</h3>
-                    <input
-                      className="w-full p-2 border border-gray-300"
-                      value={updatedGradYear}
-                      onChange={(e) => setUpdatedGradYear(e.target.value)}
-                    />
-                    <h3 className="text-gray-800 mt-4">Major:</h3>
-                    <input
-                      className="w-full p-2 border border-gray-300"
-                      value={updatedMajor}
-                      onChange={(e) => setUpdatedMajor(e.target.value)}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <h3 className="text-gray-800">Graduation Year<br />
-                      <span className="text-gray-100 px-5">{user.graduation_year || "N/A"}</span>
-                    </h3>
-                    <h3 className="text-gray-800">Major<br />
-                      <span className="text-gray-100 px-5">{user.major || "N/A"}</span>
-                    </h3>
-                  </>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* EXPERIENCE SECTION - Only for Students/Alumni */}
-          {user.user_type === "student_alumni" && (
-            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
-              <br />
-              <h1 className="profH1">Experience</h1>
-              {isEditing ? (
-                <textarea
-                  className="w-full p-2 border border-gray-300"
-                  value={updatedExp}
-                  placeholder="Details about your work experience..."
-                  onChange={(e) => setUpdatedExp(e.target.value)}
-                />
-              ) : (
-                <div className="text-left px-10 text-gray-400 italic">
-                  <h3 className="text-gray-800">{user.experience || "No experience listed."}</h3>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* ORGANIZATION INFO - Only for Org Members */}
-          {user.user_type === "organization_member" && (
-            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
-              <br />
-              <h1 className="profH1">Organization Info</h1>
-              <div className="text-left px-10">
-                <h3 className="text-gray-800">Organization</h3>
-                {isEditing ? (
-                  <input
-                    className="w-full p-2 border border-gray-300"
-                    value={updatedOrgName}
-                    onChange={(e) => setUpdatedOrgName(e.target.value)}
-                    placeholder="Enter organization name"
-                  />
-                ) : (
-                  <p className="text-gray-100 px-5">{user.organization_name || "N/A"}</p>
-                )}
-
-
-                <h3 className="text-gray-800 mt-3">Description</h3>
-                <p className="text-gray-100 px-5">{user.organization_description}</p>
-              </div>
-            </div>
-          )}
-
-          {/* EDIT BUTTONS */}
-          {isEditing ? (
-            <div className="absolute bottom-2 right-2">
-              <button onClick={handleSave} className="bg-green-500 text-white hover:bg-green-400 px-4 py-2 rounded mr-2">
-                <FontAwesomeIcon icon={faSave} className="mr-1" />
-                Save
-              </button>
-              <button onClick={handleCancel} className="bg-gray-500 hover:bg-gray-400 text-white px-4 py-2 rounded">
-                <FontAwesomeIcon icon={faTimes} className="mr-1" />
-                Cancel
-              </button>
-            </div>
-          ) : (
-            <div className="absolute top-2 right-2">
-              <button
-                onClick={triggerEdits}
-                className="absolute top-2 right-2 text-white hover:bg-gray-700 hover:text-gray-200 bg-gray-500 rounded-xs border-2 border-black w-30">
-                <FontAwesomeIcon icon={faPenToSquare} className="mr-1" />
-                Edit Profile
-              </button>
-            </div>
-          )}
-        </div>
-
+        <h3 className="text-3xl">{fullName}</h3>
+        <br />
+        <h3 className="text-1xl">{user.city? user.city: "Location Unknown"}</h3>
+        <br />
+        <h3 className="text-1xl">{user.user_type=="organization_member"?"Employer":"Student/Alumni"}</h3>
       </div>
 
+      {/*RIGHT*/}
+      <div className="userRightDiv relative">
+      {isEditing ? <h1>Edit Profile</h1>:""}
+        <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
+          <br />
+          {/*ABOUT ME*/}
+          <h1 className="profH1">About Me</h1>
+          {isEditing ? (
+              <textarea
+                className="w-full p-2 border border-gray-300"
+                value={updatedBio}
+                placeholder="Update your bio...."
+                onChange={(e) => setUpdatedBio(e.target.value)}
+              />
+            ) : (
+              <h3 className="text-left px-10 py-2">{user.bio || "No bio available."}</h3>
+            )}
+          </div>
+        {/*EDUCATION*/}
+        <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
+            <br />
+            <h1 className="profH1">Education</h1>
+            <div className="text-left px-10">
+              {isEditing ? (
+                <div>
+                  <h3 className="text-gray-800">Graduation Year:</h3>
+                  <input
+                    className="w-full p-2 border border-gray-300"
+                    value={updatedGradYear}
+                    onChange={(e) => setUpdatedGradYear(e.target.value)}
+                  />
+                  <h3 className="text-gray-800">Major:</h3>
+                  <input
+                    className="w-full p-2 border border-gray-300"
+                    value={updatedMajor}
+                    onChange={(e) => setUpdatedMajor(e.target.value)}
+                  />
+                </div>
+              ) : (
+                <>
+                  <h3 className="text-gray-800">Graduation Year<br /><span className="text-gray-100 px-5">{user.graduation_year || "N/A"}</span></h3>
+                  <h3 className="text-gray-800">Major<br /><span className="text-gray-100 px-5">{user.major || "N/A"}</span></h3>
+                </>
+              )}
+            </div>
+          </div>
+
+        {/* Experience */}
+        <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
+            <br />
+            <h1 className="profH1">Experience</h1>
+            {isEditing ? (
+              <textarea
+                className="w-full p-2 border border-gray-300"
+                value={updatedExp}
+                placeholder="Details about your work experience..."
+                onChange={(e) => setUpdatedExp(e.target.value)}
+              />
+            ) : (
+              <div className="text-left px-10 text-gray-400 italic">
+                <h3 className="text-gray-800">{user.experience || "No experience listed."}</h3>
+              </div>
+            )}
+          </div>
+
+        {/* Save and Cancel Buttons or Edit Button */}
+        {isEditing ? (
+          <div className="absolute bottom-2 right-2">
+            <button onClick={handleSave} className="bg-green-500 text-white hover:bg-green-400 px-4 py-2 rounded mr-2">
+              <FontAwesomeIcon icon={faSave} className="mr-1"/>
+              Save
+            </button>
+            <button onClick={handleCancel} className="bg-gray-500 hover:bg-gray-400 text-white px-4 py-2 rounded">
+              <FontAwesomeIcon icon={faTimes} className="mr-1"/>
+              Cancel
+            </button>
+          </div>
+        ) : (
+          <div className="absolute top-2 right-2">
+            <button 
+              onClick={triggerEdits} 
+              className="absolute top-2 right-2 text-white hover:bg-gray-700 hover:text-gray-200 bg-gray-500 rounded-xs border-2 border-black w-30">
+              <FontAwesomeIcon icon={faPenToSquare} className="mr-1"/>
+              Edit Profile
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+          
 
 
       {/*********************************************** * Bottom Container (Feed) *************************************************************/}
@@ -303,19 +261,18 @@ export default function Profile() {
         <div className="w-full flex justify-between items-center">
           <div className="yourPostsDiv"><h1>Your Posts</h1></div>
         </div>
-
+      
+       {/*Trigger the addpost module */}
         <button className="addButton" onClick={() => setShowAddPost(true)}>
-          <FontAwesomeIcon icon={faPlus} className="text-gray-100 text-5xl" />
-          <p className="text-xs">Add Post!</p>
-        </button>
+        <FontAwesomeIcon icon={faPlus} className="text-gray-100 text-5xl"/>
+        <p className="text-xs">Add Post!</p>
+      </button>
 
-        {showAddPost && <AddPost onClose={() => setShowAddPost(false)} />}
+      {showAddPost && <AddPost onClose={() => setShowAddPost(false)} />}
 
+      
 
-
-
-
-        {/* Display message if no posts are found */}
+        {/* Display message if no posts are found. Otherwise, show user's posts */}
         {posts.length === 0 ? (
           <div className="text-center text-gray-500">
             <p>You haven't posted yet...Click the button in the corner to make a post!</p>

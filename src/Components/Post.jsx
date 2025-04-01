@@ -6,11 +6,7 @@ import { ToastContainer, toast, Bounce } from "react-toastify"; // Import Toasti
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faTrashCan, faPenToSquare, faSave, faTimes} from "@fortawesome/free-solid-svg-icons";
 
-
-
-
-
-// Post.jsx
+{/*ALL PIECES PASSED BECAUSE POST IS DEPENDENT ON EACH INDIVIDUAL USER, NOT JUST THE CURRENTLY LOGGED IN ONE */}
 export default function Post({
   post_id,
   user_id,
@@ -24,16 +20,18 @@ export default function Post({
   profilePicture
 }) {
 
- 
+ {/*******************************************************USE STATES *********************************************************************************/}
   const [isExpanded, setIsExpanded] = useState(false);  // State to control content expansion
-  const [isEditing, setIsEditing] = useState(false); //will trigger updatable form
-  const [updatedContent, setUpdatedContent] = useState(content); //update text content
-  const [updatedTitle, setUpdatedTitle] = useState(title); //update title
-  const [selectedImage, setSelectedImage] = useState(null); //update image, will figure out later
+  const [isEditing, setIsEditing] = useState(false); //Will trigger updatable form
+  const [updatedContent, setUpdatedContent] = useState(content); //Update text content
+  const [updatedTitle, setUpdatedTitle] = useState(title); //Update title
+  const [selectedImage, setSelectedImage] = useState(null); //Update image, will figure out later
 
 
-  const loggedUser = sessionStorage.getItem("user_id");
+  const loggedUser = sessionStorage.getItem("user_id"); //Get the logged in user. This way, they can only edit their own posts  
 
+
+{/*******************************************************POST DELETION *********************************************************************************/}
   const handleDelete = async () => {
     try {
       console.log("Deleting post #", post_id, "from user",user_id); // Log for debugging
@@ -50,10 +48,11 @@ export default function Post({
     }
   };
 
+{/*************************************************Enable editing; used for edit button *******************************************************/}
   const triggerEdits = () => {
     setIsEditing(true);
   };
-
+{/*******************************************************Save changes to database; used for save button***************************************************/}
   const handleUpdate = async () => { //save button
       
       try{
@@ -80,6 +79,8 @@ export default function Post({
     }
   };
 
+  {/**************************************************Reset any changes; used for cancel button *************************************************************/}
+
   const handleCancel = () => {
     setIsEditing(false);
     setUpdatedTitle(title);
@@ -87,11 +88,11 @@ export default function Post({
   };
 
 
-
+{/***********************************************************DISPLAY ON SITE*********************************************************************************/}
   return (
     <div className="relative flex flex-col p-4 rounded-lg h-160 w-140 shadow-lg bg-white text-black max-w-full border-black/25 border-2">
 
-      {/* Render ender profile picture */}
+      {/* Render profile pictures for all users except for the currently logged in one*/}
       {loggedUser !== user_id && (
         <img
           src={profilePicture ||"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
@@ -100,6 +101,7 @@ export default function Post({
         />
       )}
 
+      {/*Display first name, last name, and org if applicable for each post*/}
       <div className="absolute top-5 left-17 flex items-center space-x-3">
         <strong className="text-lg">{firstName} {lastName}</strong>
         {organization_id && (
@@ -107,10 +109,11 @@ export default function Post({
         )}
       </div>
 
+    {/*If a post is being edited, display "editing post" at the top*/}
       {isEditing ? (<h3 className="text-2xl text-gray-300">Editing Post</h3>) : ("")}
 
 
-      {/* Editable Title or view form */}
+      {/* If editing, the title will be a text input. Otherwise, it jsut displays the title */}
       {isEditing ? (
         <input
           type="text"
@@ -130,7 +133,7 @@ export default function Post({
         />
       )}
 
-      {/* Editable Content or Truncated view form*/}
+      {/*{/* If editing, the content will be a text input. Otherwise, content will be displayed */}
       {isEditing ? (
         <textarea
           className="border border-gray-400 p-1 rounded w-full min-h-15"
