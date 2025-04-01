@@ -13,7 +13,7 @@ import { updateOrganization, createOrganization, getOrganizations } from "../Ser
 import Post from "./Post";
 
 export default function Profile() {
-{/*************************************************************USE STATES *********************************************************************************/}
+  {/*************************************************************USE STATES *********************************************************************************/ }
   const [user, setUser] = useState(null);
   const { loginSt } = useContext(DataContext);
   const [posts, setPosts] = useState([]);
@@ -23,7 +23,9 @@ export default function Profile() {
 
   //State variables for edit mode
   const [isEditing, setIsEditing] = useState(false);
-
+  const [wantsToBeAdmin, setWantsToBeAdmin] = useState(false);
+  const [adminCodeInput, setAdminCodeInput] = useState("");
+  const hardcodedAdminCode = "BEARCAT123"; // Or keep this in a `.env` file for safety--maybe do later  
   const [updatedBio, setUpdatedBio] = useState(""); //update bio 
   const [updatedMajor, setUpdatedMajor] = useState(""); //update major
   const [updatedGradYear, setUpdatedGradYear] = useState(""); //update grad year
@@ -43,7 +45,7 @@ export default function Profile() {
       });
     }
   }, []);
- {/*******************************************************Load user posts *********************************************************************************/}
+  {/*******************************************************Load user posts *********************************************************************************/ }
   useEffect(() => {
     console.log("Fetching posts...");
 
@@ -57,11 +59,11 @@ export default function Profile() {
     fetchPosts();
   }, [loginSt]);
 
- {/**************************************************Allow editing; used for "edit profile" button********************************************************/}
+  {/**************************************************Allow editing; used for "edit profile" button********************************************************/ }
   const triggerEdits = () => {
     setIsEditing(true);
   };
- {/**************************************************Reset everything; used for cancel button*********************************************************************************/}
+  {/**************************************************Reset everything; used for cancel button*********************************************************************************/ }
   const handleCancel = () => {
     setIsEditing(false);
     setUpdatedBio(bio);
@@ -69,7 +71,7 @@ export default function Profile() {
     setUpdatedMajor(major);
     setUpdatedExp(experience);
   };
- {/***********************************************Save changes to database; used for save button************************************************************/}
+  {/***********************************************Save changes to database; used for save button************************************************************/ }
   const handleSave = async () => {
     try {
       if (user.user_type === "student_alumni") {
@@ -91,7 +93,7 @@ export default function Profile() {
         }
 
       } else if (user.user_type === "organization_member") {
-        // Step 1: Get all orgs
+        //Get all orgs
         const orgs = await getOrganizations();
         const matchingOrg = orgs.find(
           (org) => org.name.toLowerCase() === updatedOrgName.toLowerCase()
@@ -99,19 +101,27 @@ export default function Profile() {
 
         let orgIdToUse;
 
-        // Step 2: Use existing org ID if found, else create new
+        // Use existing org ID if found, else create new
         if (matchingOrg) {
           orgIdToUse = matchingOrg.organization_id;
         } else {
           const newOrg = await createOrganization({ name: updatedOrgName, description: "" });
           orgIdToUse = newOrg.organization_id;
         }
-
-        // Step 3: Update the org member record
+        // Check admin code if box is checked
+        let finalRole = "member";
+        if (wantsToBeAdmin) {
+          if (adminCodeInput === hardcodedAdminCode) {
+            finalRole = "admin";
+          } else {
+            toast.error("Incorrect admin code. You'll be saved as a member.");
+          }
+        }
+        // Update the org member record
         const orgUpdateData = {
           member_id: userId,
           organization_id: orgIdToUse,
-          role: "member",
+          role: (wantsToBeAdmin && adminCodeInput === hardcodedAdminCode) ? "admin" : "member"
         };
 
         const result = await updateOrgMember(orgUpdateData);
@@ -131,7 +141,7 @@ export default function Profile() {
     }
   };
 
- {/*******************************************************DISPLAY ON PAGE********************************************************************************/}
+  {/*******************************************************DISPLAY ON PAGE********************************************************************************/ }
   if (!user) {
     return <div className="p-6 text-gray-500">Loading profile...</div>;
   }
@@ -141,31 +151,31 @@ export default function Profile() {
 
   return (
     <div className="pb-4">
-    <div className="profilePage">
-      
-      {/*Left*/}
-      <div className="userLeftDiv">
-      {isEditing ? (
-        <div>
-        <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
-        <input
-          type="file"
-          onChange={(e) => setUpdatedProfilePic(e.target.files[0])} // Handle file upload
-        />
+      <div className="profilePage">
+
+        {/*Left*/}
+        <div className="userLeftDiv">
+          {isEditing ? (
+            <div>
+              <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
+              <input
+                type="file"
+                onChange={(e) => setUpdatedProfilePic(e.target.files[0])} // Handle file upload
+              />
+            </div>
+          ) : (
+            <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
+          )}
+
+          <h3 className="text-3xl">{fullName}</h3>
+          <br />
+          <h3 className="text-1xl">{user.city ? user.city : "Location Unknown"}</h3>
+          <br />
+          <h3 className="text-1xl">{user.user_type == "organization_member" ? "Employer" : "Student/Alumni"}</h3>
         </div>
-        ) :(
-        <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
-        )}
 
-        <h3 className="text-3xl">{fullName}</h3>
-        <br />
-        <h3 className="text-1xl">{user.city? user.city: "Location Unknown"}</h3>
-        <br />
-        <h3 className="text-1xl">{user.user_type=="organization_member"?"Employer":"Student/Alumni"}</h3>
-      </div>
-
-       {/*RIGHT*/}
-       <div className="userRightDiv relative">
+        {/*RIGHT*/}
+        <div className="userRightDiv relative">
           {isEditing ? <h1>Edit Profile</h1> : ""}
 
           {/* ABOUT ME - Only for student_alumni */}
@@ -185,8 +195,8 @@ export default function Profile() {
             </>
           )}
 
-       {/* EDUCATION SECTION - Students/Alumni Only */}
-       {user.user_type === "student_alumni" && (
+          {/* EDUCATION SECTION - Students/Alumni Only */}
+          {user.user_type === "student_alumni" && (
             <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
               <br />
               <h1 className="profH1">Education</h1>
@@ -239,20 +249,42 @@ export default function Profile() {
               )}
             </div>
           )}
- {/* ORGANIZATION INFO - Only for Org Members */}
- {user.user_type === "organization_member" && (
+          {/* ORGANIZATION INFO - Only for Org Members */}
+          {user.user_type === "organization_member" && (
             <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
               <br />
               <h1 className="profH1">Organization Info</h1>
               <div className="text-left px-10">
                 <h3 className="text-gray-800">Organization</h3>
                 {isEditing ? (
-                  <input
-                    className="w-full p-2 border border-gray-300"
-                    value={updatedOrgName}
-                    onChange={(e) => setUpdatedOrgName(e.target.value)}
-                    placeholder="Enter organization name"
-                  />
+                  <>
+                    <input
+                      className="w-full p-2 border border-gray-300"
+                      value={updatedOrgName}
+                      onChange={(e) => setUpdatedOrgName(e.target.value)}
+                      placeholder="Enter organization name"
+                    />
+
+                    {/* ✅ Admin checkbox and code input */}
+                    <div className="mt-4">
+                      <label className="block text-sm font-medium text-gray-700">Are you an admin?</label>
+                      <input
+                        type="checkbox"
+                        checked={wantsToBeAdmin}
+                        onChange={(e) => setWantsToBeAdmin(e.target.checked)}
+                        className="mr-2"
+                      />
+                      {wantsToBeAdmin && (
+                        <input
+                          type="text"
+                          placeholder="Enter admin code"
+                          className="mt-2 p-2 border border-gray-300 w-full"
+                          value={adminCodeInput}
+                          onChange={(e) => setAdminCodeInput(e.target.value)}
+                        />
+                      )}
+                    </div>
+                  </>
                 ) : (
                   <p className="text-gray-100 px-5">{user.organization_name || "N/A"}</p>
                 )}
@@ -264,8 +296,8 @@ export default function Profile() {
             </div>
           )}
 
-       {/* EDIT BUTTONS */}
-       {isEditing ? (
+          {/* EDIT BUTTONS */}
+          {isEditing ? (
             <div className="absolute bottom-2 right-2">
               <button onClick={handleSave} className="bg-green-500 text-white hover:bg-green-400 px-4 py-2 rounded mr-2">
                 <FontAwesomeIcon icon={faSave} className="mr-1" />
@@ -286,9 +318,9 @@ export default function Profile() {
               </button>
             </div>
           )}
+        </div>
       </div>
-    </div>
-          
+
 
 
       {/*********************************************** * Bottom Container (Feed) *************************************************************/}
@@ -296,16 +328,16 @@ export default function Profile() {
         <div className="w-full flex justify-between items-center">
           <div className="yourPostsDiv"><h1>Your Posts</h1></div>
         </div>
-      
-       {/*Trigger the addpost module */}
+
+        {/*Trigger the addpost module */}
         <button className="addButton" onClick={() => setShowAddPost(true)}>
-        <FontAwesomeIcon icon={faPlus} className="text-gray-100 text-5xl"/>
-        <p className="text-xs">Add Post!</p>
-      </button>
+          <FontAwesomeIcon icon={faPlus} className="text-gray-100 text-5xl" />
+          <p className="text-xs">Add Post!</p>
+        </button>
 
-      {showAddPost && <AddPost onClose={() => setShowAddPost(false)} />}
+        {showAddPost && <AddPost onClose={() => setShowAddPost(false)} />}
 
-      
+
 
         {/* Display message if no posts are found. Otherwise, show user's posts */}
         {posts.length === 0 ? (
