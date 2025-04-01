@@ -10,6 +10,7 @@ import { updateOrgMember } from "../Services/OrgMemberService";
 import { updateOrganization, createOrganization, getOrganizations } from "../Services/OrgService";
 
 
+
 import Post from "./Post";
 
 export default function Profile() {
@@ -52,7 +53,7 @@ export default function Profile() {
     async function fetchPosts() {
 
       if (userId) {
-        const postList = await GetUserPosts(userId);  // Fetch posts by userId
+        const postList = await GetUserPosts(userId);  
         setPosts(postList);
       }
     }
@@ -177,6 +178,8 @@ export default function Profile() {
           <h3 className="text-1xl">{user.city ? user.city : "Location Unknown"}</h3>
           <br />
           <h3 className="text-1xl">{user.user_type == "organization_member" ? "Employer" : "Student/Alumni"}</h3>
+          <br></br>
+          <h3 className="text-1xl">{user.user_type ? user.organization_name:"Organization Unknown"}</h3>
         </div>
 
         {/*RIGHT*/}
