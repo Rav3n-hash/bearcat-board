@@ -257,12 +257,15 @@ export default function Profile() {
               )}
             </div>
           )}
+
           {/* ORGANIZATION INFO - Only for Org Members */}
           {user.user_type === "organization_member" && (
-            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
+            <div className=" pb-4 w-3/4 h-6/10 ml-10">
               <br />
               <h1 className="profH1">Organization Info</h1>
-              <div className="text-left px-10">
+
+              {/* Organization Name Section */}
+              <div className="text-left px-10 w-3/4 ml-10 border-b-2 mb-20 mt-5 border-yellow-400 pb-2">
                 <h3 className="text-gray-800">Organization</h3>
                 {isEditing ? (
                   <>
@@ -273,8 +276,8 @@ export default function Profile() {
                       placeholder="Enter organization name"
                     />
 
-                    {/* ✅ Admin checkbox and code input */}
-                    <div className="mt-4">
+                    {/* Admin checkbox and code input */}
+                    <div className="mt-4 pb-2">
                       <label className="block text-sm font-medium text-gray-700">Are you an admin?</label>
                       <input
                         type="checkbox"
@@ -296,8 +299,10 @@ export default function Profile() {
                 ) : (
                   <p className="text-gray-100 px-5">{user.organization_name || "N/A"}</p>
                 )}
+              </div>
 
-
+              {/* Organization Description Section */}
+              <div className="text-left px-10 w-3/4 ml-10 border-b-2 border-yellow-400 pb-2">
                 <h3 className="text-gray-800 mt-3">Description</h3>
                 <p className="text-gray-100 px-5">{user.organization_description}</p>
               </div>
@@ -328,6 +333,7 @@ export default function Profile() {
           )}
         </div>
       </div>
+  
 
 
 
@@ -374,5 +380,6 @@ export default function Profile() {
       </div>
       <ToastContainer />
     </div>
+
   );
 }

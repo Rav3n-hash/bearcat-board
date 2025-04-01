@@ -19,7 +19,7 @@ export default function NavBar() {
 
 
     return (
-      <div className="navbar navLinks grid grid-cols-5 px-8 py-0.5 text-left items-center border-2">
+      <div className="navbar navLinks grid grid-cols-5 px-8 py-0.5 text-left items-center border-2 sticky top-0 z-10">
 
 
     {/* *********************************** Home, Profile, and Connect  Pages ************************************************************/}
