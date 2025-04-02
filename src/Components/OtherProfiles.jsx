@@ -45,8 +45,8 @@ export default function OtherProfiles() {
     }
     {/******************************************************DISPLAY ON SITE******************************************************/ }
     return (
-        <div className="pb-4">
-            <div className="profilePage shadow-lg">
+        <div className="pb-4 flex flex-row justify-between max-w-full">
+            <div className="profilePage w-3/5 h-160">
 
                 {/************************Left ************************************/}
                 <div className="userLeftDiv">
@@ -116,15 +116,15 @@ export default function OtherProfiles() {
             </div>
 
             {/***************************************************************DIV FOR POSTS ************************************************************************/}
-            <div className="flex flex-col justify-center items-center border-yellow-500 border-1 w-8/10 ml-43.5 mt-4 mb-10 bg-gray-300 shadow-lg">
-                <div className="w-full flex justify-between items-center">
+            <div className="flex flex-col w-2/5 justify-items-center border-yellow-300 border-1 mt-5 mb-5 mr-4 bg-gray-300 shadow-lg h-160 overflow-y-auto">
+            <div className="w-full">
                     <div className="yourPostsDiv"><h1>{user.firstname}'s Posts</h1></div>
                 </div>
 
                 {/*Initial/Hightlighted Post*/}
                 {initialPost && (
                     <div className="pb-2 w-full ml-10 mt-4">
-                        <h3 className="text-3xl text-yellow-400 bg-amber-100 w-200 ml-50">Highlighted Post</h3>
+                        <h3 className="text-3xl text-yellow-400 bg-amber-100 w-200">Highlighted Post</h3>
                         <div className="w-full flex justify-center items-center max-w-2xl overflow-y-auto space-y-6 ml-70 mt-4">
                             <Post
                                 post_id={initialPost.post_id}
@@ -145,9 +145,9 @@ export default function OtherProfiles() {
 
                 {/*****************All posts***************/}
                 {userPosts.length > 0 && (
-                    <div className=" pb-2 w-full ml-10 mt-4">
-                        <h3 className="text-3xl text-yellow-400 bg-amber-100 w-200 ml-50">All of {user.firstname}'s Posts</h3>
-                        <div className="w-full max-w-2xl flex flex-col space-y-6 mt-4 mx-auto">
+                    <div className="flex flex-col justify-center items-center pb-2 w-full mt-4">
+                        <h3 className="text-3xl text-yellow-400 bg-amber-100 w-7/8">All of {user.firstname}'s Posts</h3>
+                        <div className="w-full flex flex-col y-6 mt-4 mx-auto ml-1">
                             {userPosts.map((post, index) => (
                                 <Post
                                     key={index}

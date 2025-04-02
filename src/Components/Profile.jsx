@@ -154,10 +154,11 @@ export default function Profile() {
   const profilePic = user.picture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
   return (
-    <div className="pb-4">
-      <div className="profilePage">
+    <div className="pb-4 flex flex-row justify-between max-w-full">
+      <div className="profilePage w-3/5 h-160">
 
         {/*Left*/}
+        
         <div className="userLeftDiv">
           {isEditing ? (
             <div>
@@ -263,7 +264,7 @@ export default function Profile() {
               <h1 className="profH1">Organization Info</h1>
 
               {/* Organization Name Section */}
-              <div className="text-left px-10 w-3/4 ml-10 border-b-2 mb-20 mt-5 border-yellow-400 pb-2">
+              <div className="text-left px-10 w-3/4 ml-10 border-b-2 mb-20 mt-10 border-yellow-400 pb-2">
                 <h3 className="text-gray-800">Organization</h3>
                 {isEditing ? (
                   <>
@@ -335,14 +336,14 @@ export default function Profile() {
 
 
 
-      {/*********************************************** * Bottom Container (Feed) *************************************************************/}
-      <div className="flex flex-col w-8/10 justify-center items-center border-yellow-300 border-1 ml-43.5 mb-10 bg-gray-300 shadow-lg">
-        <div className="w-full flex justify-between items-center">
+      {/*********************************************** * Right Container (Feed) *************************************************************/}
+      <div className="flex flex-col w-2/5 justify-items-center border-yellow-300 border-1 mt-5 mb-5 mr-4 bg-gray-300 shadow-lg h-160 overflow-y-auto">
+        <div className="w-full">
           <div className="yourPostsDiv"><h1>Your Posts</h1></div>
         </div>
 
         {/*Trigger the addpost module */}
-        <button className="addButton" onClick={() => setShowAddPost(true)}>
+        <button className="addButton z-50" onClick={() => setShowAddPost(true)}>
           <FontAwesomeIcon icon={faPlus} className="text-gray-100 text-5xl" />
           <p className="text-xs">Add Post!</p>
         </button>
@@ -354,10 +355,11 @@ export default function Profile() {
         {/* Display message if no posts are found. Otherwise, show user's posts */}
         {posts.length === 0 ? (
           <div className="text-center text-gray-500">
-            <p>You haven't posted yet...Click the button in the corner to make a post!</p>
+            <p>You haven't posted yet...</p>
+            <p>Click the button in the corner to make a post!</p>
           </div>
         ) : (
-          <div className="w-full ml-30 max-w-2xl overflow-y-auto space-y-6 mt-4">
+          <div className="flex flex-col w-full justify-center items-center space-y-6 mt-4 mb-4">
             {posts.map((post, index) => (
               <Post
                 key={index}
