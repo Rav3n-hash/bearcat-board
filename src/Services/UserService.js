@@ -20,6 +20,17 @@ async function updateUserInfo(updateData) {
   }
 }
 
+async function updateCredentials(data) {
+  try {
+    const res = await axios.put(`${host}/user/updateCredentials`, data);
+    return res.data; 
+  } catch (error) {
+    console.error("Credential update failed:", error.response?.data || error.message);
+    throw error;
+  }
+}
+
+
 async function deleteUser(userId) {
   try {
     const response = await axios.delete(`${host}/user/delUser`, {
@@ -34,7 +45,6 @@ async function deleteUser(userId) {
     throw error;
   }
 }
-
 
 async function getAllUsers() {
   try {
@@ -78,4 +88,4 @@ async function getUserById(user_id) {
   }
 }
 
-export { getUserById, loginUser, createUser, getAllUsers, updateUserInfo, deleteUser };
+export { getUserById, loginUser, createUser, getAllUsers, updateUserInfo, deleteUser , updateCredentials};

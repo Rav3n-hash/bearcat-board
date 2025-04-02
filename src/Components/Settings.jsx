@@ -2,52 +2,102 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserSlash, faPenToSquare, faBell, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast, Bounce } from "react-toastify"; // Import Toastify
-
-import { deleteUser } from "../Services/UserService";
+import { updateUserInfo,deleteUser, updateCredentials} from "../Services/UserService";
 import { useNavigate } from "react-router-dom";
 
 export default function Settings() {
     const [selectedOption, setSelectedOption] = useState('accountPreferences');
     const [isDeleteConfirmed, setDeleteConfirmed] = useState(false);
     const navigate = useNavigate();
+    const userId = sessionStorage.getItem("user_id");
+    const [firstName, setFirstName] = useState(sessionStorage.getItem("fName") || "");
+    const [lastName, setLastName] = useState(sessionStorage.getItem("lName") || "");
+    const [city, setCity] = useState(sessionStorage.getItem("city") || "");
+    const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
 
 
 
-    {/* Function to delete currenlty logged user account  */}
+    {/* Function to delete currenlty logged user account  */ }
     const handleDeleteAccount = async () => {
         if (!isDeleteConfirmed) {
-          alert("Please confirm account deletion");
-          return;
+            alert("Please confirm account deletion");
+            return;
         }
-      
+
         const userId = sessionStorage.getItem("user_id");
         if (!userId) {
-          alert("User not found. Please log in again.");
-          return;
+            alert("User not found. Please log in again.");
+            return;
         }
-      
+
         try {
-          const result = await deleteUser(userId);
-          if (result.message === "User deleted successfully") {
-            alert("Account deleted successfully. Goodbye 👋");
-            sessionStorage.clear();
-            navigate("/");
-          } else {
-            alert("Something went wrong. Please try again.");
-          }
+            const result = await deleteUser(userId);
+            if (result.message === "User deleted successfully") {
+                alert("Account deleted successfully. Goodbye 👋");
+                sessionStorage.clear();
+                navigate("/");
+            } else {
+                alert("Something went wrong. Please try again.");
+            }
         } catch (err) {
-          console.error("Error deleting account:", err);
-          alert("Error deleting account. Please try again.");
+            console.error("Error deleting account:", err);
+            alert("Error deleting account. Please try again.");
         }
-      };
+    };
 
-    {/* Function to update user credentials like name, email, password, etc. This is where the Update User function would go */}
-    const handleUpdateInfo = ()=>{
-        //if successful, show the toast notif
-        toast.success("Updating Info...", { position: "top-center", autoClose: 3000, transition: Bounce });
-        setTimeout(() => window.location.reload(), 3000); //reload window when toast notif is done to actuallt show saved updates
+    {/* Function to update user profile like name, city, etc */ }
+    const handleUpdateInfo = async (e) => {
+        e.preventDefault();
 
-    }
+        const updateData = {
+            user_id: userId,
+            firstname: firstName,
+            lastname: lastName,
+            city: city,
+        };
+
+        try {
+            const response = await updateUserInfo(updateData);
+            toast.success("Profile updated!", { autoClose: 3000, transition: Bounce });
+
+            // Update session storage to reflect new changes
+            sessionStorage.setItem("fName", firstName);
+            sessionStorage.setItem("lName", lastName);
+            sessionStorage.setItem("city", city);
+            sessionStorage.setItem("email", email);
+
+            setTimeout(() => window.location.reload(), 3000);
+        } catch (error) {
+            toast.error("Update failed. Please try again.");
+            console.error("Update error:", error);
+        }
+    };
+
+    const handleUpdateCredentials = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await updateCredentials({
+                user_id: userId,
+                email,
+                oldPassword,
+                newPassword,
+              });
+              
+              if (res.success) {
+                toast.success("Credentials updated!");
+                sessionStorage.setItem("email", email);
+                setTimeout(() => window.location.reload(), 3000);
+              } else {
+                toast.error(res.message || "Failed to update credentials");
+              }
+              
+        } catch (err) {
+            toast.error(err.response?.data?.message || "Something went wrong.");
+            console.error(err);
+        }
+    };
 
 
     return (
@@ -65,7 +115,7 @@ export default function Settings() {
                         <FontAwesomeIcon className="mr-3" icon={faPenToSquare} />
                         Edit User Information
                     </li>
-                     {/*************************************Show Privacy Settings *********************************************/}
+                    {/*************************************Show Privacy Settings *********************************************/}
                     <li
                         className={`cursor-pointer hover:bg-yellow-400 py-2 flex items-center ${selectedOption === 'privacySettings' ? 'bg-yellow-500' : ''}`}
                         onClick={() => setSelectedOption('privacySettings')}
@@ -73,7 +123,7 @@ export default function Settings() {
                         <FontAwesomeIcon className="mr-3" icon={faLock} />
                         Privacy Settings
                     </li>
-                     {/*************************************Show Notification Settings*********************************************/}
+                    {/*************************************Show Notification Settings*********************************************/}
                     <li
                         className={`cursor-pointer hover:bg-yellow-400 py-2 flex items-center ${selectedOption === 'notificationSettings' ? 'bg-yellow-500' : ''}`}
                         onClick={() => setSelectedOption('notificationSettings')}
@@ -102,32 +152,27 @@ export default function Settings() {
                         <h3 className="text-2xl mb-4">Edit User Information</h3>
 
                         <form>
-                            {/* Edit Username*/}
-                            <div className="flex items-center mb-4">
-                                <label className="w-1/4 text-right pr-4">Username:</label>
-                                <input type="text" className="border p-2 w-3/4" placeholder={sessionStorage.getItem("username")} />
-                            </div>
 
-                             {/* Edit First Name*/}
+                            {/* Edit First Name*/}
                             <div className="flex items-center mb-4">
                                 <label className="w-1/4 text-right pr-4">First Name:</label>
-                                <input type="text" className="border p-2 w-3/4" placeholder={sessionStorage.getItem("fName")} />
+                                <input type="text" className="border p-2 w-3/4" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                             </div>
 
-                             {/* Edit Last Name*/}
+                            {/* Edit Last Name*/}
                             <div className="flex items-center mb-4">
                                 <label className="w-1/4 text-right pr-4">Last Name:</label>
-                                <input type="text" className="border p-2 w-3/4" placeholder={sessionStorage.getItem("lName")} />
+                                <input type="text" className="border p-2 w-3/4" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                             </div>
 
-                             {/* Edit City*/}
+                            {/* Edit City*/}
                             <div className="flex items-center mb-4">
                                 <label className="w-1/4 text-right pr-4">City:</label>
-                                <input type="text" className="border p-2 w-3/4" placeholder={sessionStorage.getItem("city")} />
+                                <input type="text" className="border p-2 w-3/4" value={city} onChange={(e) => setCity(e.target.value)} />
                             </div>
 
-                             {/*Save changes button. Calls handleUpdate to save changes in database*/}
-                            <button type="submit" className="bg-yellow-500 text-black p-2 rounded" onClick={()=>{handleUpdateInfo}}>Save Changes</button>
+                            {/*Save changes button. Calls handleUpdate to save changes in database*/}
+                            <button type="submit" className="bg-yellow-500 text-black p-2 rounded" onClick={handleUpdateInfo}>Save Changes</button>
                         </form>
                     </div>
                 )}
@@ -176,25 +221,47 @@ export default function Settings() {
                     </div>
                 )}
 
-                {/*On Privacy settings (mayremove). Change email and password*/}
+                {/*On Privacy settings. Change email and password*/}
                 {selectedOption === 'privacySettings' && (
                     <div className='border-1 rounded-xs shadow-xl border-black p-4'>
                         <h3 className="text-2xl mb-4">Privacy Settings</h3>
                         {/* Form to change email or password */}
-                        <form>
-                            <label className="block mb-2">Change Email: </label>
-                            <input type="email" className="border p-2 mb-4 w-1/2" placeholder={sessionStorage.getItem("email")}  />
+                        <form onSubmit={handleUpdateCredentials}>
+                            <label className="block mb-2">Change Email:</label>
+                            <input
+                                type="email"
+                                className="border p-2 mb-4 w-1/2"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <br />
+                            <label className="block mt-5">Change Password:</label>
+                            <input
+                                type="password"
+                                className="border p-2 mb-4 w-1/2"
+                                value={oldPassword}
+                                onChange={(e) => setOldPassword(e.target.value)}
+                                placeholder="Enter Old Password"
+                            />
                             <br></br>
-                            <label className="block mt-5">Change Password: </label>
-                            <input type="password" className="border p-2 mb-4 w-1/2" placeholder="Enter Old Password" />
-                            <input type="password" className="border p-2 mb-4 w-1/2" placeholder="Enter New Password" />
-                            <button type="submit" className="bg-yellow-500 text-black p-2 rounded">Save Changes</button>
+                            <input
+                                type="password"
+                                className="border p-2 mb-4 w-1/2"
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                                placeholder="Enter New Password"
+                            />
+                            <br />
+                            <button type="submit" className="bg-yellow-500 text-black p-2 rounded">
+                                Save Changes
+                            </button>
                         </form>
+
                     </div>
                 )}
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
-        
+
     );
 }
