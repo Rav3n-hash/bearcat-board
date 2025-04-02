@@ -38,7 +38,6 @@ export default function Profile() {
 
   useEffect(() => {
 
-    console.log("User Id:", userId)
     if (userId) {
       getUserById(userId).then((userData) => {
         setUser(userData);
@@ -48,7 +47,6 @@ export default function Profile() {
   }, []);
   {/*******************************************************Load user posts *********************************************************************************/ }
   useEffect(() => {
-    console.log("Fetching posts...");
 
     async function fetchPosts() {
 
