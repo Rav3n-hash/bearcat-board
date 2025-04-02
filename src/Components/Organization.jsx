@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import UserCard from "../components/UserCard"; // Assuming UserCard is reusable
-import Post from "../components/Post"; // Assuming Post is used for feed
+import UserCard from "./UserCard";
+import Post from "./Post";
 
 export default function Organization({ orgId }) {
+
   // Placeholder state variables
   const [organization, setOrganization] = useState({ name: "", description: "" });
   const [members, setMembers] = useState([]);
@@ -10,52 +11,112 @@ export default function Organization({ orgId }) {
 
   // Placeholder functions for fetching data (to be replaced with API calls)
   useEffect(() => {
-    // Fetch organization details
-    setOrganization({ name: "Example Organization", description: "This is a sample description for the organization." });
+   
+    setOrganization({
+      //Fetch org name and desc, currently using placeholders
+      name: "Example Organization", 
+      description: "This is a sample description for the organization." 
+    });
     
-    // Fetch members of the organization
+   
     setMembers([
-      { user_id: 1, firstname: "John", lastname: "Doe", picture: "" },
-      { user_id: 2, firstname: "Jane", lastname: "Smith", picture: "" }
-    ]);
+      // Fetch members of the organization. Currently using placeholders
+      { user_id: 1, 
+        firstname: "John", 
+        lastname: "Doe", 
+        picture: "" 
+      },
+      { user_id: 2, 
+        firstname: "Jane", 
+        lastname: "Smith", 
+        picture: "" 
+      },
+      { user_id: 3, 
+        firstname: "Janet", 
+        lastname: "Smithers", 
+        picture: "" 
+      }
+    ]);  
 
-    // Fetch posts related to the organization
+    //Fetch posts from the org. Currently using placeholders
     setPosts([
-      { post_id: 1, user_id: 1, firstName: "John", lastName: "Doe", title: "Welcome to Org!", content: "Excited to be here!" },
-      { post_id: 2, user_id: 2, firstName: "Jane", lastName: "Smith", title: "New Opportunities", content: "Check out these new opportunities!" }
+      { post_id: 1, 
+        user_id: 1, 
+        firstName: "John", 
+        lastName: "Doe", 
+        title: "Welcome to Org!", 
+        content: "Excited to be here!" 
+      },
+
+      { post_id: 2, 
+        user_id: 2, 
+        firstName: "Jane", 
+        lastName: "Smith", 
+        title: "New Opportunities", 
+        content: "Check out these new opportunities!" 
+      },
+
+      { post_id: 3, 
+        user_id: 3, 
+        firstName: "Janet", 
+        lastName: "Smithers", 
+        title: "New Stuff", 
+        content: "Check out the new stuff!" 
+      }
     ]);
   }, [orgId]);
 
-  return (
+  return  (
     <div className="container mx-auto p-4">
-      {/* Organization Header */}
-      <div className="text-center mb-6">
-        <h3 className="text-3xl text-black font-bold">{organization.name}</h3>
-        <p className="text-gray-600">{members.length} members</p>
+      {/************************************************** Organization Header ***********************************************************/}
+      <div className="flex shadow-sm items-center mb-1 bg-blue-100 border border-black/10">
+        {/* Organization Image */}
+        <img
+          className="w-30 h-30 rounded-none border-3 border-gray-900"
+          src={organization.picture || "https://d2jhcfgvzjqsa8.cloudfront.net/storage/2022/04/download.png"}
+          alt="Organization"
+        />
+        
+        {/* Organization Name and Member Count */}
+        <div className="ml-5">
+          <h3 className="text-3xl text-black font-bold">{organization.name}</h3>
+          <p className="text-gray-600 text-left ml-5">{members.length} members</p>
+        </div>
       </div>
       
-      {/* Sections: About, Members, Feed */}
-      <div className="grid grid-cols-3 gap-6">
-        {/* About Section */}
-        <div className="bg-white shadow-md rounded-lg p-4 border border-gray-300 col-span-1">
-          <h2 className="text-xl text-black font-semibold">About</h2>
-          <p className="text-gray-700">{organization.description}</p>
+    {/****************************************************Sections: About, Members, Feed **********************************************************/}
+      <div className="flex flex-row">
+
+        {/******************************** About Section Title and Content ********************************/}
+        <div className=" w-1/4">
+          <div className="text-xl text-black font-semibold bg-gray-200 p-2 border-1 border-black/10">About</div>
+          <div className="flex flex-col items-center bg-white shadow-md rounded-xs p-4 border-1 border-black/10 h-150">
+            <p className="text-gray-700">{organization.description}</p>
+          </div>
         </div>
 
-        {/* Members Section */}
-        <div className="bg-white shadow-md rounded-lg p-4 border border-gray-300 col-span-1 overflow-y-auto overflow-x-hidden max-h-80">
-          <h2 className="text-xl text-black font-semibold">Members</h2>
-          {members.map(member => (
-            <UserCard key={member.user_id} user={member} />
-          ))}
+        {/********************************* Members Section Title and Content *********************************/}
+        <div className="w-1/4">
+          <div className="text-xl text-black font-semibold bg-gray-200 p-2 border-1 border-black/10">Members</div>
+          <div className="flex flex-col items-center bg-white shadow-md rounded-xs p-4 border-1 border-black/10 overflow-y-auto overflow-x-hidden h-150">
+            {members.map(member => (
+              <div className="mb-4 mt-2" key={member.user_id}>
+                <UserCard user={member} />
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Feed Section */}
-        <div className="bg-white shadow-md rounded-lg p-4 border border-gray-300 col-span-1 overflow-y-auto overflow-x-hidden max-h-80">
-          <h2 className="text-xl text-black font-semibold">Feed</h2>
-          {posts.map(post => (
-            <Post key={post.post_id} {...post} />
-          ))}
+        {/********************************* Feed Section Title and Content *********************************/}
+        <div className=" ml-5 w-1/2">
+          <div className="text-xl text-black font-semibold bg-gray-200 p-2 border-1 border-black/10">Feed</div>
+          <div className="flex flex-col items-center bg-white shadow-md rounded-xs p-4 border-1 border-black/10 overflow-y-auto overflow-x-hidden h-150">
+            {posts.map(post => (
+              <div className="m-4" key={post.post_id}>
+                <Post {...post} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

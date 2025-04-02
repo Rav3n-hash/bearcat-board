@@ -26,7 +26,7 @@ export default function Connections() {
             {/*******************************Right Container (Other users) ******************************************/}
             <div className="p-5 w-3/4 flex flex-col items-center justify-center">
                 <h1 className="text-2xl font-bold mb-4 text-yellow-300">Connections</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-10 items-center justify-center">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-10 items-center justify-center">
                     {users.length > 0 ? (
                         users.map((user) => (
                             <UserCard key={user.user_id} user={user} />
