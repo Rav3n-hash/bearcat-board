@@ -172,14 +172,11 @@ margin-right: auto;
 .profilePage{
   display: grid;
   grid-template-columns: 30% 70%;
-  width: 80%;
   border-color: #e2c43f;
   border-style: double;
   border-width: 1px;
   background-color: #ccc;
-  margin-top: 10px;
-  margin-left: 25vh;
-  height:650px
+  margin: 20px;
   
 }
 
@@ -252,7 +249,7 @@ margin-right: auto;
 
 .addButton{
   position: fixed;
-  bottom: 40px;
+  bottom: 20px;
   right: 20px;
   width: 80px;
   height: 80px;
