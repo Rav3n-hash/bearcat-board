@@ -123,9 +123,9 @@ export default function OtherProfiles() {
 
                 {/*Initial/Hightlighted Post*/}
                 {initialPost && (
-                    <div className="pb-2 w-full ml-10 mt-4">
-                        <h3 className="text-3xl text-yellow-400 bg-amber-100 w-200">Highlighted Post</h3>
-                        <div className="w-full flex justify-center items-center max-w-2xl overflow-y-auto space-y-6 ml-70 mt-4">
+                    <div className="flex flex-col justify-center items-center pb-2 w-full mt-4">
+                        <h3 className="text-3xl text-yellow-400 bg-amber-100 w-7/8">Highlighted Post</h3>
+                        <div className="w-full flex justify-center items-center max-w-2xl overflow-y-auto space-y-6 mt-4">
                             <Post
                                 post_id={initialPost.post_id}
                                 user_id={initialPost.user_id}
