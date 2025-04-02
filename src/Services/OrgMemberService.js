@@ -14,4 +14,14 @@ async function updateOrgMember(updateData) {
   }
 }
 
-export { updateOrgMember };
+async function getMembersByOrg(orgId) {
+  try {
+    const res = await axios.get(`${host}/orgMember/getByOrg?organization_id=${orgId}`);
+    return res.data.rows;
+  } catch (error) {
+    console.error("Failed to fetch org members:", error);
+    return [];
+  }
+}
+
+export { updateOrgMember, getMembersByOrg };

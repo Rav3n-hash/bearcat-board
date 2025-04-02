@@ -102,6 +102,17 @@ async function DeletePost(postId, userId) {
     throw error;
   }
 }
+//Get posts by organization id
+async function getPostsByOrg(orgId) {
+  try {
+    const res = await axios.get(`${host}/post/getPostsByOrg?organization_id=${orgId}`);
+    return res.data.posts;
+  } catch (error) {
+    console.error("Failed to fetch org posts:", error);
+    return [];
+  }
+}
+
 
 // async function EditPost(){
 //   try { console.log("Sending to backend....")
@@ -121,5 +132,5 @@ async function DeletePost(postId, userId) {
 // }
 
 
-export { GetPosts, GetUserPosts, CreatePost, EditPost, DeletePost };
+export { GetPosts, GetUserPosts, CreatePost, EditPost, DeletePost, getPostsByOrg };
 

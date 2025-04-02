@@ -8,7 +8,7 @@ import { faPenToSquare, faSave, faTimes, faPlus } from "@fortawesome/free-solid-
 import AddPost from "./AddPost";
 import { updateOrgMember } from "../Services/OrgMemberService";
 import { updateOrganization, createOrganization, getOrganizations } from "../Services/OrgService";
-
+import { Link } from "react-router-dom";
 
 
 import Post from "./Post";
@@ -40,6 +40,7 @@ export default function Profile() {
 
     if (userId) {
       getUserById(userId).then((userData) => {
+        console.log("Fetched user data:", userData); // ⬅️ Add this line
         setUser(userData);
         setUpdatedOrgName(userData.organization_name || "");
       });
@@ -295,8 +296,15 @@ export default function Profile() {
                       )}
                     </div>
                   </>
+                ) :user.organization_name ? (
+                  <Link
+                    to={`/organization/${user.organization_id}`}
+                    className="text-blue-500 hover:underline px-5"
+                  >
+                    {user.organization_name}
+                  </Link>
                 ) : (
-                  <p className="text-gray-100 px-5">{user.organization_name || "N/A"}</p>
+                  <p className="text-gray-100 px-5">N/A</p>
                 )}
               </div>
 

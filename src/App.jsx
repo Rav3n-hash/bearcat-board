@@ -47,7 +47,7 @@ export default function App() {
               <Route path="/searchResults" element={<SearchResults />} />
               <Route path="/addPost" element={<AddPost />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="/organization" element={<Organization />} />
+              <Route path="/organization/:organization_id" element={<Organization />} />
 
               
             </Routes>
