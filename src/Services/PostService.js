@@ -33,7 +33,6 @@ async function GetPosts() {
     list.push(post);
   });
 
-  console.log(list);
 
   return list;
 }

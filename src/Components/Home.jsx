@@ -18,7 +18,6 @@ import AddPost from "./AddPost";
     
     {/****************************************************************Load Posts From database***********************************************/}
       useEffect(() => {
-        console.log("Fetching posts...");
 
         async function fetchPosts() {
           const postList = await GetPosts();

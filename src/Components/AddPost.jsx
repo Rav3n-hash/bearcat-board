@@ -6,15 +6,17 @@ import { ToastContainer, toast, Bounce } from "react-toastify"; // Import Toasti
 
 
 export default function AddPost({ onClose }) {
-  {/************************************************States for close confirmation and errors******************************************************/}
-  const [showConfirm, setShowConfirm] = useState(false); 
+  {/************************************************States for close confirmation and errors******************************************************/ }
+  const [showConfirm, setShowConfirm] = useState(false);
   const [errors, setErrors] = useState({});
+  const userType = sessionStorage.getItem("role");
 
-  {/******************************************Get Userid to link post to logged in user***********************************************/}
+
+  {/******************************************Get Userid to link post to logged in user***********************************************/ }
 
   const userId = sessionStorage.getItem("user_id");
 
-  {/******************************************************State for User Input******************************************************/}
+  {/******************************************************State for User Input******************************************************/ }
   const [postData, setPostData] = useState({
     userId: userId,
     content: "",
@@ -23,11 +25,11 @@ export default function AddPost({ onClose }) {
     postimg: null,
   });
 
-  {/******************************************************Save User Input******************************************************/}
+  {/******************************************************Save User Input******************************************************/ }
   const handleContentChange = (e) => setPostData((prev) => ({ ...prev, content: e.target.value }));
 
 
-  {/***********************************************Allow Image Upload (not sure how to convert to url)***********************************************/}
+  {/***********************************************Allow Image Upload (not sure how to convert to url)***********************************************/ }
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -35,7 +37,7 @@ export default function AddPost({ onClose }) {
     }
   };
 
-  {/******************************************************Form Validation******************************************************/}
+  {/******************************************************Form Validation******************************************************/ }
   const validateForm = () => {
     let newErrors = {};
     if (!postData.title.trim()) newErrors.title = "Title is required";
@@ -45,7 +47,7 @@ export default function AddPost({ onClose }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  {/******************************************************Submit new post******************************************************/}
+  {/******************************************************Submit new post******************************************************/ }
   const handleSubmit = async (e) => { // Make it async
     e.preventDefault(); // Prevent form from refreshing
     console.log("Submit button clicked");
@@ -81,8 +83,8 @@ export default function AddPost({ onClose }) {
         setPostData({ content: "", postType: "general", title: "", postimg: null });
 
         // Reset fields after submission
-      setPostData({ content: "", postType: "general", title: "", postimg: null });
-      setTimeout(() => window.location.reload(), 3000);
+        setPostData({ content: "", postType: "general", title: "", postimg: null });
+        setTimeout(() => window.location.reload(), 3000);
 
       } else {
         toast.error("Failed to add post. Try again.", { position: "top-center", autoClose: 3000, transition: Bounce });
@@ -94,7 +96,7 @@ export default function AddPost({ onClose }) {
   };
 
 
-  {/******************************************************DISPLAY ON SITE*************************************************************************/}
+  {/******************************************************DISPLAY ON SITE*************************************************************************/ }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25">
@@ -105,7 +107,7 @@ export default function AddPost({ onClose }) {
         <button
           onClick={onClose}
           className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl"
-          title="Close Form" 
+          title="Close Form"
         >
           <FontAwesomeIcon icon={faTimes} />
         </button>
@@ -126,6 +128,46 @@ export default function AddPost({ onClose }) {
           value={postData.content}
           onChange={handleContentChange}
         ></textarea>
+        {/* ***************************************************orgmember to have ability to choose if post is general or a job********************** */}
+        {userType === "organization_member" && (
+  <div className="mt-4 text-left">
+    <label className="text-sm font-medium text-gray-700 block mb-1">Post Type:</label>
+
+    <div className="flex space-x-6">
+      <label className="flex items-center text-gray-700">
+        <input
+          type="radio"
+          name="postType"
+          value="general"
+          checked={postData.postType === "general"}
+          onChange={(e) =>
+            setPostData((prev) => ({ ...prev, postType: e.target.value }))
+          }
+          className="mr-2 accent-blue-500"
+        />
+        General Post
+      </label>
+
+      <label className="flex items-center text-gray-700">
+        <input
+          type="radio"
+          name="postType"
+          value="job"
+          checked={postData.postType === "job"}
+          onChange={(e) =>
+            setPostData((prev) => ({ ...prev, postType: e.target.value }))
+          }
+          className="mr-2 accent-blue-500"
+        />
+        Job Post
+      </label>
+    </div>
+  </div>
+)}
+
+
+
+
 
         {/****************************************************** Upload Image Button ******************************************************/}
         <div className="flex mt-4">
