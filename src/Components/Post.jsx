@@ -8,7 +8,8 @@ import {faTrashCan, faPenToSquare, faSave, faTimes} from "@fortawesome/free-soli
 import { Link } from "react-router-dom";
 
 
-{/*ALL PIECES PASSED BECAUSE POST IS DEPENDENT ON EACH INDIVIDUAL USER, NOT JUST THE CURRENTLY LOGGED IN ONE */}
+{/*ALL PIECES PASSED BECAUSE POST IS DEPENDENT ON EACH 
+  INDIVIDUAL USER, NOT JUST THE CURRENTLY LOGGED IN ONE */}
 export default function Post({
   post_id,
   user_id,
