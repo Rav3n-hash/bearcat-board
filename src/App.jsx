@@ -31,8 +31,15 @@ export default function App() {
    }
    const [logStatus,setLogStatus]=useState(login);
 
+
+   const logout = () => {
+    sessionStorage.clear();        
+    setLogStatus("0");                
+    window.location.href = "/";       
+  };
+  
    return (
-    <DataContext.Provider value={{ logStatus, setLogStatus }}>
+    <DataContext.Provider value={{ logStatus, setLogStatus , logout}}>
       <BrowserRouter>
         {logStatus === "1" ? (
           // If logged in, show the NavBar
