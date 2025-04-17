@@ -62,6 +62,10 @@ export default function Profile() {
 
   {/**************************************************Allow editing; used for "edit profile" button********************************************************/ }
   const triggerEdits = () => {
+    setUpdatedBio(user.bio || "");
+    setUpdatedGradYear(user.graduation_year || "");
+    setUpdatedMajor(user.major || "");
+    setUpdatedExp(user.experience || "");
     setIsEditing(true);
   };
   {/**************************************************Reset everything; used for cancel button*********************************************************************************/ }
@@ -81,7 +85,9 @@ export default function Profile() {
           bio: updatedBio,
           graduation_year: updatedGradYear,
           major: updatedMajor,
-          experience: updatedExp
+          experience: updatedExp,
+          picture: updatedProfilePic,
+          user_id:userId
         };
       
         const result = await updateStuAlu(stuAluInfo);
@@ -165,10 +171,13 @@ export default function Profile() {
         <div className="userLeftDiv">
           {isEditing ? (
             <div>
-              <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
-              <input
-                type="file"
-                onChange={(e) => setUpdatedProfilePic(e.target.files[0])} // Handle file upload
+              <img className="w-60 h-60 rounded-none border-2 border-blue-200 shadow-sm shadow-blue-400/50" src={profilePic} />
+              <input 
+                className="w-full p-2 mt-2 border-1 border-blue-200 rounded-md bg-white text-black shadow-sm shadow-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:shadow-blue-400/50 transition duration-300"
+                type="text"
+                value={updatedProfilePic}
+                placeholder="Insert an image URL..."
+                onChange={(e) => setUpdatedProfilePic(e.target.value)} // Take URL instead
               />
             </div>
           ) : (
@@ -185,16 +194,16 @@ export default function Profile() {
         </div>
 
         {/*RIGHT*/}
-        <div className="userRightDiv relative">
+        <div className="userRightDiv relative ">
           {isEditing ? <h1>Edit Profile</h1> : ""}
 
           {/* ABOUT ME - Only for student_alumni */}
           {user.user_type === "student_alumni" && (
-            <>
+            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-2/10 ml-10 mt-2">
               <h1 className="profH1">About Me</h1>
               {isEditing ? (
                 <textarea
-                  className="w-full p-2 border border-gray-300"
+                  className="w-full mt-2 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                   value={updatedBio}
                   placeholder="Update your bio...."
                   onChange={(e) => setUpdatedBio(e.target.value)}
@@ -202,27 +211,29 @@ export default function Profile() {
               ) : (
                 <h3 className="text-left px-10 py-2">{user.bio || "No bio available."}</h3>
               )}
-            </>
+            </div>
           )}
 
           {/* EDUCATION SECTION - Students/Alumni Only */}
           {user.user_type === "student_alumni" && (
-            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
+            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3.5/10 ml-10">
               <br />
-              <h1 className="profH1">Education</h1>
+              <h1 className="profH1 mb-2">Education</h1>
               <div className="text-left px-10">
                 {isEditing ? (
                   <>
                     <h3 className="text-gray-800">Graduation Year:</h3>
                     <input
-                      className="w-full p-2 border border-gray-300"
+                      className="w-full p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                       value={updatedGradYear}
+                      placeholder="Update your graduation year..."
                       onChange={(e) => setUpdatedGradYear(e.target.value)}
                     />
                     <h3 className="text-gray-800 mt-4">Major:</h3>
                     <input
-                      className="w-full p-2 border border-gray-300"
+                      className="w-full p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                       value={updatedMajor}
+                      placeholder="Update your major..."
                       onChange={(e) => setUpdatedMajor(e.target.value)}
                     />
                   </>
@@ -242,14 +253,14 @@ export default function Profile() {
 
           {/* EXPERIENCE SECTION - Only for Students/Alumni */}
           {user.user_type === "student_alumni" && (
-            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3/10 ml-10">
+            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-1/4 ml-10">
               <br />
-              <h1 className="profH1">Experience</h1>
+              <h1 className="profH1 mb-2">Experience</h1>
               {isEditing ? (
                 <textarea
-                  className="w-full p-2 border border-gray-300"
+                  className="w-full p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                   value={updatedExp}
-                  placeholder="Details about your work experience..."
+                  placeholder="Update details about your work experience..."
                   onChange={(e) => setUpdatedExp(e.target.value)}
                 />
               ) : (
@@ -272,7 +283,7 @@ export default function Profile() {
                 {isEditing ? (
                   <>
                     <input
-                      className="w-full p-2 border border-gray-300"
+                      className="w-full p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                       value={updatedOrgName}
                       onChange={(e) => setUpdatedOrgName(e.target.value)}
                       placeholder="Enter organization name"
@@ -291,7 +302,7 @@ export default function Profile() {
                         <input
                           type="text"
                           placeholder="Enter admin code"
-                          className="mt-2 p-2 border border-gray-300 w-full"
+                          className="mt-2 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                           value={adminCodeInput}
                           onChange={(e) => setAdminCodeInput(e.target.value)}
                         />
