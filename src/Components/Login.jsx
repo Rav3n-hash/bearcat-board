@@ -1,7 +1,7 @@
 import { useState, useContext, Navigate } from "react";
 import { DataContext } from "../App";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faLock, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../Services/UserService";
 
@@ -10,6 +10,7 @@ export default function Login() {
   const [pwd, setPwd] = useState("");
   const { logStatus, setLogStatus } = useContext(DataContext);
   const navigate = useNavigate(); 
+  const [passwordVisible, setPasswordVisible] = useState(false); //User can toggle passsword visibility
 
   const check = async () => {
     if (!email.trim() || !pwd.trim()) {
@@ -73,12 +74,17 @@ export default function Login() {
             <FontAwesomeIcon icon={faLock} className="fieldIcon" />
             <input
               className="fields"
-              type="password"
+              type={passwordVisible ? "text" : "password"}
               id="pwd"
               value={pwd}
               placeholder="Enter password"
               onChange={(e) => { setPwd(e.target.value); }}
             />
+
+            <button type="button" onClick={() => setPasswordVisible(!passwordVisible)}
+              className="absolute inset-y-0 right-2 flex items-center px-2 text-gray-600 hover:text-black">
+              {passwordVisible ? <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon> : <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>}
+            </button>
             <br /><br />
           </div>
 
