@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 export default function UserCard({ user }) {
+    console.log("UserCard received:", user);
+
     return (
         <div className="bg-white shadow-md rounded-lg p-4 w-85 max-w-md mx-auto border border-gray-300">
             {/* User Info */}
@@ -14,7 +16,17 @@ export default function UserCard({ user }) {
                     <p className="font-semibold text-left text-gray-900">
                         {user.firstname} {user.lastname}
                     </p>
-                    <p className="text-sm text-left text-gray-500">{user.type}</p>
+                    <p className="text-sm text-left text-gray-500">
+                        {user.user_type === "student_alumni" && "Student/Alumni"}
+                        {user.user_type === "organization_member" && (
+                            <>
+                                Organization Member
+                                {user.organization_name && (
+                                    <> at <span className="font-medium">{user.organization_name}</span></>
+                                )}
+                            </>
+                        )}
+                    </p>
                 </div>
             </div>
 
