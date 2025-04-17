@@ -171,7 +171,11 @@ export default function Profile() {
         <div className="userLeftDiv">
           {isEditing ? (
             <div>
-              <img className="w-60 h-60 rounded-none border-2 border-blue-200 shadow-sm shadow-blue-400/50" src={profilePic} />
+              <img 
+                className="w-60 h-60 rounded-none border-2 border-blue-200 shadow-sm shadow-blue-400/50" 
+                src={profilePic}
+                alt="Invalid Image. Cannot Load."
+              />
               <input 
                 className="w-full p-2 mt-2 border-1 border-blue-200 rounded-md bg-white text-black shadow-sm shadow-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:shadow-blue-400/50 transition duration-300"
                 type="text"
@@ -181,7 +185,11 @@ export default function Profile() {
               />
             </div>
           ) : (
-            <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={profilePic} />
+            <img 
+              className="w-60 h-60 rounded-none border-3 border-gray-900" 
+              src={profilePic}
+              alt="Invalid Image. Cannot Load."
+             />
           )}
 
           <h3 className="text-3xl">{fullName}</h3>
