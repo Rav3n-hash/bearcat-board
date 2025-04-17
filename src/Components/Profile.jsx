@@ -9,6 +9,7 @@ import AddPost from "./AddPost";
 import { updateOrgMember } from "../Services/OrgMemberService";
 import { updateOrganization, createOrganization, getOrganizations } from "../Services/OrgService";
 import { Link } from "react-router-dom";
+import { updateStuAlu } from "../Services/StudAlumService";
 
 
 import Post from "./Post";
@@ -40,7 +41,7 @@ export default function Profile() {
 
     if (userId) {
       getUserById(userId).then((userData) => {
-        console.log("Fetched user data:", userData); // ⬅️ Add this line
+        console.log("Fetched user data:", userData); 
         setUser(userData);
         setUpdatedOrgName(userData.organization_name || "");
       });
@@ -75,21 +76,22 @@ export default function Profile() {
   const handleSave = async () => {
     try {
       if (user.user_type === "student_alumni") {
-        const userInfo = {
-          user_id: userId,
+        const stuAluInfo = {
+          student_alumni_id: userId,
           bio: updatedBio,
           graduation_year: updatedGradYear,
           major: updatedMajor,
-          experience: updatedExp,
+          experience: updatedExp
         };
-
-        const result = await updateUserInfo(userInfo);
-        if (result.ans === 1) {
-          toast.success("Updating Student/Alumni Info...", { autoClose: 3000 });
+      
+        const result = await updateStuAlu(stuAluInfo);
+      
+        if (result?.success) {
+          toast.success("Student/Alumni profile updated!", { autoClose: 3000 });
           setIsEditing(false);
           setTimeout(() => window.location.reload(), 3000);
         } else {
-          toast.error("Failed to update student info.");
+          toast.error("Failed to update student/alumni info.");
         }
 
       } else if (user.user_type === "organization_member") {

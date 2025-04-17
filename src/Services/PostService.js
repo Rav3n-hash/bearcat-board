@@ -114,23 +114,6 @@ async function getPostsByOrg(orgId) {
 }
 
 
-// async function EditPost(){
-//   try { console.log("Sending to backend....")
-//   const res = await axios.delete(`${host}/post/updatePost`, {
-//     headers: {
-//       'Content-Type': 'application/json',
-//       "Access-Control-Allow-Origin": host,
-//     },
-//     data: { post_id: postId, user_id: userId },
-//     withCredentials: true,
-//   });
-//   return res.data;
-// }catch (error) {
-//     console.error("Error updating post:", error);
-//     throw error;
-//   }
-// }
-
 
 export { GetPosts, GetUserPosts, CreatePost, EditPost, DeletePost, getPostsByOrg };
 
