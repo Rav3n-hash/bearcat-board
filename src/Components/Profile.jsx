@@ -197,7 +197,7 @@ export default function Profile() {
           <br />
           <h3 className="text-1xl">{user.city ? user.city : "Location Unknown"}</h3>
           <br />
-          <h3 className="text-1xl">{user.user_type == "organization_member" ? "Employer" : "Student/Alumni"}</h3>
+          <h3 className="text-1xl text-yellow-400 italic">{user.user_type == "organization_member" ? "Employer" : "Student/Alumni"}</h3>
           <br></br>
           <h3 className="text-1xl">{user.user_type ? user.organization_name:"Organization Unknown"}</h3>
         </div>
