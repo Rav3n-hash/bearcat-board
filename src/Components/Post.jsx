@@ -94,7 +94,7 @@ export default function Post({
 
 {/***********************************************************DISPLAY ON SITE*********************************************************************************/}
   return (
-    <div className={`relative flex flex-col gap-4 p-6 rounded-2xl w-140 max-w-2xl shadow-lg bg-white text-black border border-gray-200 hover:shadow-lg hover:shadow-blue-300/50 transition-all duration-300 ${isEditing ? 'h-auto' : 'h-160'}`}>
+    <div className={`relative flex flex-col gap-4 p-6 rounded-2xl w-140 max-w-2xl shadow-lg bg-white text-black border border-gray-200 hover:shadow-lg hover:shadow-blue-300/50 transition-all duration-300 ${isEditing || isExpanded ||!postImg ? 'h-auto' : 'h-160'}`}>
 
       {/* Render profile pictures for all users except for the currently logged in one*/}
       <div className="flex items-center gap-4">
@@ -160,9 +160,22 @@ export default function Post({
           onChange={(e) => setUpdatedContent(e.target.value)}
         />
       ):(
-      <p className={` w-120 min-h-10 ml-5 overflow- overflow-y-auto ${isExpanded ? '' : 'line-clamp-1'}`}>
-        {content}
-      </p>
+        <div>
+        <p
+          onClick={() => setIsExpanded(!isExpanded)}
+          className={`cursor-pointer transition-all duration-300 ${isExpanded ? '' : 'line-clamp-3'}`}
+        >
+          {content}
+        </p>
+        {content.length > 100 && (
+          <span
+            className="text-sm text-blue-500 cursor-pointer"
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            {isExpanded ? "Show Less" : "Read More"}
+          </span>
+        )}
+      </div>
       )}
 
       {/* Show the delete and edit button only if the logged-in user is the post's owner */}
