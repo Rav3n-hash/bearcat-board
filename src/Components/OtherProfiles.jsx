@@ -45,13 +45,13 @@ export default function OtherProfiles() {
     }
     {/******************************************************DISPLAY ON SITE******************************************************/ }
     return (
-        <div className="pb-4 flex flex-row justify-between max-w-full">
-            <div className="profilePage w-3/5 h-160">
+        <div className="pb-4 flex flex-row justify-between max-w-full mt-15">
+            <div className="profilePage w-4/5 h-160">
 
                 {/************************Left ************************************/}
                 <div className="userLeftDiv">
                     <img 
-                        className="w-60 h-60 rounded-none border-3 border-gray-900 object-cover" 
+                        className="w-60 h-55 rounded-none border-3 border-gray-900 object-cover" 
                         src={user.picture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} 
                     />
                     {console.log("OtherProfiles User:", user)}
@@ -128,7 +128,7 @@ export default function OtherProfiles() {
             </div>
 
             {/***************************************************************DIV FOR POSTS ************************************************************************/}
-            <div className="flex flex-col w-2/5 justify-items-center border-yellow-300 border-1 mt-5 mb-5 mr-4 bg-gray-300 shadow-lg h-160 overflow-y-auto">
+            <div className="flex flex-col w-65/100 justify-items-center border-yellow-300 border-1 mt-5 mb-5 mr-4 bg-gray-300 shadow-lg h-160 overflow-y-auto">
             <div className="w-full">
                     <div className="yourPostsDiv"><h1>{user.firstname}'s Posts</h1></div>
                 </div>
@@ -159,7 +159,7 @@ export default function OtherProfiles() {
                 {userPosts.length > 0 && (
                     <div className="flex flex-col justify-center items-center pb-2 w-full mt-4">
                         <h3 className="text-3xl text-yellow-400 bg-amber-100 w-7/8">All of {user.firstname}'s Posts</h3>
-                        <div className="w-full flex flex-col y-6 mt-4 mx-auto ml-1">
+                        <div className="w-full flex flex-col y-6 mt-4 mx-auto ml-8">
                             {userPosts.map((post, index) => (
                                 <Post
                                     key={index}

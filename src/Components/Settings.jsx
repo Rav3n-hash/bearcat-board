@@ -63,8 +63,8 @@ export default function Settings() {
             toast.success("Profile updated!", { autoClose: 3000, transition: Bounce });
 
             // Update session storage to reflect new changes
-            sessionStorage.setItem("fName", firstName);
-            sessionStorage.setItem("lName", lastName);
+            sessionStorage.setItem("fname", firstName);
+            sessionStorage.setItem("lname", lastName);
             sessionStorage.setItem("city", city);
             sessionStorage.setItem("email", email);
 
@@ -101,7 +101,7 @@ export default function Settings() {
 
 
     return (
-        <div className="h-9/10 flex flex-col md:flex-row">
+        <div className="h-9/10 flex flex-col md:flex-row mt-17.5 overflow-hidden">
             {/***************************************************** Sidebar *****************************************************/}
             {/*There are */}
             <div className="sidebar w-full md:w-1/6 h-full bg-gray-800 text-white p-4 flex flex-col">
@@ -146,7 +146,7 @@ export default function Settings() {
             {/* Main content. This will display the corresponding selected option on the page. */}
 
             {/*On Account Preferences. Show a form or user to edit details*/}
-            <div className="mainContent text-black w-full md:w-3/4 p-6">
+            <div className="ml-20 text-black w-full md:w-3/4 p-6">
                 {selectedOption === 'accountPreferences' && (
                     <div className='border-1 rounded-xs shadow-xl border-black p-4'>
                         <h3 className="text-2xl mb-4">Edit User Information</h3>

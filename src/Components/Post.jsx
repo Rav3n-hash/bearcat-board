@@ -94,7 +94,7 @@ export default function Post({
 
 {/***********************************************************DISPLAY ON SITE*********************************************************************************/}
   return (
-    <div className={`relative flex flex-col gap-4 p-6 rounded-2xl w-140 max-w-2xl shadow-lg bg-white text-black border border-gray-200 hover:shadow-lg hover:shadow-blue-300/50 transition-all duration-300 ${isEditing || isExpanded ||!postImg ? 'h-auto' : 'h-160'}`}>
+    <div className={`ml-5 relative flex flex-col gap-4 p-6 rounded-2xl w-140 max-w-2xl shadow-lg bg-white text-black border border-gray-200 hover:shadow-lg hover:shadow-blue-300/50 transition-all duration-300 ${isEditing || isExpanded ||!postImg ? 'h-auto' : 'h-160'}`}>
 
       {/* Render profile pictures for all users except for the currently logged in one*/}
       <div className="flex items-center gap-4">
@@ -130,7 +130,7 @@ export default function Post({
           onChange={(e) => setUpdatedTitle(e.target.value)}
         />
       ) : (
-        <h4 className="text-md font-semibold mt-2">{title}</h4>
+        <h4 className="text-xl font-semibold mt-2">{title}</h4>
       )}
 
       {postImg && (
@@ -167,7 +167,7 @@ export default function Post({
         >
           {content}
         </p>
-        {content.length > 100 && (
+        {content.length > 250 && (
           <span
             className="text-sm text-blue-500 cursor-pointer"
             onClick={() => setIsExpanded(!isExpanded)}

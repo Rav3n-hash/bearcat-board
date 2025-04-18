@@ -20,19 +20,23 @@ export default function NavBar() {
 
 
   return (
-    <div className="navLinks flex items-center justify-between bg-[#00487d] shadow-md px-5 py-2 sticky top-0 z-10">
+    <div className="navLinks flex items-center justify-between bg-[#00487d] shadow-md px-5 py-2 h-18 fixed w-full top-0 z-5">
 
       {/* *********************************** Home, Profile, and Connect  Pages ************************************************************/}
 
 
-      {/*Logo*/}
-      <div className="flex items-center space-x-4">
-        <img src="/Logo.png" alt="bcat" className="h-13 w-auto" />
-        <h2 className="text-md font-semibold text-white">
-          Hello,{sessionStorage.getItem("fname")}
-        </h2>
-      </div>
+      <div className="flex flex-col items-start w-75">
+            {/* Top Row: Logo + Title */}
+            <div className="flex items-center space-x-2">
+              <img src="/Logo.png" alt="bcat" className="h-12 w-auto" />
+              <h3 className="text-2xl font-bold ">The Bearcat Board</h3>
+            </div>
 
+            {/* Below: Hello Message */}
+            <h2 className="text-md ml-15 font-semibold italic text-gray-200">
+              Hello, {sessionStorage.getItem("fname")}
+            </h2>
+          </div>
 
       {/*******************************************************Link to Home*****************************************************************/}
     <div className="flex gap-x-30 text-gray-700 text-md font-medium">

@@ -152,6 +152,7 @@ export default function Profile() {
       toast.error("An error occurred while updating the profile.");
       console.error("Save error:", error);
     }
+    sessionStorage.setItem("pic", updatedProfilePic)
   };
 
   {/*******************************************************DISPLAY ON PAGE********************************************************************************/ }
@@ -163,8 +164,8 @@ export default function Profile() {
   const profilePic = user.picture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
   return (
-    <div className="pb-4 flex flex-row justify-between max-w-full">
-      <div className="profilePage w-3/5 h-160">
+    <div className="pb-4 flex flex-row justify-between max-w-full mt-15">
+      <div className="profilePage w-3/4 h-160">
 
         {/*Left*/}
         
@@ -172,7 +173,7 @@ export default function Profile() {
           {isEditing ? (
             <div>
               <img 
-                className="w-60 h-60 rounded-none border-2 border-blue-200 shadow-sm shadow-blue-400/50" 
+                className="w-60 h-55 rounded-none border-2 border-blue-200 shadow-sm shadow-blue-400/50" 
                 src={profilePic}
                 alt="Invalid Image. Cannot Load."
               />
@@ -186,7 +187,7 @@ export default function Profile() {
             </div>
           ) : (
             <img 
-              className="w-60 h-60 rounded-none border-3 border-gray-900" 
+              className="w-60 h-55 rounded-none border-3 border-gray-900" 
               src={profilePic}
               alt="Invalid Image. Cannot Load."
              />
@@ -366,7 +367,7 @@ export default function Profile() {
 
 
       {/*********************************************** * Right Container (Feed) *************************************************************/}
-      <div className="flex flex-col w-2/5 justify-items-center border-yellow-300 border-1 mt-5 mb-5 mr-4 bg-gray-300 shadow-lg h-160 overflow-y-auto">
+      <div className="flex flex-col w-65/100 justify-items-center border-yellow-300 border-1 mt-5 mb-5 mr-4 bg-gray-300 shadow-lg h-160 overflow-y-auto">
         <div className="w-full">
           <div className="yourPostsDiv"><h1>Your Posts</h1></div>
         </div>

@@ -77,7 +77,7 @@ export default function SearchResults() {
 
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center mt-18">
 
       {/***********************************************************Filter Options *********************************************************************/}
       <div className="bg-gray-500 p-4 rounded-xs shadow-md mb-6 w-9/10 h-15">
@@ -161,7 +161,7 @@ export default function SearchResults() {
 
 
       {/*************************************************************Results**************************************************************/}
-      <div className="mt-4 text-left text-gray-600 bg-gray-50 border rounded-lg p-4 h-[70vh] overflow-y-auto w-7/8 shadow-md">
+      <div className="mt-3 text-left text-gray-600 bg-gray-50 border rounded-lg p-4 h-[70vh] overflow-y-auto w-7/8 shadow-md">
 
         {filteredResults.length > 0 ? (
           filteredResults.map((post, index) => (
