@@ -291,3 +291,19 @@ margin-right: auto;
 .deleteRecc:hover{
   background-color: #363531;
 }
+
+.postLink {
+  color: #00487d !important;
+}
+.postLink:hover {
+   color: #238bd6 !important;
+}
+
+.orgLink {
+  color: #00487d !important;
+  font-style: italic;
+}
+
+.orgLink:hover {
+  color: #238bd6 !important;
+}

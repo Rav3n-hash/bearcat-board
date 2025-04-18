@@ -19,15 +19,8 @@ export default function NavBar() {
   };
 
 
-
-
-
-
   return (
     <div className="navLinks flex items-center justify-between bg-[#00487d] shadow-md px-5 py-2 sticky top-0 z-10">
-
-
-
 
       {/* *********************************** Home, Profile, and Connect  Pages ************************************************************/}
 

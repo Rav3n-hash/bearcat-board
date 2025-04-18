@@ -1,4 +1,4 @@
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Link} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUserById } from "../Services/UserService";
 import { GetPosts } from "../Services/PostService";
@@ -50,15 +50,19 @@ export default function OtherProfiles() {
 
                 {/************************Left ************************************/}
                 <div className="userLeftDiv">
-                    <img className="w-60 h-60 rounded-none border-3 border-gray-900" src={user.picture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} />
+                    <img 
+                        className="w-60 h-60 rounded-none border-3 border-gray-900 object-cover" 
+                        src={user.picture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} 
+                    />
                     {console.log("OtherProfiles User:", user)}
                     {console.log(user)}
 
                     <h3 className="text-3xl">{user.firstname} {user.lastname}</h3>
                     <h3 className="text-1xl">{user.city}</h3>
+                    <h3 className="text-1xl italic text-yellow-400">{user.user_type =="student_alumni"?("Student/Alumni"):("Employer")}</h3>
 
                     {user.user_type === "organization_member" && (
-                        <h3 className="text-1xl">Organization: {user.organization_name || "N/A"}</h3>
+                        <h3 className="text-1xl mt-2 font-semibold italic text-blue-900">Organization: {user.organization_name || "N/A"}</h3>
                     )}
                 </div>
 
@@ -100,16 +104,24 @@ export default function OtherProfiles() {
                     {user.user_type === "organization_member" && (
                         <>
                             {/* ORG INFO */}
-                            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10 mt-3">
-                                <h1 className="profH1">Organization Info</h1>
-                                <div className="text-left px-10">
-                                    <h3 className="text-gray-800">Organization</h3>
-                                    <p className="text-gray-100 px-5">{user.organization_name || "N/A"}</p>
-
-                                    <h3 className="text-gray-800 mt-3">Description</h3>
-                                    <p className="text-gray-100 px-5">{user.organization_description || "No description available."}</p>
+                           
+                                <h1 className="profH1 ml-2 mt-2">Organization Info</h1>
+                                <div className="text-left border-b-2 border-yellow-400 pb-2 w-3/4 ml-10 mt-5">
+                                    <h3 className="text-gray-800 font-semibold">Organization</h3>
+                                      <Link
+                                            to={`/organization/${user.organization_id}`}
+                                            className="text-gray-100 px-5"
+                                        >
+                                            Org: {user.organization_name}
+                                        </Link>
                                 </div>
+
+                            <div className="text-left border-b-2 border-yellow-400 pb-2 mt-5 w-3/4 ml-10">
+                                    <h3 className="text-gray-800 mt-3 font-semibold">Description</h3>
+                                    <p className="text-gray-100 px-5">{user.organization_description || "No description available."}</p>
                             </div>
+                           
+                            
                         </>
                     )}
                 </div>

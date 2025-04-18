@@ -81,10 +81,10 @@ export default function Organization({ }) {
 
         {/********************************* Feed Section Title and Content *********************************/}
         <div className=" ml-5 w-1/2">
-          <div className="text-xl text-black font-semibold bg-gray-200 p-2 border-1 border-black/10">Feed</div>
+          <div className="text-xl text-black font-semibold bg-gray-200 p-2 border-1 border-black/10">{organization.name} Feed</div>
           <div className="flex flex-col items-center bg-white shadow-md rounded-xs p-4 border-1 border-black/10 overflow-y-auto overflow-x-hidden h-150">
             
-              <div className="m-4">
+              <div className="m-4 space-y-5">
                 {posts.map((post, index) => (
                     <Post
                     key={index}
@@ -93,8 +93,8 @@ export default function Organization({ }) {
                     content={post.content}
                     post_type={post.post_type}
                     postImg={post.postimg}
-                    firstName={post.firstname} 
-                    lastName={post.lastname}
+                    firstName={post.firstName} 
+                    lastName={post.lastName}
                     profilePicture={post.picture}
                   />
                 ))}
