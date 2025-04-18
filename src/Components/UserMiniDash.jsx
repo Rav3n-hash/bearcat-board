@@ -28,7 +28,7 @@ export default function UserMiniDash() {
           lastName: user.lastname,
           city: user.city,
           email: user.email,
-          pic: sessionStorage.getItem("pic")==""? 
+          pic: sessionStorage.getItem("pic") ==null? 
             "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
             : sessionStorage.getItem("pic")
            
