@@ -123,14 +123,14 @@ export default function Settings() {
                         <FontAwesomeIcon className="mr-3" icon={faLock} />
                         Privacy Settings
                     </li>
-                    {/*************************************Show Notification Settings*********************************************/}
+                    {/* ************************************Show Notification Settings********************************************
                     <li
                         className={`cursor-pointer hover:bg-yellow-400 py-2 flex items-center ${selectedOption === 'notificationSettings' ? 'bg-yellow-500' : ''}`}
                         onClick={() => setSelectedOption('notificationSettings')}
                     >
                         <FontAwesomeIcon className="mr-3" icon={faBell} />
                         Notification Settings
-                    </li>
+                    </li> */}
                     {/*************************************Show Account Deletion Optiosn*********************************************/}
                     <li
                         className={`cursor-pointer hover:bg-red-400 py-2 flex items-center ${selectedOption === 'deleteAccount' ? 'bg-red-500' : ''}`}
@@ -177,13 +177,13 @@ export default function Settings() {
                     </div>
                 )}
 
-                {/*On notification settings (may remove). Show toggles*/}
+            {/*On notification settings (may remove). Show toggles*/}
 
-                {selectedOption === 'notificationSettings' && (
+                {/* {selectedOption === 'notificationSettings' && (
                     <div className='border-1 rounded-xs shadow-xl border-black p-4'>
                         <h3 className="text-2xl mb-4">Notification Settings</h3>
                         {/* Options to toggle notifications */}
-                        <div className="mb-4">
+                        {/* <div className="mb-4">
                             <label>
                                 <input type="checkbox" /> Enable In-App Notifications
                             </label>
@@ -195,7 +195,7 @@ export default function Settings() {
                         </div>
                         <button className="bg-yellow-500 text-black p-2 rounded">Save Settings</button>
                     </div>
-                )}
+                )} */}
 
                 {/*On delete account. User will have option to delete their account*/}
                 {selectedOption === 'deleteAccount' && (
