@@ -69,12 +69,12 @@ export default function UserMiniDash() {
             <FontAwesomeIcon icon={faGear} className="text-blue-100" /> Settings
           </button>
           <br />
-          <button
+          {/* <button
             className="w-50 h-10 text-center py-2 px-4 text-red-600 hover:bg-red-100"
             onClick={logout}
           >
             <FontAwesomeIcon icon={faSignOut} className="text-red-400" /> Logout
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

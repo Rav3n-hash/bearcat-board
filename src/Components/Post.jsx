@@ -68,6 +68,8 @@ export default function Post({
           
       };
 
+      console.log(postData)
+
       const result = await EditPost(postData);
 
       if (result.ans === 1) {

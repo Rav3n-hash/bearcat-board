@@ -42,6 +42,7 @@ export default function Home() {
             <div key={index} className="bg-white rounded-2xl shadow p-6">
               <Post
                 user_id={post.user_id}
+                post_id={post.post_id}
                 title={post.title}
                 content={post.content}
                 post_type={post.post_type}
