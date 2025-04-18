@@ -54,7 +54,7 @@ export default function Post({
 {/*************************************************Enable editing; used for edit button *******************************************************/}
   const triggerEdits = () => {
     setIsEditing(true);
-    setUpdatedTitle(title);
+        setUpdatedTitle(title);
     setUpdatedContent(content);
     setSelectedImage(image);
   };
