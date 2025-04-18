@@ -64,7 +64,7 @@ export default function Post({
           user_id,
           content: updatedContent,
           title: updatedTitle,
-          postimg: selectedImage, // Can be null if no new image is selected
+          postimg: selectedImage // Can be null if no new image is selected
           
       };
 
@@ -88,6 +88,7 @@ export default function Post({
     setIsEditing(false);
     setUpdatedTitle(title);
     setUpdatedContent(content);
+    setSelectedImage(image);
   };
 
 
@@ -133,7 +134,7 @@ export default function Post({
       {isEditing ? (
         <input
           type="text"
-          className="border border-gray-400 p-1 rounded w-full"
+          className="border-1 border-blue-200 rounded-md bg-white text-black shadow-sm shadow-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:shadow-blue-400/50 transition duration-300 h-10 w-full"
           value={updatedTitle}
           onChange={(e) => setUpdatedTitle(e.target.value)}
         />
@@ -149,10 +150,21 @@ export default function Post({
         />
       )}
 
+    {isEditing ? (
+        <input
+          type="text"
+          className="border-1 border-blue-200 bg-white text-black shadow-sm shadow-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:shadow-blue-400/50 transition duration-300 p-1 rounded w-4/5 ml-15 mb-2"
+          value={selectedImage}
+          placeholder="Add Image URL"
+          onChange={(e) => setSelectedImage(e.target.value)}
+        />
+      ):("")
+    }
+
       {/*{/* If editing, the content will be a text input. Otherwise, content will be displayed */}
       {isEditing ? (
         <textarea
-          className="border border-gray-400 p-1 rounded w-full min-h-15"
+          className="border-1 border-blue-200 rounded-md bg-white text-black shadow-sm shadow-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:shadow-blue-400/50 transition duration-300 w-full min-h-15"
           value={updatedContent}
           onChange={(e) => setUpdatedContent(e.target.value)}
         />
