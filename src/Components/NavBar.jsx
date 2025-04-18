@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faHouse, faUser, faUsersRays } from '@fortawesome/free-solid-svg-icons';
 
+
 export default function NavBar() {
   const { loggedIn, logStatus, logout } = useContext(DataContext);
   const [jobPost, setJobPost] = useState("");
   const navigate = useNavigate();
+
 
   //Function to handle search redirection
   const handleSearch = () => {
@@ -18,21 +20,31 @@ export default function NavBar() {
 
 
 
+
+
+
   return (
-    <div className="navbar navLinks grid grid-cols-5 px-8 py-0.5 text-left items-center border-2 sticky top-0 z-10">
+    <div className="navLinks flex items-center justify-between bg-[#00487d] shadow-md px-5 py-2 sticky top-0 z-10">
+
+
 
 
       {/* *********************************** Home, Profile, and Connect  Pages ************************************************************/}
 
+
       {/*Logo*/}
-      <div className="bcatPicNavBar">
-        <img src="/Logo.png" alt="bcat" />
-        <h2>Hello, {sessionStorage.getItem("fname")}</h2>
+      <div className="flex items-center space-x-4">
+        <img src="/Logo.png" alt="bcat" className="h-13 w-auto" />
+        <h2 className="text-md font-semibold text-white">
+          Hello,{sessionStorage.getItem("fname")}
+        </h2>
       </div>
 
+
       {/*******************************************************Link to Home*****************************************************************/}
-      <div className="flex flex-col items-center">
-        <a href="/Home">
+    <div className="flex gap-x-30 text-gray-700 text-md font-medium">
+      <div className="flex flex-col items-center mr-5 ml-30">
+        <a href ="/Home">
           <div className="flex flex-col items-center">
             <FontAwesomeIcon className="py-2" icon={faHouse} />
           </div>
@@ -41,8 +53,10 @@ export default function NavBar() {
       </div>
 
 
+
+
       {/*******************************************************Link to Profile**************************************************************/}
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center ml-10">
         <a href="/Profile">
           <div className="flex flex-col items-center">
             <FontAwesomeIcon className="py-2" icon={faUser} />
@@ -52,8 +66,11 @@ export default function NavBar() {
       </div>
 
 
+
+
       {/*******************************************************Link to Connections**********************************************************/}
-      <div className="flex flex-col items-center">
+     
+      <div className="flex flex-col items-center ml-10">
         <a href="/Connections">
           <div className="flex flex-col items-center">
             <FontAwesomeIcon className="py-2" icon={faUsersRays} />
@@ -61,48 +78,40 @@ export default function NavBar() {
           <b>CONNECTIONS</b>
         </a>
       </div>
-      <div className="text-right">
-        <>
-          <br></br>
+    </div>
+
+
 
 
           {/********************************************************* *Search Bar **********************************************************************/}
-          {/* Logout Button (Only if logged in) */}
-          <div className="text-right">
-          {logStatus === "1" && (
-            <div className="flex justify-end mb-2">
-              <button
-                onClick={logout}
-                className="bg-white text-black px-4 py-1 rounded hover:bg-red-500 transition"
-              >
-                Logout
-              </button>
-            </div>
-          )}
+      <div className="flex items-center space-x-4 mt-5">
+        <div className="flex items-center bg-white/25 rounded-md px-3 py-1">
+          <FontAwesomeIcon
+            icon={faSearch}
+            className="text-gray-400 cursor-pointer mr-2"
+            onClick={handleSearch}
+          />
+          <input
+            type="text"
+            placeholder="Search..."
+            value={jobPost}
+            onChange={(e) => setJobPost(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            className="bg-transparent outline-none text-sm w-[12vw]"
+          />
+        </div>
 
-            <div className="inline-flex items-center border-1 rounded-md px-2">
-              <div>
-                <FontAwesomeIcon
-                  icon={faSearch}
-                  className="text-gray-500"
-                  onClick={handleSearch}
-                />
-              </div>
-              <input
-                className="w-[15vw] p-2 h-6 outline-none"
-                type="text"
-                placeholder="Search..."
-                value={jobPost}
-                onChange={(e) => setJobPost(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") handleSearch();
-                }}
-              />
 
-              <a href="/searchResults"></a>
-            </div>
-          </div>
-        </>
+
+
+        {logStatus === "1" && (
+          <button
+            onClick={logout}
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-md transition"
+          >
+            Logout
+          </button>
+        )}
       </div>
     </div>
   );
