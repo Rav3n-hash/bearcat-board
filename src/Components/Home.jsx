@@ -8,7 +8,7 @@ import { GetPosts } from "../Services/PostService";
 import AddPost from "./AddPost";
 
 export default function Home() {
-  const { loginSt } = useContext(DataContext);
+  const { logStatus } = useContext(DataContext);
   const [posts, setPosts] = useState([]);
   const [showAddPost, setShowAddPost] = useState(false);
 
@@ -18,7 +18,7 @@ export default function Home() {
       setPosts(postList);
     }
     fetchPosts();
-  }, [loginSt]);
+  }, [logStatus]);
 
   return (
    <div>
