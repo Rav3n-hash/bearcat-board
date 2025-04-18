@@ -39,7 +39,7 @@ export default function App() {
   };
   
    return (
-    <DataContext.Provider value={{ logStatus, setLogStatus , logout}}>
+    <DataContext.Provider value={{ logStatus:logStatus, setLogStatus:setLogStatus}}>
       <BrowserRouter>
         {logStatus === "1" ? (
           // If logged in, show the NavBar
