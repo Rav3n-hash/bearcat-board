@@ -54,6 +54,9 @@ export default function Post({
 {/*************************************************Enable editing; used for edit button *******************************************************/}
   const triggerEdits = () => {
     setIsEditing(true);
+    setUpdatedTitle(title);
+    setUpdatedContent(content);
+    setSelectedImage(image);
   };
 {/*******************************************************Save changes to database; used for save button***************************************************/}
   const handleUpdate = async () => { //save button
