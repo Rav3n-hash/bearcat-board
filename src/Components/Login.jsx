@@ -64,6 +64,7 @@ export default function Login() {
               value={email}
               placeholder="Enter Email Address"
               onChange={(e) => { setEmail(e.target.value); }}
+              onKeyDown={(e) => e.key === "Enter" && check}
             />
           </div>
 
@@ -79,6 +80,7 @@ export default function Login() {
               value={pwd}
               placeholder="Enter password"
               onChange={(e) => { setPwd(e.target.value); }}
+              onKeyDown={(e) => e.key === "Enter" && check}
             />
 
             <button type="button" onClick={() => setPasswordVisible(!passwordVisible)}
