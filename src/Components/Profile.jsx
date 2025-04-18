@@ -17,7 +17,7 @@ import Post from "./Post";
 export default function Profile() {
   {/*************************************************************USE STATES *********************************************************************************/ }
   const [user, setUser] = useState(null);
-  const { loginSt } = useContext(DataContext);
+  const { logStatus } = useContext(DataContext);
   const [posts, setPosts] = useState([]);
   const [showAddPost, setShowAddPost] = useState(false);
   const [updatedOrgName, setUpdatedOrgName] = useState("");
@@ -58,7 +58,7 @@ export default function Profile() {
       }
     }
     fetchPosts();
-  }, [loginSt]);
+  }, [logStatus]);
 
   {/**************************************************Allow editing; used for "edit profile" button********************************************************/ }
   const triggerEdits = () => {

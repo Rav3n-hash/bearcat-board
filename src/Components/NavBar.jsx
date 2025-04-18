@@ -6,7 +6,7 @@ import { faSearch, faHouse, faUser, faUsersRays } from '@fortawesome/free-solid-
 
 
 export default function NavBar() {
-  const { loggedIn, logStatus, logout } = useContext(DataContext);
+  const { logStatus, logout } = useContext(DataContext);
   const [jobPost, setJobPost] = useState("");
   const navigate = useNavigate();
 
