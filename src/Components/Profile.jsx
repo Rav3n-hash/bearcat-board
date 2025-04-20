@@ -179,7 +179,7 @@ export default function Profile() {
         </div>
 
         {/* Middle: Profile Content */}
-        <div className="w-full md:w-[36%] bg-[#00487d] p-6 rounded-xl shadow-md relative self-start">
+        <div className="w-full md:w-[36%] bg-[#00487d] p-6 rounded-xl shadow-md relative self-start h-auto">
           {isEditing ? <h1>Edit Profile</h1> : ""}
           {user.user_type === "student_alumni" && isEditing && (
             <div className="text-left px-10 mb-6">
@@ -256,7 +256,7 @@ export default function Profile() {
 
           {/* EXPERIENCE - Only for student_alumni */}
           {user.user_type === "student_alumni" && (
-            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10 mt-10">
+            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10 mt-5">
               <h1 className="profH1 mb-2">Experience</h1>
               {isEditing ? (
                 <textarea
@@ -325,7 +325,7 @@ export default function Profile() {
 
           {/* Edit / Save / Cancel Buttons */}
           {isEditing ? (
-            <div className="absolute bottom-2 right-2 flex space-x-2">
+            <div className="mt-5 ml-60 flex space-x-2">
               <button onClick={handleSave} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
                 <FontAwesomeIcon icon={faSave} className="mr-2" />
                 Save
