@@ -10,6 +10,7 @@ import { updateOrgMember } from "../Services/OrgMemberService";
 import { updateOrganization, createOrganization, getOrganizations } from "../Services/OrgService";
 import { Link } from "react-router-dom";
 import { updateStuAlu } from "../Services/StudAlumService";
+import UserMiniDash from "./UserMiniDash";
 
 
 import Post from "./Post";
@@ -25,9 +26,6 @@ export default function Profile() {
 
   //State variables for edit mode
   const [isEditing, setIsEditing] = useState(false);
-  const [wantsToBeAdmin, setWantsToBeAdmin] = useState(false);
-  const [adminCodeInput, setAdminCodeInput] = useState("");
-  const hardcodedAdminCode = "BEARCAT123"; // Or keep this in a `.env` file for safety--maybe do later  
   const [updatedBio, setUpdatedBio] = useState(""); //update bio 
   const [updatedMajor, setUpdatedMajor] = useState(""); //update major
   const [updatedGradYear, setUpdatedGradYear] = useState(""); //update grad year
@@ -41,7 +39,7 @@ export default function Profile() {
 
     if (userId) {
       getUserById(userId).then((userData) => {
-        console.log("Fetched user data:", userData); 
+        console.log("Fetched user data:", userData);
         setUser(userData);
         setUpdatedOrgName(userData.organization_name || "");
       });
@@ -53,7 +51,7 @@ export default function Profile() {
     async function fetchPosts() {
 
       if (userId) {
-        const postList = await GetUserPosts(userId);  
+        const postList = await GetUserPosts(userId);
         setPosts(postList);
       }
     }
@@ -71,11 +69,12 @@ export default function Profile() {
   {/**************************************************Reset everything; used for cancel button*********************************************************************************/ }
   const handleCancel = () => {
     setIsEditing(false);
-    setUpdatedBio(bio);
-    setUpdatedGradYear(graduation_year);
-    setUpdatedMajor(major);
-    setUpdatedExp(experience);
+    setUpdatedBio(user.bio || "");
+    setUpdatedGradYear(user.graduation_year || "");
+    setUpdatedMajor(user.major || "");
+    setUpdatedExp(user.experience || "");
   };
+
   {/***********************************************Save changes to database; used for save button************************************************************/ }
   const handleSave = async () => {
     try {
@@ -86,12 +85,12 @@ export default function Profile() {
           graduation_year: updatedGradYear,
           major: updatedMajor,
           experience: updatedExp,
-          picture: updatedProfilePic,
-          user_id:userId
+          picture: updatedProfilePic || user.picture,
+          user_id: userId
         };
-      
+
         const result = await updateStuAlu(stuAluInfo);
-      
+
         if (result?.success) {
           toast.success("Student/Alumni profile updated!", { autoClose: 3000 });
           setIsEditing(false);
@@ -117,28 +116,30 @@ export default function Profile() {
             toast.error("Only admins can create a new organization.");
             return;
           }
-        
+
           const newOrg = await createOrganization({ name: updatedOrgName, description: "" });
           orgIdToUse = newOrg.organization_id;
         }
-        // Check admin code if box is checked
-        let finalRole = "member";
-        if (wantsToBeAdmin) {
-          if (adminCodeInput === hardcodedAdminCode) {
-            finalRole = "admin";
-          } else {
-            toast.error("Incorrect admin code. You'll be saved as a member.");
-          }
-        }
+
         // Update the org member record
         const orgUpdateData = {
           member_id: userId,
           organization_id: orgIdToUse,
-          role: (wantsToBeAdmin && adminCodeInput === hardcodedAdminCode) ? "admin" : "member"
         };
 
         const result = await updateOrgMember(orgUpdateData);
-        if (result.success || result.updated) {
+
+        // ✅ Update users table with new picture
+        const userUpdateData = {
+          user_id: userId,
+          picture: updatedProfilePic.trim() === "" ? user.picture : updatedProfilePic
+        };
+        const userResult = await updateUserInfo(userUpdateData);
+        console.log("Sending to backend:", userUpdateData);
+
+
+
+        if (result.success || result.updated && userResult.success) {
           toast.success("Organization info updated!", { autoClose: 3000 });
           setIsEditing(false);
           setTimeout(() => window.location.reload(), 3000);
@@ -152,7 +153,10 @@ export default function Profile() {
       toast.error("An error occurred while updating the profile.");
       console.error("Save error:", error);
     }
-    sessionStorage.setItem("pic", updatedProfilePic)
+    if (updatedProfilePic.trim()) {
+      const refreshedUser = await getUserById(userId);
+      sessionStorage.setItem("pic", refreshedUser.picture || "");
+    }
   };
 
   {/*******************************************************DISPLAY ON PAGE********************************************************************************/ }
@@ -164,57 +168,48 @@ export default function Profile() {
   const profilePic = user.picture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
   return (
-    <div className="pb-4 flex flex-row justify-between max-w-full mt-15">
-      <div className="profilePage w-3/4 h-160">
+    <div className="pt-32 overflow-hidden">
+<div className="flex flex-col md:flex-row bg-gradient-to-br from-gray-50 to-blue-50 p-6 gap-6 max-w-[100vw]">
 
-        {/*Left*/}
-        
-        <div className="userLeftDiv">
-          {isEditing ? (
-            <div>
-              <img 
-                className="w-60 h-55 rounded-none border-2 border-blue-200 shadow-sm shadow-blue-400/50" 
-                src={profilePic}
-                alt="Invalid Image. Cannot Load."
-              />
-              <input 
-                className="w-full p-2 mt-2 border-1 border-blue-200 rounded-md bg-white text-black shadow-sm shadow-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:shadow-blue-400/50 transition duration-300"
-                type="text"
-                value={updatedProfilePic}
-                placeholder="Insert an image URL..."
-                onChange={(e) => setUpdatedProfilePic(e.target.value)} // Take URL instead
-              />
-            </div>
-          ) : (
-            <img 
-              className="w-60 h-55 rounded-none border-3 border-gray-900" 
-              src={profilePic}
-              alt="Invalid Image. Cannot Load."
-             />
-          )}
-
-          <h3 className="text-3xl">{fullName}</h3>
-          <br />
-          <h3 className="text-1xl">{user.city ? user.city : "Location Unknown"}</h3>
-          <br />
-          <h3 className="text-1xl text-yellow-400 italic">{user.user_type == "organization_member" ? "Employer" : "Student/Alumni"}</h3>
-          <br></br>
-          <h3 className="text-1xl">{user.user_type ? user.organization_name:"Organization Unknown"}</h3>
+        {/* Left: Mini Dashboard */}
+        <div className="md:w-1/4 w-full">
+          <div className="bg-white rounded-2xl shadow-md p-6 fixed top-[120px] left-6 w-[20%] z-40">
+            <UserMiniDash />
+          </div>
         </div>
 
-        {/*RIGHT*/}
-        <div className="userRightDiv relative ">
+        {/* Middle: Profile Content */}
+        <div className="w-full md:w-[36%] bg-[#00487d] p-6 rounded-xl shadow-md relative self-start">
           {isEditing ? <h1>Edit Profile</h1> : ""}
+          {user.user_type === "student_alumni" && isEditing && (
+            <div className="text-left px-10 mb-6">
+              <h3 className="text-white mb-1">Profile Picture</h3>
+              <input
+                className="w-3/4 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white"
+                value={updatedProfilePic}
+                placeholder="Enter profile picture URL"
+                onChange={(e) => setUpdatedProfilePic(e.target.value)}
+              />
+              {/* Optional Preview */}
+              <div className="mt-4 flex justify-center">
+                <img
+                  src={updatedProfilePic || user.picture}
+                  alt="Preview"
+                  className="w-24 h-24 rounded-full border-2 border-white"
+                />
+              </div>
+            </div>
+          )}
 
           {/* ABOUT ME - Only for student_alumni */}
           {user.user_type === "student_alumni" && (
-            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-2/10 ml-10 mt-2">
+            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10 mt-2">
               <h1 className="profH1">About Me</h1>
               {isEditing ? (
                 <textarea
                   className="w-full mt-2 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                   value={updatedBio}
-                  placeholder="Update your bio...."
+                  placeholder="Update your bio..."
                   onChange={(e) => setUpdatedBio(e.target.value)}
                 />
               ) : (
@@ -223,26 +218,25 @@ export default function Profile() {
             </div>
           )}
 
-          {/* EDUCATION SECTION - Students/Alumni Only */}
+          {/* EDUCATION - Only for student_alumni */}
           {user.user_type === "student_alumni" && (
-            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-3.5/10 ml-10">
-              <br />
+            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10 mt-10">
               <h1 className="profH1 mb-2">Education</h1>
               <div className="text-left px-10">
                 {isEditing ? (
                   <>
                     <h3 className="text-gray-800">Graduation Year:</h3>
                     <input
-                      className="w-full p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
+                      className="w-full p-2 mb-4 border-1 border-blue-400 rounded-md bg-white/15 text-white"
                       value={updatedGradYear}
-                      placeholder="Update your graduation year..."
+                      placeholder="Update graduation year"
                       onChange={(e) => setUpdatedGradYear(e.target.value)}
                     />
-                    <h3 className="text-gray-800 mt-4">Major:</h3>
+                    <h3 className="text-gray-800">Major:</h3>
                     <input
-                      className="w-full p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
+                      className="w-full p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white"
                       value={updatedMajor}
-                      placeholder="Update your major..."
+                      placeholder="Update major"
                       onChange={(e) => setUpdatedMajor(e.target.value)}
                     />
                   </>
@@ -260,16 +254,15 @@ export default function Profile() {
             </div>
           )}
 
-          {/* EXPERIENCE SECTION - Only for Students/Alumni */}
+          {/* EXPERIENCE - Only for student_alumni */}
           {user.user_type === "student_alumni" && (
-            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 h-1/4 ml-10">
-              <br />
+            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10 mt-10">
               <h1 className="profH1 mb-2">Experience</h1>
               {isEditing ? (
                 <textarea
-                  className="w-full p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
+                  className="w-full p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white"
                   value={updatedExp}
-                  placeholder="Update details about your work experience..."
+                  placeholder="Update work experience..."
                   onChange={(e) => setUpdatedExp(e.target.value)}
                 />
               ) : (
@@ -280,49 +273,41 @@ export default function Profile() {
             </div>
           )}
 
-          {/* ORGANIZATION INFO - Only for Org Members */}
-          {user.user_type === "organization_member" && (
-            <div className=" pb-4 w-3/4 h-6/10 ml-10">
-              <br />
-              <h1 className="profH1">Organization Info</h1>
 
-              {/* Organization Name Section */}
-              <div className="text-left px-10 w-3/4 ml-10 border-b-2 mb-20 mt-10 border-yellow-400 pb-2">
+          {/* ORGANIZATION INFO - Only for organization_member */}
+          {user.user_type === "organization_member" && (
+            <div className="border-b-2 border-yellow-400 pb-4 w-3/4 ml-10 mt-10">
+              <h1 className="profH1 mb-2">Organization Info</h1>
+
+              {/* Organization Name */}
+              <div className="text-left px-10">
                 <h3 className="text-gray-800">Organization</h3>
                 {isEditing ? (
                   <>
                     <input
-                      className="w-full p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
+                      className="w-full p-2 mb-4 border-1 border-blue-400 rounded-md bg-white/15 text-white"
                       value={updatedOrgName}
-                      onChange={(e) => setUpdatedOrgName(e.target.value)}
                       placeholder="Enter organization name"
+                      onChange={(e) => setUpdatedOrgName(e.target.value)}
                     />
-
-                    {/* Admin checkbox and code input */}
-                    <div className="mt-4 pb-2">
-                      <label className="block text-sm font-medium text-gray-700">Are you an admin?</label>
-                      <input
-                        type="checkbox"
-                        checked={wantsToBeAdmin}
-                        onChange={(e) => setWantsToBeAdmin(e.target.checked)}
-                        className="mr-2"
+                    <input
+                      className="w-full p-2 mb-4 border-1 border-blue-400 rounded-md bg-white/15 text-white"
+                      value={updatedProfilePic}
+                      placeholder="Enter profile picture URL"
+                      onChange={(e) => setUpdatedProfilePic(e.target.value)}
+                    />
+                    <div className="mt-4 flex justify-center">
+                      <img
+                        src={updatedProfilePic || user.picture}
+                        alt="Preview"
+                        className="w-24 h-24 rounded-full border-2 border-white"
                       />
-                      {wantsToBeAdmin && (
-                        <input
-                          type="text"
-                          placeholder="Enter admin code"
-                          className="mt-2 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
-                          value={adminCodeInput}
-                          onChange={(e) => setAdminCodeInput(e.target.value)}
-                        />
-                      )}
                     </div>
+
                   </>
-                ) :user.organization_name ? (
-                  <Link
-                    to={`/organization/${user.organization_id}`}
-                    className="text-blue-500 hover:underline px-5"
-                  >
+
+                ) : user.organization_name ? (
+                  <Link to={`/organization/${user.organization_id}`} className="text-blue-500 hover:underline px-5">
                     {user.organization_name}
                   </Link>
                 ) : (
@@ -330,23 +315,23 @@ export default function Profile() {
                 )}
               </div>
 
-              {/* Organization Description Section */}
-              <div className="text-left px-10 w-3/4 ml-10 border-b-2 border-yellow-400 pb-2">
-                <h3 className="text-gray-800 mt-3">Description</h3>
-                <p className="text-gray-100 px-5">{user.organization_description}</p>
+              {/* Organization Description */}
+              <div className="text-left px-10 mt-6">
+                <h3 className="text-gray-800">Description</h3>
+                <p className="text-gray-100">{user.organization_description || "No description provided."}</p>
               </div>
             </div>
           )}
 
-          {/* EDIT BUTTONS */}
+          {/* Edit / Save / Cancel Buttons */}
           {isEditing ? (
-            <div className="absolute bottom-2 right-2">
-              <button onClick={handleSave} className="bg-green-500 text-white hover:bg-green-400 px-4 py-2 rounded mr-2">
-                <FontAwesomeIcon icon={faSave} className="mr-1" />
+            <div className="absolute bottom-2 right-2 flex space-x-2">
+              <button onClick={handleSave} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                <FontAwesomeIcon icon={faSave} className="mr-2" />
                 Save
               </button>
-              <button onClick={handleCancel} className="bg-gray-500 hover:bg-gray-400 text-white px-4 py-2 rounded">
-                <FontAwesomeIcon icon={faTimes} className="mr-1" />
+              <button onClick={handleCancel} className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                <FontAwesomeIcon icon={faTimes} className="mr-2" />
                 Cancel
               </button>
             </div>
@@ -354,62 +339,62 @@ export default function Profile() {
             <div className="absolute top-2 right-2">
               <button
                 onClick={triggerEdits}
-                className="absolute top-2 right-2 text-white hover:bg-gray-700 hover:text-gray-200 bg-gray-500 rounded-xs border-2 border-black w-30">
-                <FontAwesomeIcon icon={faPenToSquare} className="mr-1" />
+                className="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded border-2 border-black"
+              >
+                <FontAwesomeIcon icon={faPenToSquare} className="mr-2" />
                 Edit Profile
               </button>
             </div>
           )}
         </div>
-      </div>
-  
 
+        {/* Right: User Posts */}
+        <div className="w-full md:w-[44%] max-h-[85vh] overflow-y-auto bg-gray-100 shadow-xl rounded-xl p-4 self-start">
+          <div className="yourPostsDiv">
+            <h1>Your Posts</h1>
+          </div>
 
+          <button className="addButton z-50" onClick={() => setShowAddPost(true)}>
+            <FontAwesomeIcon icon={faPlus} className="text-gray-100 text-5xl" />
+            <p className="text-xs">Add Post!</p>
+          </button>
 
-      {/*********************************************** * Right Container (Feed) *************************************************************/}
-      <div className="flex flex-col w-65/100 justify-items-center border-yellow-300 border-1 mt-5 mb-5 mr-4 bg-gray-300 shadow-lg h-160 overflow-y-auto">
-        <div className="w-full">
-          <div className="yourPostsDiv"><h1>Your Posts</h1></div>
+          {showAddPost && <AddPost onClose={() => setShowAddPost(false)} />}
+
+          {posts.length === 0 ? (
+            <div className="text-center text-gray-500 mt-4">
+              <p>You haven't posted yet...</p>
+              <p>Click the button above to make a post!</p>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center w-full space-y-6 mt-4 mb-4">
+              {posts.map((post, index) => (
+                <div key={index} className="w-full flex justify-center">
+
+                  <Post
+                    key={index}
+                    post_id={post.post_id}
+                    user_id={post.user_id}
+                    title={post.title}
+                    content={post.content}
+                    post_type={post.post_type}
+                    postImg={post.postimg}
+                    firstName={post.firstname}
+                    lastName={post.lastname}
+                    organization_name={post.organization_name}
+                    organization_id={post.organization_id}
+                    profilePicture={user.picture}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/*Trigger the addpost module */}
-        <button className="addButton z-50" onClick={() => setShowAddPost(true)}>
-          <FontAwesomeIcon icon={faPlus} className="text-gray-100 text-5xl" />
-          <p className="text-xs">Add Post!</p>
-        </button>
-
-        {showAddPost && <AddPost onClose={() => setShowAddPost(false)} />}
-
-
-
-        {/* Display message if no posts are found. Otherwise, show user's posts */}
-        {posts.length === 0 ? (
-          <div className="text-center text-gray-500">
-            <p>You haven't posted yet...</p>
-            <p>Click the button in the corner to make a post!</p>
-          </div>
-        ) : (
-          <div className="flex flex-col w-full justify-center items-center space-y-6 mt-4 mb-4">
-            {posts.map((post, index) => (
-              <Post
-                key={index}
-                post_id={post.post_id} // Ensure post_id is passed correctly
-                user_id={post.user_id}
-                title={post.title}
-                content={post.content}
-                post_type={post.post_type}
-                postImg={post.postimg}
-                firstName={post.firstname}
-                lastName={post.lastname}
-                organization_name={post.organization_name}
-                organization_id={post.organization_id}
-              />
-            ))}
-          </div>
-        )}
+        <ToastContainer />
       </div>
-      <ToastContainer />
     </div>
-
   );
+
+
 }

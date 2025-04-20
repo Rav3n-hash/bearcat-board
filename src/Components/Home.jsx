@@ -15,19 +15,20 @@ export default function Home() {
   useEffect(() => {
     async function fetchPosts() {
       const postList = await GetPosts();
+      const sorted = postList.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setPosts(postList);
     }
     fetchPosts();
   }, [logStatus]);
 
   return (
-   <div>
+    <div className="pt-32">
     <div className="flex flex-col md:flex-row bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen p-6 gap-6">
 
       {/* Left: Mini Dashboard */}
       <div className="md:w-1/4 w-full">
-        <div className="bg-white rounded-2xl shadow-md p-6 sticky top-30">
-          <UserMiniDash />
+      <div className="bg-white rounded-2xl shadow-md p-6 fixed top-[120px] left-6 w-[20%] z-40">
+      <UserMiniDash />
         </div>
       </div>
 
@@ -59,14 +60,10 @@ export default function Home() {
       </div>
 
       {/* Floating Add Post Button */}
-      <button
-        className="fixed bottom-6 right-6 bg-blue-700 hover:bg-blue-800 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-3xl"
-        onClick={() => setShowAddPost(true)}
-        title="Add Post"
-      >
-        <FontAwesomeIcon icon={faPlus} />
-      </button>
-
+      <button className="addButton z-50" onClick={() => setShowAddPost(true)}>
+            <FontAwesomeIcon icon={faPlus} className="text-gray-100 text-5xl" />
+            <p className="text-xs">Add Post!</p>
+          </button>
       {/* Modal for AddPost */}
       {showAddPost && <AddPost onClose={() => setShowAddPost(false)} />}
     </div>

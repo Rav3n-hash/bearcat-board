@@ -37,8 +37,12 @@ async function getOrganizationById(orgId) {
 
 
 
-{ /* Update organization info */ }
 async function updateOrganization(orgId, updateData) {
+    console.log("Sending to backend:", {
+        organization_id: orgId,
+        ...updateData
+    });
+
     try {
         const res = await axios.put(`${host}/org/updateOrg`, {
             organization_id: orgId,
@@ -50,6 +54,7 @@ async function updateOrganization(orgId, updateData) {
         throw error;
     }
 }
+
 
 { /* Delete an organization */ }
 async function deleteOrganization(orgId) {

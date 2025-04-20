@@ -1,20 +1,20 @@
-import { useParams, useLocation, Link} from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUserById } from "../Services/UserService";
 import { GetPosts } from "../Services/PostService";
-import Post from "./Post"; // Make sure to import the Post component
-
+import Post from "./Post";
+import UserMiniDash from "./UserMiniDash";
 
 export default function OtherProfiles() {
     const { userId } = useParams();
-    const handlePostClick = (post) => { setInitialPost(post); };
     const [user, setUser] = useState(null);
     const [userPosts, setUserPosts] = useState([]);
     const [initialPost, setInitialPost] = useState(null);
+
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const highlightPostId = queryParams.get("highlight");
-    {/******************************************************Fetch Data of the User Clicked on******************************************************/ }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -29,7 +29,7 @@ export default function OtherProfiles() {
                     const highlighted = thisUsersPosts.find(post => post.post_id === parseInt(highlightPostId));
                     setInitialPost(highlighted || null);
                 } else {
-                    setInitialPost(null); // no highlight if not clicked from search
+                    setInitialPost(null);
                 }
             } catch (err) {
                 console.error("Error loading profile:", err);
@@ -39,147 +39,121 @@ export default function OtherProfiles() {
         fetchData();
     }, [userId, highlightPostId]);
 
-
     if (!user) {
         return <div className="text-center text-red-500 text-xl">User not found!</div>;
     }
-    {/******************************************************DISPLAY ON SITE******************************************************/ }
+
     return (
-        <div className="pb-4 flex flex-row justify-between max-w-full mt-15">
-            <div className="profilePage w-4/5 h-160">
-
-                {/************************Left ************************************/}
-                <div className="userLeftDiv">
-                    <img 
-                        className="w-60 h-55 rounded-none border-3 border-gray-900 object-cover" 
-                        src={user.picture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} 
-                    />
-                    {console.log("OtherProfiles User:", user)}
-                    {console.log(user)}
-
-                    <h3 className="text-3xl">{user.firstname} {user.lastname}</h3>
-                    <h3 className="text-1xl">{user.city}</h3>
-                    <h3 className="text-1xl italic text-yellow-400">{user.user_type =="student_alumni"?("Student/Alumni"):("Employer")}</h3>
-
-                    {user.user_type === "organization_member" && (
-                        <h3 className="text-1xl mt-2 font-semibold italic text-blue-900">Organization: {user.organization_name || "N/A"}</h3>
-                    )}
+        <div className="pt-32">
+            <div className="flex flex-col md:flex-row bg-gradient-to-br from-gray-50 to-blue-50 p-6 gap-6 overflow-x-hidden max-w-[100vw]">
+                {/* Left: Mini Dashboard */}
+                <div className="md:w-1/4 w-full">
+                    <div className="bg-white rounded-2xl shadow-md p-6 fixed top-[120px] left-6 w-[20%] z-40">
+                        <UserMiniDash />
+                    </div>
                 </div>
 
-                {/*******************************Right ***********************/}
-                <div className="userRightDiv">
+                {/* Middle: Profile Info */}
+                <div className="w-full md:w-[36%] bg-[#00487d] p-6 rounded-xl shadow-md relative text-white">
+                    <div className="text-center mb-6">
+                        <img
+                            className="w-24 h-24 rounded-full border-4 border-white mx-auto mb-2"
+                            src={user.picture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
+                            alt="Profile"
+                        />
+                        <h3 className="text-2xl font-bold">{user.firstname} {user.lastname}</h3>
+                        <h4 className="italic text-yellow-300">{user.user_type === "student_alumni" ? "Student/Alumni" : "Employer"}</h4>
+                        <p className="text-sm">{user.city}</p>
+                    </div>
+
                     {user.user_type === "student_alumni" && (
                         <>
-                            {/* ABOUT */}
-                            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10 mt-3">
+                            <div className="border-b-2 border-yellow-400 pb-2">
                                 <h1 className="profH1">About Me</h1>
-                                <p className="text-left px-10 py-2">{user.bio || "No bio available."}</p>
+                                <p className="text-left py-2">{user.bio || "No bio available."}</p>
                             </div>
-
-                            {/* EDUCATION */}
-                            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10">
+                            <div className="border-b-2 border-yellow-400 pb-2 mt-6">
                                 <h1 className="profH1">Education</h1>
-                                <div className="text-left px-10">
-                                    <h3 className="text-gray-800">Graduation Year</h3>
-                                    <p className="text-gray-100 px-5">{user.graduation_year || "N/A"}</p>
-
-                                    <h3 className="text-gray-800">Major</h3>
-                                    <p className="text-gray-100 px-5">{user.major || "N/A"}</p>
-
-                                    <h3 className="text-gray-800">School</h3>
-                                    <p className="text-gray-100 px-5">Bearcat University</p>
-                                </div>
+                                <p className="pt-2">Graduation Year: {user.graduation_year || "N/A"}</p>
+                                <p>Major: {user.major || "N/A"}</p>
                             </div>
-
-                            {/* EXPERIENCE */}
-                            <div className="border-b-2 border-yellow-400 pb-2 w-3/4 ml-10">
+                            <div className="border-b-2 border-yellow-400 pb-2 mt-6">
                                 <h1 className="profH1">Experience</h1>
-                                <div className="text-left px-10 text-gray-400 italic">
-                                    <p className="text-gray-100 px-5">{user.experience || "No experience listed."}</p>
-                                </div>
+                                <p className="pt-2 italic">{user.experience || "No experience listed."}</p>
                             </div>
                         </>
                     )}
 
                     {user.user_type === "organization_member" && (
                         <>
-                            {/* ORG INFO */}
-                           
-                                <h1 className="profH1 ml-2 mt-2">Organization Info</h1>
-                                <div className="text-left border-b-2 border-yellow-400 pb-2 w-3/4 ml-10 mt-5">
-                                    <h3 className="text-gray-800 font-semibold">Organization</h3>
-                                      <Link
-                                            to={`/organization/${user.organization_id}`}
-                                            className="text-gray-100 px-5"
-                                        >
-                                            Org: {user.organization_name}
-                                        </Link>
-                                </div>
-
-                            <div className="text-left border-b-2 border-yellow-400 pb-2 mt-5 w-3/4 ml-10">
-                                    <h3 className="text-gray-800 mt-3 font-semibold">Description</h3>
-                                    <p className="text-gray-100 px-5">{user.organization_description || "No description available."}</p>
+                            <div className="border-b-2 border-yellow-400 pb-2">
+                                <h1 className="profH1">Organization</h1>
+                                <Link to={`/organization/${user.organization_id}`} className="text-blue-300 underline">
+                                    {user.organization_name || "N/A"}
+                                </Link>
                             </div>
-                           
-                            
+                            <div className="border-b-2 border-yellow-400 pb-2 mt-6">
+                                <h1 className="profH1">Description</h1>
+                                <p className="pt-2">{user.organization_description || "No description available."}</p>
+                            </div>
                         </>
                     )}
                 </div>
-            </div>
 
-            {/***************************************************************DIV FOR POSTS ************************************************************************/}
-            <div className="flex flex-col w-65/100 justify-items-center border-yellow-300 border-1 mt-5 mb-5 mr-4 bg-gray-300 shadow-lg h-160 overflow-y-auto">
-            <div className="w-full">
-                    <div className="yourPostsDiv"><h1>{user.firstname}'s Posts</h1></div>
-                </div>
+                {/* Right: Posts */}
+                <div className="w-full md:w-[44%] bg-gray-100 shadow-xl rounded-xl p-4 overflow-y-auto overflow-x-hidden max-h-[75vh] self-start">
+                    <h1 className="yourPostsDiv">{user.firstname}'s Posts</h1>
 
-                {/*Initial/Hightlighted Post*/}
-                {initialPost && (
-                    <div className="flex flex-col justify-center items-center pb-2 w-full mt-4">
-                        <h3 className="text-3xl text-yellow-400 bg-amber-100 w-7/8">Highlighted Post</h3>
-                        <div className="w-full flex justify-center items-center max-w-2xl overflow-y-auto space-y-6 mt-4">
-                            <Post
-                                post_id={initialPost.post_id}
-                                user_id={initialPost.user_id}
-                                title={initialPost.title}
-                                content={initialPost.content}
-                                post_type={initialPost.post_type}
-                                postImg={initialPost.postimg}
-                                firstName={initialPost.firstname}
-                                lastName={initialPost.lastname}
-                                organization_name={initialPost.organization_name}
-                                organization_id={initialPost.organization_id}
-                            />
-                        </div>
-                    </div>
-                )}
-
-
-                {/*****************All posts***************/}
-                {userPosts.length > 0 && (
-                    <div className="flex flex-col justify-center items-center pb-2 w-full mt-4">
-                        <h3 className="text-3xl text-yellow-400 bg-amber-100 w-7/8">All of {user.firstname}'s Posts</h3>
-                        <div className="w-full flex flex-col y-6 mt-4 mx-auto ml-8">
-                            {userPosts.map((post, index) => (
+                    {initialPost && (
+                        <div className="mb-8">
+                            <h2 className="text-xl font-semibold text-yellow-600">Highlighted Post</h2>
+                            <div className="flex justify-center mt-4">
                                 <Post
-                                    key={index}
-                                    post_id={post.post_id}
-                                    user_id={post.user_id}
-                                    title={post.title}
-                                    content={post.content}
-                                    post_type={post.post_type}
-                                    postImg={post.postimg}
-                                    firstName={post.firstname}
-                                    lastName={post.lastname}
-                                    organization_name={post.organization_name}
-                                    organization_id={post.organization_id}
+                                    post_id={initialPost.post_id}
+                                    user_id={initialPost.user_id}
+                                    title={initialPost.title}
+                                    content={initialPost.content}
+                                    post_type={initialPost.post_type}
+                                    postImg={initialPost.postimg}
+                                    firstName={initialPost.firstname}
+                                    lastName={initialPost.lastname}
+                                    organization_name={initialPost.organization_name}
+                                    organization_id={initialPost.organization_id}
+                                    profilePicture={user.picture}
                                 />
+
+                            </div>
+                        </div>
+                    )}
+
+                    {userPosts.length > 0 ? (
+                        <div className="flex flex-col items-center space-y-6 mt-4">
+                            {userPosts.map((post, index) => (
+                                <div key={index} className="w-full flex justify-center">
+                                    <Post
+                                        key={index}
+                                        post_id={post.post_id}
+                                        user_id={post.user_id}
+                                        title={post.title}
+                                        content={post.content}
+                                        post_type={post.post_type}
+                                        postImg={post.postimg}
+                                        firstName={post.firstname}
+                                        lastName={post.lastname}
+                                        organization_name={post.organization_name}
+                                        organization_id={post.organization_id}
+                                        profilePicture={user.picture}
+                                    />
+
+                                </div>
                             ))}
                         </div>
-                    </div>
-                )}
+                    ) : (
+                        <p className="text-center text-gray-500 mt-6">No posts available.</p>
+                    )}
+                </div>
+
             </div>
         </div>
-
     );
 }

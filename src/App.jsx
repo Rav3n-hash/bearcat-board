@@ -16,6 +16,7 @@ import ToastNotifs from './Testing/ToastNotifs';
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 import "./Testing/toastStyles.css"
 import Organization from './Components/Organization';
+import EditOrganizations from './Components/EditOrganizations';
 
 
 
@@ -39,7 +40,7 @@ export default function App() {
   };
   
    return (
-    <DataContext.Provider value={{ logStatus:logStatus, setLogStatus:setLogStatus}}>
+    <DataContext.Provider value={{ logout, logStatus:logStatus, setLogStatus:setLogStatus}}>
       <BrowserRouter>
         {logStatus === "1" ? (
           // If logged in, show the NavBar
@@ -55,6 +56,7 @@ export default function App() {
               <Route path="/addPost" element={<AddPost />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/organization/:organization_id" element={<Organization />} />
+              <Route path='/editorganizations' element={<EditOrganizations/>}></Route>
 
               
             </Routes>

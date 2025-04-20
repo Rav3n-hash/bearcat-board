@@ -17,17 +17,19 @@ export default function Connections() {
 
 
     return (
-        <div className="min-h-screen bg-gray-100 flex mt-20">
+        <div className="pt-32">
+
+        <div className="min-h-screen bg-gray-100 flex ">
             {/*********************Left Container (User Options) **************************************************/}
                   {/* Left: Mini Dashboard */}
                   <div className="md:w-1/4 w-full">
-                    <div className="bg-white rounded-2xl shadow-md p-6 sticky top-30">
-                      <UserMiniDash />
+                  <div className="bg-white rounded-2xl shadow-md p-6 fixed top-[120px] left-6 w-[20%] z-40">
+                  <UserMiniDash />
                     </div>
                   </div>
 
             {/*******************************Right Container (Other users) ******************************************/}
-            <div className="p-5 w-3/4 flex flex-col items-center justify-center shadow-lg ml-5">
+            <div className=" w-3/4 flex flex-col items-center justify-center shadow-lg ml-5">
                 <h1 className="text-2xl font-bold mb-4 text-yellow-300">Connections</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-10 items-center justify-center">
                     {users.length > 0 ? (
@@ -39,6 +41,7 @@ export default function Connections() {
                     )}
                 </div>
             </div>
+        </div>
         </div>
     );
 }

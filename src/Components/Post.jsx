@@ -142,8 +142,8 @@ export default function Post({
         <img
           src={postImg}
           alt="Post attachment"
-          className="mt-3 rounded-lg w-110 h-90 ml-10 mb-1 object-fill shadow-lg border-2 border-black/50 bg-black/50"
-        />
+          className="mt-3 rounded-lg w-full max-w-md h-auto object-contain shadow-lg border-2 border-black/50 bg-black/50"
+          />
       )}
 
     {isEditing ? (
