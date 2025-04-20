@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import "../App.css";
-import { GetPosts, EditPost, DeletePost} from "../Services/PostService.js";
+import { GetPosts, EditPost, DeletePost } from "../Services/PostService.js";
 import { DataContext } from "../App";
 import { ToastContainer, toast, Bounce } from "react-toastify"; // Import Toastify
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faTrashCan, faPenToSquare, faSave, faTimes} from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan, faPenToSquare, faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 
@@ -20,11 +20,11 @@ export default function Post({
   created_at,
   postImg,
   organization_name,
-  organization_id, 
+  organization_id,
   profilePicture
 }) {
 
- {/*******************************************************USE STATES *********************************************************************************/}
+  {/*******************************************************USE STATES *********************************************************************************/ }
   const [isExpanded, setIsExpanded] = useState(false);  // State to control content expansion
   const [isEditing, setIsEditing] = useState(false); //Will trigger updatable form
   const [updatedContent, setUpdatedContent] = useState(content); //Update text content
@@ -35,12 +35,12 @@ export default function Post({
   const loggedUser = sessionStorage.getItem("user_id"); //Get the logged in user. This way, they can only edit their own posts  
 
 
-{/*******************************************************POST DELETION *********************************************************************************/}
+  {/*******************************************************POST DELETION *********************************************************************************/ }
   const handleDelete = async () => {
     try {
-      console.log("Deleting post #", post_id, "from user",user_id); // Log for debugging
+      console.log("Deleting post #", post_id, "from user", user_id); // Log for debugging
       const response = await DeletePost(post_id, user_id);
-      
+
       if (response.ans === "Success") {
         toast.success("Post successfully Deleted!", { position: "top-center", autoClose: 3000 });
         setTimeout(() => window.location.reload(), 3000); // Delay for toast to appear before navigating
@@ -52,24 +52,24 @@ export default function Post({
     }
   };
 
-{/*************************************************Enable editing; used for edit button *******************************************************/}
+  {/*************************************************Enable editing; used for edit button *******************************************************/ }
   const triggerEdits = () => {
     setIsEditing(true);
-        setUpdatedTitle(title);
+    setUpdatedTitle(title);
     setUpdatedContent(content);
     setSelectedImage(image);
   };
-{/*******************************************************Save changes to database; used for save button***************************************************/}
+  {/*******************************************************Save changes to database; used for save button***************************************************/ }
   const handleUpdate = async () => { //save button
-      
-      try{
+
+    try {
       const postData = {
-          post_id,
-          user_id,
-          content: updatedContent,
-          title: updatedTitle,
-          postimg: selectedImage // Can be null if no new image is selected
-          
+        post_id,
+        user_id,
+        content: updatedContent,
+        title: updatedTitle,
+        postimg: selectedImage // Can be null if no new image is selected
+
       };
 
       console.log(postData)
@@ -77,7 +77,7 @@ export default function Post({
       const result = await EditPost(postData);
 
       if (result.ans === 1) {
-        toast.success("Updating Post....", {autoClose: 3000} );
+        toast.success("Updating Post....", { autoClose: 3000 });
         setIsEditing(false);
         setTimeout(() => window.location.reload(), 3000);
       } else {
@@ -88,7 +88,7 @@ export default function Post({
     }
   };
 
-  {/**************************************************Reset any changes; used for cancel button *************************************************************/}
+  {/**************************************************Reset any changes; used for cancel button *************************************************************/ }
 
   const handleCancel = () => {
     setIsEditing(false);
@@ -98,7 +98,7 @@ export default function Post({
   };
 
 
-    {/********************************************FOR POST TIMES*************************************************************/}
+  {/********************************************FOR POST TIMES*************************************************************/ }
   const getTimeAgo = (timestamp) => {
     const postDate = new Date(timestamp);
     const now = new Date();
@@ -107,7 +107,7 @@ export default function Post({
     const diffHours = Math.floor(diffMins / 60);
     const diffDays = Math.floor(diffHours / 24);
     const diffMonths = Math.floor(diffDays / 30);
-  
+
     if (diffHours < 1) {
       return `Posted ${diffMins} minute${diffMins !== 1 ? 's' : ''} ago`;
     } else if (diffDays < 1) {
@@ -120,9 +120,9 @@ export default function Post({
   };
 
 
-{/***********************************************************DISPLAY ON SITE*********************************************************************************/}
+  {/***********************************************************DISPLAY ON SITE*********************************************************************************/ }
   return (
-    <div className={`ml-5 relative flex flex-col gap-4 p-6 rounded-2xl w-140 max-w-2xl shadow-lg bg-white text-black border border-gray-200 hover:shadow-lg hover:shadow-blue-300/50 transition-all duration-300 ${isEditing || isExpanded ||!postImg ? 'h-auto' : 'h-160'}`}>
+    <div className={`ml-5 relative flex flex-col gap-4 p-6 rounded-2xl w-140 max-w-2xl shadow-lg bg-white text-black border border-gray-200 hover:shadow-lg hover:shadow-blue-300/50 transition-all duration-300 ${isEditing || isExpanded || !postImg ? 'h-auto' : 'h-160'}`}>
 
       {/* Render profile pictures for all users except for the currently logged in one*/}
       <div className="flex items-center gap-4">
@@ -144,11 +144,21 @@ export default function Post({
         </div>
         {/*Timestamp*/}
         <div className="absolute top-4 right-4">
-          <h3 className="text-black/50">{getTimeAgo(created_at)}</h3></div>
+          <h3 className="text-black/50">
+            {new Date(created_at).toLocaleString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+              hour: "numeric",
+              minute: "2-digit",
+              hour12: true,
+            })}
+          </h3>
+        </div>
       </div>
 
 
-    {/*If a post is being edited, display "editing post" at the top*/}
+      {/*If a post is being edited, display "editing post" at the top*/}
       {isEditing ? (<h3 className="text-2xl text-gray-300">Editing Post</h3>) : ("")}
 
 
@@ -169,10 +179,10 @@ export default function Post({
           src={postImg}
           alt="Post attachment"
           className="mt-3 rounded-lg w-full max-w-md h-auto object-contain shadow-lg border-2 border-black/50 bg-black/50"
-          />
+        />
       )}
 
-    {isEditing ? (
+      {isEditing ? (
         <input
           type="text"
           className="border-1 border-blue-200 bg-white text-black shadow-sm shadow-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:shadow-blue-400/50 transition duration-300 p-1 rounded w-4/5 ml-15 mb-1"
@@ -180,8 +190,8 @@ export default function Post({
           placeholder="Add Image URL"
           onChange={(e) => setSelectedImage(e.target.value)}
         />
-      ):("")
-    }
+      ) : ("")
+      }
 
       {/*{/* If editing, the content will be a text input. Otherwise, content will be displayed */}
       {isEditing ? (
@@ -190,68 +200,68 @@ export default function Post({
           value={updatedContent}
           onChange={(e) => setUpdatedContent(e.target.value)}
         />
-      ):(
+      ) : (
         <div>
-        <p
-          onClick={() => setIsExpanded(!isExpanded)}
-          className={`cursor-pointer transition-all duration-300 ${isExpanded ? '' : 'line-clamp-3'}`}
-        >
-          {content}
-        </p>
-        {content.length > 250 && (
-          <span
-            className="text-sm text-blue-500 cursor-pointer"
+          <p
             onClick={() => setIsExpanded(!isExpanded)}
+            className={`cursor-pointer transition-all duration-300 ${isExpanded ? '' : 'line-clamp-3'}`}
           >
-            {isExpanded ? "Show Less" : "Read More"}
-          </span>
-        )}
-      </div>
+            {content}
+          </p>
+          {content.length > 250 && (
+            <span
+              className="text-sm text-blue-500 cursor-pointer"
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? "Show Less" : "Read More"}
+            </span>
+          )}
+        </div>
       )}
 
       {/* Show the delete and edit button only if the logged-in user is the post's owner */}
-     
-      {loggedUser == user_id && (
-  <div className="flex justify-end space-x-5 mt-auto border-t border-gray-200">
-    {isEditing ? (
-      <>
-        <button
-          onClick={handleUpdate}
-          className="flex items-center gap-2 text-green-600 hover:text-green-800 transition"
-        >
-          <FontAwesomeIcon icon={faSave} />
-          Save
-        </button>
-        <button
-          onClick={handleCancel}
-          className="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition"
-        >
-          <FontAwesomeIcon icon={faTimes} />
-          Cancel
-        </button>
-      </>
-    ) : (
-      <>
-        <button
-          onClick={triggerEdits}
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-400 transition"
-        >
-          <FontAwesomeIcon icon={faPenToSquare} />
-          Edit
-        </button>
-        <button
-          onClick={handleDelete}
-          className="flex items-center gap-2 text-red-500 hover:text-red-300 transition"
-        >
-          <FontAwesomeIcon icon={faTrashCan} />
-          Delete
-        </button>
-      </>
-    )}
-  </div>
-)}
 
-    <ToastContainer />
+      {loggedUser == user_id && (
+        <div className="flex justify-end space-x-5 mt-auto border-t border-gray-200">
+          {isEditing ? (
+            <>
+              <button
+                onClick={handleUpdate}
+                className="flex items-center gap-2 text-green-600 hover:text-green-800 transition"
+              >
+                <FontAwesomeIcon icon={faSave} />
+                Save
+              </button>
+              <button
+                onClick={handleCancel}
+                className="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition"
+              >
+                <FontAwesomeIcon icon={faTimes} />
+                Cancel
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={triggerEdits}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-400 transition"
+              >
+                <FontAwesomeIcon icon={faPenToSquare} />
+                Edit
+              </button>
+              <button
+                onClick={handleDelete}
+                className="flex items-center gap-2 text-red-500 hover:text-red-300 transition"
+              >
+                <FontAwesomeIcon icon={faTrashCan} />
+                Delete
+              </button>
+            </>
+          )}
+        </div>
+      )}
+
+      <ToastContainer />
     </div>
 
   );
