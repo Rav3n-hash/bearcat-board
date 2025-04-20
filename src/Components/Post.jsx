@@ -17,6 +17,7 @@ export default function Post({
   lastName,
   title,
   content,
+  created_at,
   postImg,
   organization_name,
   organization_id, 
@@ -97,6 +98,28 @@ export default function Post({
   };
 
 
+    {/********************************************FOR POST TIMES*************************************************************/}
+  const getTimeAgo = (timestamp) => {
+    const postDate = new Date(timestamp);
+    const now = new Date();
+    const diffMs = now - postDate;
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+    const diffMonths = Math.floor(diffDays / 30);
+  
+    if (diffHours < 1) {
+      return `Posted ${diffMins} minute${diffMins !== 1 ? 's' : ''} ago`;
+    } else if (diffDays < 1) {
+      return `Posted ${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+    } else if (diffDays < 30) {
+      return `Posted ${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+    } else {
+      return `Posted ${diffMonths} month${diffMonths !== 1 ? 's' : ''} ago`;
+    }
+  };
+
+
 {/***********************************************************DISPLAY ON SITE*********************************************************************************/}
   return (
     <div className={`ml-5 relative flex flex-col gap-4 p-6 rounded-2xl w-140 max-w-2xl shadow-lg bg-white text-black border border-gray-200 hover:shadow-lg hover:shadow-blue-300/50 transition-all duration-300 ${isEditing || isExpanded ||!postImg ? 'h-auto' : 'h-160'}`}>
@@ -119,6 +142,9 @@ export default function Post({
             </Link>
           )}
         </div>
+        {/*Timestamp*/}
+        <div className="absolute top-4 right-4">
+          <h3 className="text-black/50">{getTimeAgo(created_at)}</h3></div>
       </div>
 
 

@@ -23,6 +23,7 @@ async function GetPosts() {
       "title": tmp.title, 
       "content": tmp.content,
       "post_type": tmp.post_type,
+      "created_at": tmp.created_at,
       "organization_id": tmp.organization_id,
       "postimg": tmp.postimg, 
       "firstname": tmp.firstName, 

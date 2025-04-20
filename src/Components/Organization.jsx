@@ -41,7 +41,7 @@ export default function Organization({ }) {
   return (
     <div className="container mx-auto p-4 mt-15">
       {/************************************************** Organization Header ***********************************************************/}
-      <div className="flex shadow-sm items-center mb-1 bg-gray-300 border border-black/10">
+      <div className="flex shadow-sm items-center mb-1 bg-gray-500/50 border border-black/10">
         {/* Organization Image */}
         <img
           className="w-30 h-30 rounded-none border-2 border-gray-900/50"
@@ -92,6 +92,7 @@ export default function Organization({ }) {
                     title={post.title}
                     content={post.content}
                     post_type={post.post_type}
+                    created_at={post.created_at}
                     postImg={post.postimg}
                     firstName={post.firstName} 
                     lastName={post.lastName}

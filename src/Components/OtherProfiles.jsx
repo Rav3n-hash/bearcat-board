@@ -144,6 +144,7 @@ export default function OtherProfiles() {
                                 title={initialPost.title}
                                 content={initialPost.content}
                                 post_type={initialPost.post_type}
+                                created_at={post.created_at}
                                 postImg={initialPost.postimg}
                                 firstName={initialPost.firstname}
                                 lastName={initialPost.lastname}

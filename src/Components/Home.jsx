@@ -15,6 +15,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchPosts() {
       const postList = await GetPosts();
+      postList.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // sort by time
       setPosts(postList);
     }
     fetchPosts();
@@ -46,6 +47,7 @@ export default function Home() {
                 title={post.title}
                 content={post.content}
                 post_type={post.post_type}
+                created_at={post.created_at}
                 postImg={post.postimg}
                 firstName={post.firstname}
                 lastName={post.lastname}

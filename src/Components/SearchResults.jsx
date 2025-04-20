@@ -75,6 +75,27 @@ export default function SearchResults() {
     }
   }, [searchQuery]);
 
+//for timestamps
+  const getTimeAgo = (timestamp) => {
+    const postDate = new Date(timestamp);
+    const now = new Date();
+    const diffMs = now - postDate;
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+    const diffMonths = Math.floor(diffDays / 30);
+  
+    if (diffHours < 1) {
+      return `Posted ${diffMins} minute${diffMins !== 1 ? 's' : ''} ago`;
+    } else if (diffDays < 1) {
+      return `Posted ${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+    } else if (diffDays < 30) {
+      return `Posted ${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+    } else {
+      return `Posted ${diffMonths} month${diffMonths !== 1 ? 's' : ''} ago`;
+    }
+  };
+
 
   return (
     <div className="flex flex-col justify-center items-center mt-18">
@@ -167,9 +188,13 @@ export default function SearchResults() {
           filteredResults.map((post, index) => (
             <div key={post.post_id || index} className="p-2 border-b">
 
+              <p className="text-sm text-right text-gray-500/50">{getTimeAgo(post.created_at)}</p>
+
               <Link to={`/otherProfiles/${post.user_id}?highlight=${post.post_id}`}>
                 {post.title}
               </Link>
+
+              
 
               <p className="text-sm text-gray-500">{post.content}</p>
               <p className="text-xs italic">
