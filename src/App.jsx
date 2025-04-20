@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 import "./Testing/toastStyles.css"
 import Organization from './Components/Organization';
 import EditOrganizations from './Components/EditOrganizations';
+import OrganizationsPage from './Components/OrganizationsPage';
 
 
 
