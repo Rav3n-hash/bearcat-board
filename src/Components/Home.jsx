@@ -47,6 +47,7 @@ export default function Home() {
                 title={post.title}
                 content={post.content}
                 post_type={post.post_type}
+                created_at={post.created_at}
                 postImg={post.postimg}
                 firstName={post.firstname}
                 lastName={post.lastname}

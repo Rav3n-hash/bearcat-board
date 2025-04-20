@@ -55,6 +55,7 @@ export default function App() {
               <Route path="/searchResults" element={<SearchResults />} />
               <Route path="/addPost" element={<AddPost />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/OrganizationsPage" element={<OrganizationsPage />} />
               <Route path="/organization/:organization_id" element={<Organization />} />
               <Route path='/editorganizations' element={<EditOrganizations/>}></Route>
 

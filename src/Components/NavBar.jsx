@@ -66,8 +66,6 @@ export default function NavBar() {
         </div>
 
 
-
-
         {/*******************************************************Link to Connections**********************************************************/}
 
         <div className="flex flex-col items-center ml-10">
