@@ -98,7 +98,7 @@ export default function SearchResults() {
 
 
   return (
-    <div className="flex flex-col justify-center items-center mt-18">
+    <div className="flex flex-col justify-center items-center mt-28">
 
       {/***********************************************************Filter Options *********************************************************************/}
       <div className="bg-gray-500 p-4 rounded-xs shadow-md mb-6 w-9/10 h-15">
