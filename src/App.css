@@ -307,3 +307,12 @@ margin-right: auto;
 .orgLink:hover {
   color: #238bd6 !important;
 }
+
+.orgLinkProf {
+  color: #fdeda9 !important;
+  font-style: italic;
+}
+
+.orgLinkProf:hover {
+  color: #f2edd8 !important;
+}

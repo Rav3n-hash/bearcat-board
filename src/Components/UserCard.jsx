@@ -10,7 +10,7 @@ export default function UserCard({ user }) {
                 <img
                     src={user.picture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
                     alt="User Avatar"
-                    className="w-12 h-12 object-cover border border-gray-400 rounded-full"
+                    className="w-12 h-12 object-cover border border-gray-400 rounded-xl"
                 />
                 <div>
                     <p className="font-semibold text-left text-gray-900">
@@ -20,7 +20,7 @@ export default function UserCard({ user }) {
                         {user.user_type === "student_alumni" && "Student/Alumni"}
                         {user.user_type === "organization_member" && (
                             <>
-                                Organization Member
+                                Employer
                                 {user.organization_name && (
                                     <> at <span className="font-medium">{user.organization_name}</span></>
                                 )}
@@ -34,7 +34,7 @@ export default function UserCard({ user }) {
             <div className="mt-3 flex justify-center">
                 <Link
                     to={`/OtherProfiles/${user.user_id}`}
-                    className="px-4 py-2 bg-yellow-300 w-1/2 text-black rounded-lg hover:bg-yellow-200 text-center"
+                    className="orgLink px-4 py-2 bg-yellow-300 w-1/2 text-black rounded-lg hover:bg-yellow-200 text-center"
                 >
                     View Profile
                 </Link>

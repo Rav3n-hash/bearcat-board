@@ -8,11 +8,12 @@ export default function Connections() {
 
     useEffect(() => {
         async function fetchUsers() {
-            const userData = await getAllUsers(); // Fetch users
-            setUsers(userData.rows); // Update state with fetched users
+          const userData = await getAllUsers(); // Fetch users
+          const sortedUsers = userData.rows.sort((a, b) => a.user_id - b.user_id); // Sort rows by ID
+          setUsers(sortedUsers); // Set sorted array
         }
         fetchUsers();
-    }, []); // Empty dependency array to fetch only once when component mounts
+      }, []);
 
 
 

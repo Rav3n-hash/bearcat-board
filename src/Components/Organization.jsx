@@ -39,7 +39,7 @@ export default function Organization({ }) {
 
 
   return (
-    <div className="container mx-auto p-4 mt-15">
+    <div className="container mx-auto p-4 mt-22">
       {/************************************************** Organization Header ***********************************************************/}
       <div className="flex shadow-sm items-center mb-1 bg-gray-500/50 border border-black/10">
         {/* Organization Image */}

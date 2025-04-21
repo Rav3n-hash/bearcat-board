@@ -169,7 +169,7 @@ export default function Profile() {
 
   return (
     <div className="pt-32 overflow-hidden">
-<div className="flex flex-col md:flex-row bg-gradient-to-br from-gray-50 to-blue-50 p-6 gap-6 max-w-[100vw]">
+<div className="flex flex-col md:flex-row bg-gradient-to-br from-gray-50 to-blue-50 p-4 gap-6 max-w-[100vw]">
 
         {/* Left: Mini Dashboard */}
         <div className="md:w-1/4 w-full">
@@ -179,24 +179,25 @@ export default function Profile() {
         </div>
 
         {/* Middle: Profile Content */}
-        <div className="w-full md:w-[36%] bg-[#00487d] p-6 rounded-xl shadow-md relative self-start h-auto">
+        <div className="w-full md:w-[36%] bg-[#00487d]/70 p-6 rounded-sm shadow-lg relative self-start h-auto">
           {isEditing ? <h1>Edit Profile</h1> : ""}
           {user.user_type === "student_alumni" && isEditing && (
             <div className="text-left px-10 mb-6">
-              <h3 className="text-white mb-1">Profile Picture</h3>
+              <h3 className="profH1">Profile Picture</h3>
               <input
-                className="w-3/4 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white"
+                className="w-3/4 mt-2 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                 value={updatedProfilePic}
                 placeholder="Enter profile picture URL"
                 onChange={(e) => setUpdatedProfilePic(e.target.value)}
               />
               {/* Optional Preview */}
-              <div className="mt-4 flex justify-center">
+              <div className="mt-4 flex flex-col justify-center items-center">
                 <img
                   src={updatedProfilePic || user.picture}
                   alt="Preview"
-                  className="w-24 h-24 rounded-full border-2 border-white"
+                  className="w-30 h-30 rounded-sm border-2 border-black/50"
                 />
+                <h3 className="text-black/50 italic">Photo Preview</h3>
               </div>
             </div>
           )}
@@ -225,16 +226,16 @@ export default function Profile() {
               <div className="text-left px-10">
                 {isEditing ? (
                   <>
-                    <h3 className="text-gray-800">Graduation Year:</h3>
+                    <h3 className="text-[#f2ebaa]">Graduation Year:</h3>
                     <input
-                      className="w-full p-2 mb-4 border-1 border-blue-400 rounded-md bg-white/15 text-white"
+                      className="w-full mt-2 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                       value={updatedGradYear}
                       placeholder="Update graduation year"
                       onChange={(e) => setUpdatedGradYear(e.target.value)}
                     />
-                    <h3 className="text-gray-800">Major:</h3>
+                    <h3 className="text-[#f2ebaa]">Major:</h3>
                     <input
-                      className="w-full p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white"
+                      className="w-full mt-2 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                       value={updatedMajor}
                       placeholder="Update major"
                       onChange={(e) => setUpdatedMajor(e.target.value)}
@@ -242,10 +243,10 @@ export default function Profile() {
                   </>
                 ) : (
                   <>
-                    <h3 className="text-gray-800">Graduation Year<br />
+                    <h3 className="text-[#f2ebaa]">Graduation Year<br />
                       <span className="text-gray-100 px-5">{user.graduation_year || "N/A"}</span>
                     </h3>
-                    <h3 className="text-gray-800">Major<br />
+                    <h3 className="text-[#f2ebaa]">Major<br />
                       <span className="text-gray-100 px-5">{user.major || "N/A"}</span>
                     </h3>
                   </>
@@ -260,7 +261,7 @@ export default function Profile() {
               <h1 className="profH1 mb-2">Experience</h1>
               {isEditing ? (
                 <textarea
-                  className="w-full p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white"
+                  className="w-full mt-2 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                   value={updatedExp}
                   placeholder="Update work experience..."
                   onChange={(e) => setUpdatedExp(e.target.value)}
@@ -285,13 +286,13 @@ export default function Profile() {
                 {isEditing ? (
                   <>
                     <input
-                      className="w-full p-2 mb-4 border-1 border-blue-400 rounded-md bg-white/15 text-white"
+                      className="w-full mt-2 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                       value={updatedOrgName}
                       placeholder="Enter organization name"
                       onChange={(e) => setUpdatedOrgName(e.target.value)}
                     />
                     <input
-                      className="w-full p-2 mb-4 border-1 border-blue-400 rounded-md bg-white/15 text-white"
+                      className="w-full mt-2 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                       value={updatedProfilePic}
                       placeholder="Enter profile picture URL"
                       onChange={(e) => setUpdatedProfilePic(e.target.value)}
@@ -300,7 +301,7 @@ export default function Profile() {
                       <img
                         src={updatedProfilePic || user.picture}
                         alt="Preview"
-                        className="w-24 h-24 rounded-full border-2 border-white"
+                        className="w-full mt-2 p-2 border-1 border-blue-400 rounded-md bg-white/15 text-white shadow-sm shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:shadow-blue-300/75 transition duration-300"
                       />
                     </div>
 
@@ -378,6 +379,7 @@ export default function Profile() {
                     title={post.title}
                     content={post.content}
                     post_type={post.post_type}
+                    created_at={post.created_at}
                     postImg={post.postimg}
                     firstName={post.firstname}
                     lastName={post.lastname}

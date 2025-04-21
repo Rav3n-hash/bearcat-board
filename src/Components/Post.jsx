@@ -174,24 +174,41 @@ export default function Post({
         <h4 className="text-xl font-semibold mt-2">{title}</h4>
       )}
 
-      {postImg && (
-        <img
-          src={postImg}
-          alt="Post attachment"
-          className="mt-3 rounded-lg w-full max-w-md h-auto object-contain shadow-lg border-2 border-black/50 bg-black/50"
-        />
-      )}
+              {postImg && (
+                <img
+                  src={postImg}
+                  alt="Post attachment"
+                  className="ml-6 mt-3 rounded-lg w-120 h-100 max-w-md object-fill shadow-lg border-2 border-black/50 bg-black/50"
+                />
+              )}
 
-      {isEditing ? (
-        <input
-          type="text"
-          className="border-1 border-blue-200 bg-white text-black shadow-sm shadow-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:shadow-blue-400/50 transition duration-300 p-1 rounded w-4/5 ml-15 mb-1"
-          value={selectedImage}
-          placeholder="Add Image URL"
-          onChange={(e) => setSelectedImage(e.target.value)}
-        />
-      ) : ("")
-      }
+        {/* Show image preview when editing */}
+        {isEditing && (
+          <>
+            <input
+              type="text"
+              className="border-1 border-blue-200 bg-white text-black shadow-sm shadow-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:shadow-blue-400/50 transition duration-300 p-1 rounded w-4/5 ml-15 mb-1"
+              value={selectedImage}
+              placeholder="Add Image URL"
+              onChange={(e) => setSelectedImage(e.target.value)}
+            />
+
+            {/* Live Preview of Image being added */}
+            {selectedImage && (
+              <div className="flex flex-col justify-center items-center">
+              <img
+                src={selectedImage}
+                alt="Preview"
+                className="flex justify-center items-center mt-3 rounded-lg w-50 h-50 max-w-md object-fill shadow-lg border-2 border-dashed border-blue-400 bg-blue-100"
+                onError={(e) => {
+                  e.target.style.display = 'none'; // Hide image if URL is invalid
+                }}
+              />
+              <h3>Preview</h3>
+            </div>
+            )}
+          </>
+        )}
 
       {/*{/* If editing, the content will be a text input. Otherwise, content will be displayed */}
       {isEditing ? (

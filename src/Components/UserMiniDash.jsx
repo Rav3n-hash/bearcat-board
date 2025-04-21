@@ -55,13 +55,13 @@ export default function UserMiniDash() {
   }
 
   return (
-    <div className="bg-gray-100 p-6 flex flex-col items-center border-r border-gray-300">
-      <div className="border-2 py-2 text-blue-600 flex shadow-lg flex-col items-center rounded-xs">
+    <div className="bg-gray-100 flex flex-col items-center border border-gray-300/50">
+      <div className="flex shadow-lg flex-col items-center rounded-xs">
         <br />
         <img
           src={userData.pic}
           alt="User Avatar"
-          className="w-30 h-30 rounded-full border-2 border-gray-400 mb-4"
+          className="w-30 h-30 rounded-2xl border-2 border-gray-400 mb-4"
         />
         <p className="text-2xl text-gray-500 font-semibold mb-1">
           {userData.firstName} {userData.lastName}
@@ -79,19 +79,19 @@ export default function UserMiniDash() {
           </p>
         )}
 
-        <div className="bg-gray-100 p-6 flex flex-col items-center border-gray-300">
-          <button className="w-50 h-10 text-center py-2 px-4 border-b-2 text-blue-600 hover:bg-blue-200" onClick={() => navigate("/profile")}>
-            <FontAwesomeIcon icon={faUser} className="text-blue-100" /> View Profile
+        <div className="p-6 flex flex-col items-center">
+          <button className="w-50 h-10 text-left py-2 px-4 border-b-2 text-[#00487d]/75 hover:bg-blue-200" onClick={() => navigate("/profile")}>
+            <FontAwesomeIcon icon={faUser} className="text-blue-100 mr-2" /> View Profile
           </button>
 
-          <button className="w-50 h-10 text-center py-2 px-4 border-b-2 text-blue-600 hover:bg-blue-200" onClick={() => navigate("/settings")}>
-            <FontAwesomeIcon icon={faGear} className="text-blue-100" /> Settings
+          <button className="w-50 h-10 text-left py-2 px-4 border-b-2 text-[#00487d]/75 hover:bg-blue-200" onClick={() => navigate("/settings")}>
+            <FontAwesomeIcon icon={faGear} className="text-blue-100 mr-2" /> Settings
           </button>
           <br />
           {sessionStorage.getItem("org_role") === "admin" && (
             <>
               <button
-                className="w-50 h-10 text-center py-2 px-4 border-b-2 text-blue-600 hover:bg-blue-200"
+                className="w-50 h-10 text-left py-2 px-4 border-b-2 text-[#00487d]/75 hover:bg-blue-200"
                 onClick={() => setShowModal(true)}
               >
                 <FontAwesomeIcon icon={faEdit} className="text-blue-100 mr-2" />
