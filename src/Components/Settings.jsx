@@ -101,7 +101,7 @@ export default function Settings() {
 
 
     return (
-        <div className="h-9/10 flex flex-col md:flex-row mt-17.5 overflow-hidden">
+        <div className="h-9/10 flex flex-col md:flex-row mt-22 overflow-hidden">
             {/***************************************************** Sidebar *****************************************************/}
             {/*There are */}
             <div className="sidebar w-full md:w-1/6 h-full bg-gray-800 text-white p-4 flex flex-col">
