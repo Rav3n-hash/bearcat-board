@@ -44,6 +44,7 @@ api.interceptors.response.use(
             	} catch (refreshError) {
                     if (!window.location.href.includes("/login")) { 
                         console.error("Refresh token failed" + window.location.href + " ", refreshError);
+                        debugger;
                         window.location.href = "/login"; // Redirect to login if refresh fails
                         return Promise.reject(refreshError);
                     }
