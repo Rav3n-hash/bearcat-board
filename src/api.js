@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-	baseURL: import.meta.env.PROD ? "/" : "http://localhost:8000", // Change this to your backend URL
+	baseURL: import.meta.env.PROD ? "https://bearcat-exp.vercel.app" : "http://localhost:8000", // Change this to your backend URL
     withCredentials: true, // Allows sending cookies (for refresh token)
 });
 
