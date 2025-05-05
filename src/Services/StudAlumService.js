@@ -1,13 +1,13 @@
-import axios from "axios" //Dont forget to run npm install axios 
+import api from "./api"; // Axios instance
 
 
-const host ="http://localhost:8000"
+//const host ="http://localhost:8000"
 //const host = "https://backend1-ten-rho.vercel.app"
 
 //stuAlum profile updates?
 async function updateStuAlu(updateData) {
   try {
-    const res = await axios.put(`${host}/stuAlu/updateStuAlu`, updateData, {
+    const res = await api.put(`/stuAlu/updateStuAlu`, updateData, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     });
@@ -21,7 +21,7 @@ async function updateStuAlu(updateData) {
 // Add new student_alumni record
 async function addStuAlu(data) {
     try {
-      const res = await axios.post(`${host}/stuAlu/addStuAlu`, data, {
+      const res = await api.post(`/stuAlu/addStuAlu`, data, {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
       });

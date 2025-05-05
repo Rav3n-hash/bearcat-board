@@ -1,12 +1,12 @@
-import axios from "axios" //Dont forget to run npm install axios 
+import api from "./api"; // Axios instance
 
-const host = "http://localhost:8000"
+//const host = "http://localhost:8000"
 //const host = "https://backend1-ten-rho.vercel.app"
 
 { /* Registers a new organization */ }
 async function createOrganization(orgData) {
     try {
-        const res = await axios.post(`${host}/org/createOrg`, orgData);
+        const res = await api.post(`/org/createOrg`, orgData);
         return res.data;
     } catch (error) {
         console.error("Error creating org:", error);
@@ -17,7 +17,7 @@ async function createOrganization(orgData) {
 { /* Gets all organizations */ }
 async function getOrganizations() {
     try {
-        const response = await axios.get(`${host}/org/orgs`);
+        const response = await api.get(`/org/orgs`);
         return response.data.rows; // Assuming backend sends back { rows: [...] }
     } catch (error) {
         console.error("Failed to fetch organizations:", error);
@@ -27,7 +27,7 @@ async function getOrganizations() {
 { /* Fetch a specific organization*/ }
 async function getOrganizationById(orgId) {
     try {
-        const res = await axios.get(`${host}/org/getOrg?organization_id=${orgId}`);
+        const res = await api.get(`/org/getOrg?organization_id=${orgId}`);
         return res.data.rows[0];
     } catch (error) {
         console.error("Failed to fetch organization:", error);
@@ -44,7 +44,7 @@ async function updateOrganization(orgId, updateData) {
     });
 
     try {
-        const res = await axios.put(`${host}/org/updateOrg`, {
+        const res = await api.put(`/org/updateOrg`, {
             organization_id: orgId,
             ...updateData
         });
@@ -59,7 +59,7 @@ async function updateOrganization(orgId, updateData) {
 { /* Delete an organization */ }
 async function deleteOrganization(orgId) {
     try {
-        const res = await axios.delete(`${host}/org/delOrg`, {
+        const res = await api.delete(`/org/delOrg`, {
             params: { organization_id: orgId }
         });
         return res.data;

@@ -1,9 +1,9 @@
-import axios from "axios" //Dont forget to run npm install axios 
-const host = "http://localhost:8000";
+import api from "./api"; // Axios instance
+//const host = "http://localhost:8000";
 
 async function updateOrgMember(updateData) {
   try {
-    const res = await axios.put(`${host}/orgMember/updateOrgMember`, updateData, {
+    const res = await api.put(`/orgMember/updateOrgMember`, updateData, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     });
@@ -16,7 +16,7 @@ async function updateOrgMember(updateData) {
 
 async function getMembersByOrg(orgId) {
   try {
-    const res = await axios.get(`${host}/orgMember/getByOrg?organization_id=${orgId}`);
+    const res = await api.get(`/orgMember/getByOrg?organization_id=${orgId}`);
     return res.data.rows;
   } catch (error) {
     console.error("Failed to fetch org members:", error);

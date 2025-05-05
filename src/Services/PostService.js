@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "./api"; // Axios instance
 
 
 //var host="https://bearcat-exp.vercel.app";
@@ -6,7 +6,7 @@ var host="http://localhost:8000"
 
 
 async function GetPosts() {
-  const res = await axios.get(host + "/post/posts", {
+  const res = await api.get("/post/posts", {
     headers: {
       'Content-Type': 'text/html',
       "Access-Control-Allow-Origin": host,
@@ -41,7 +41,7 @@ async function GetPosts() {
 
 async function GetUserPosts(userId) {
   try {
-    const res = await axios.get(`${host}/post/getUserPosts?user_id=${userId}`);
+    const res = await api.get(`/post/getUserPosts?user_id=${userId}`);
     return res.data.posts;
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -51,7 +51,7 @@ async function GetUserPosts(userId) {
 
 async function CreatePost(postData) {
   try {
-    const res = await axios.post(`${host}/post/addPost`, postData, {
+    const res = await api.post(`/post/addPost`, postData, {
       headers: {
         'Content-Type': "multipart/form-data",
         "Access-Control-Allow-Origin": host,
@@ -69,7 +69,7 @@ async function CreatePost(postData) {
 // Function to update a post
 async function EditPost(postData) {
   try {
-    const res = await axios.put(`${host}/post/updatePost`, postData, {
+    const res = await api.put(`${host}/post/updatePost`, postData, {
       headers: {
         'Content-Type': 'application/json',
         "Access-Control-Allow-Origin": host,
@@ -88,7 +88,7 @@ async function EditPost(postData) {
 async function DeletePost(postId, userId) {
   try {
     console.log("Sending to backend....")
-    const res = await axios.delete(`${host}/post/delPost`, {
+    const res = await api.delete(`/post/delPost`, {
       headers: {
         'Content-Type': 'application/json',
         "Access-Control-Allow-Origin": host,
@@ -106,7 +106,7 @@ async function DeletePost(postId, userId) {
 //Get posts by organization id
 async function getPostsByOrg(orgId) {
   try {
-    const res = await axios.get(`${host}/post/getPostsByOrg?organization_id=${orgId}`);
+    const res = await api.get(`/post/getPostsByOrg?organization_id=${orgId}`);
     return res.data.posts;
   } catch (error) {
     console.error("Failed to fetch org posts:", error);

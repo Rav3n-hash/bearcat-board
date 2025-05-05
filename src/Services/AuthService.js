@@ -1,6 +1,6 @@
-import axios from "axios";
+import api from "./api"; // Axios instance
 
-const host ="http://localhost:8000"
+//const host ="http://localhost:8000"
 //const host = "https://backend1-ten-rho.vercel.app"
 
 async function loginUser(email, password) { /* Validates user credentials */ }

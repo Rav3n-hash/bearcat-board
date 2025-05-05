@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "./api"; // Axios instance
 import { Link } from "react-router-dom";
 
 export default function SearchResults() {
@@ -63,7 +63,7 @@ export default function SearchResults() {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/post/searchPosts?q=${searchQuery}`);
+        const res = await api.get(`/post/searchPosts?q=${searchQuery}`);
         setResults(res.data.rows);
       } catch (err) {
         console.error("Failed to fetch search results:", err);
