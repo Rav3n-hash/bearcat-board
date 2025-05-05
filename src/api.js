@@ -5,10 +5,13 @@ const api = axios.create({
     withCredentials: true, // Allows sending cookies (for refresh token)
 });
 
-const accessToken = localStorage.getItem("accessToken");
-if (accessToken) {
-    api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+if (typeof window !== "undefined") {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+        api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+    }
 }
+
 
 // Track whether the refresh token request is in progress
 let isRefreshing = false;
@@ -44,7 +47,6 @@ api.interceptors.response.use(
             	} catch (refreshError) {
                     if (!window.location.href.includes("/login")) { 
                         console.error("Refresh token failed" + window.location.href + " ", refreshError);
-                        debugger;
                         window.location.href = "/login"; // Redirect to login if refresh fails
                         return Promise.reject(refreshError);
                     }
@@ -54,5 +56,7 @@ api.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+
 
 export default api;
