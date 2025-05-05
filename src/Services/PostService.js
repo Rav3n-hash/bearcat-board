@@ -1,4 +1,4 @@
-import api from "./api"; // Axios instance
+import api from "../api"; // Axios instance
 
 
 //var host="https://bearcat-exp.vercel.app";

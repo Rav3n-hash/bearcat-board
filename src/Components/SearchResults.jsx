@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import api from "./api"; // Axios instance
+import api from "../api"; // Axios instance
 import { Link } from "react-router-dom";
 
 export default function SearchResults() {

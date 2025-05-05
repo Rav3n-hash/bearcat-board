@@ -1,4 +1,4 @@
-import api from "./api"; // Axios instance
+import api from "../api"; // Axios instance
 //const host = "http://localhost:8000";
 
 async function updateOrgMember(updateData) {
